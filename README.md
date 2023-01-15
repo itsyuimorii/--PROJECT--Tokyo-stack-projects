@@ -1,4 +1,4 @@
-# 初识 Nodejs
+# ⛳️初识 Nodejs
 
 > Node.js® is a JavaScript runtime built on Chrome's V8 JavaScript engine
 >
@@ -9,7 +9,7 @@
 - 基于 [restify 框架 (opens new window)](http://restify.com/)，可以快速构建 API 接口项目
 - 读写和操作数据库、创建实用的命令行工具辅助前端开发、etc…
 
-# Buffer 缓冲区
+# ⛳️Buffer 缓冲区
 
 > [Buffer 缓冲区文档(opens new window)](http://nodejs.cn/api/buffer.html)
 
@@ -233,7 +233,7 @@ ws.end()
 
 - 在使用 fs 模块操作文件时，如果提供的操作路径是以 `./` 或 `../` 开头的相对路径时，容易出现路径动态拼接错误的问题
 - 原因：代码在运行的时候，会以执行 node 命令时所处的目录，动态拼接出被操作文件的完整路径
-- 解决方案：在使用 fs 模块操作文件时，直接提供完整的路径，从而防止路径动态拼接的问题
+- **解决方案：在使用 fs 模块操作文件时，直接提供完整的路径，从而防止路径动态拼接的问题**
 - `__dirname` 获取文件所处的绝对路径
 
 ```js
