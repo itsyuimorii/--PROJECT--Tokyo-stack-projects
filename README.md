@@ -288,7 +288,7 @@ fs.readFile(__dirname + '/files/1.txt', 'utf8', function(err, data) {
 
 - `fs.watchFile(filename[, options], listener)`
 
-## path 路径模块
+# path 路径模块
 
 path 模块是 Node.js 官方提供的、用来处理路径的模块。它提供了一系列的方法和属性，用来满足用户对路径的处理需求。
 
@@ -346,11 +346,16 @@ const fext = path.extname(fpath)
 console.log(fext) // .html
 ```
 
-## http 模块
+# http 模块
 
 http 模块是 Node.js 官方提供的、用来创建 web 服务器的模块。
 
-### 创建基本 Web 服务器
+> req-只要服务器接收到了客户端的请求，就会调用通过server.on() 为服务器绑定的request 事件处理函数。如果想在事件处理函数中，**访问与客户端相关的数据或属性**
+
+>  Res-在服务器的request 事件处理函数中，如果想访问与服务器相关的**数据**或**属性**
+>
+
+###  创建基本 Web 服务器
 
 ```js
 const http = require('http')
@@ -376,7 +381,9 @@ server.listen(8080, function () {
 })
 ```
 
-### 实现简陋路由效果
+
+
+###  实现简陋路由效果
 
 ```js
 const http = require('http')
@@ -403,7 +410,25 @@ server.listen(80, () => {
 })
 ```
 
-## 模块化
+### **根据不同的url 响应不同的html 内容**、
+
+1. 核心实现步骤
+
+   ①获取请求的url地址
+
+   ②设置默认的响应内容为404 Not found
+
+   ③判断用户请求的是否为/ 或/index.html 首页
+
+   ④判断用户请求的是否为/about.html 关于页面
+
+   ⑤设置Content-Type 响应头，防止中文乱码
+
+   ⑥使用res.end() 把内容响应给客户端
+
+2. 动态响应内容
+
+# 模块化
 
 ### 模块化概念
 
