@@ -410,7 +410,7 @@ server.listen(80, () => {
 })
 ```
 
-### **根据不同的url 响应不同的html 内容**、
+### **根据不同的url 响应不同的html 内容**
 
 1. 核心实现步骤
 
@@ -428,12 +428,109 @@ server.listen(80, () => {
 
 2. 动态响应内容
 
+   ```javascript
+   const http = require("http");
+   const server = http.createServer();
+   
+   server.on("request", (req, res) => {
+     // 1. 获取请求的 url 地址
+     const url = req.url;
+     // 2. 设置默认的响应内容为 404 Not found
+     let content = "<h1>404 Not found!</h1>";
+     // 3. 判断用户请求的是否为 / 或 /index.html 首页
+     // 4. 判断用户请求的是否为 /about.html 关于页面
+     if (url === "/" || url === "/index.html") {
+       content = "<h1>首页</h1>";
+     } else if (url === "/about.html") {
+       content = "<h1>关于页面</h1>";
+     }
+     // 5. 设置 Content-Type 响应头，防止中文乱码
+     res.setHeader("Content-Type", "text/html; charset=utf-8");
+     // 6. 使用 res.end() 把内容响应给客户端
+     res.end(content);
+   });
+   
+   server.listen(8080, () => {
+     console.log("server running at http://127.0.0.1");
+   });
+   
+   ```
+
+   >  文件的实际存放路径, 作为每个资源的请求url地址
+   >
+   > 读取到的文件内容(字符串) 通过res.end()响应给客户的
+
+### 案例
+
+> 步骤1: 导入需要的模块
+
+```javascript
+// 1.1 导入 http 模块
+const http = require("http");
+// 1.2 导入 fs 模块
+const fs = require("fs");
+// 1.3 导入 path 模块
+const path = require("path");
+```
+
+> 步骤2- 创建web服务器
+
+```javascript
+// 1.1 导入 http 模块
+const http = require("http");
+
+// 2.1 创建 web 服务器
+const server = http.createServer();
+ 
+// 2.3 启动服务器
+server.listen(8080, () => {
+  console.log("server running at http://127.0.0.1:8080");
+});
+
+```
+
+> 步骤3- 将资源的请求url 地址映射为文件的存放路径
+
+```javascript
+  // 3.1 获取到客户端请求的 URL 地址
+  const url = req.url;
+  // 3.2 把请求的 URL 地址映射为具体文件的存放路径
+  const filePath = path.join(__dirname, url)
+```
+
+> **步骤4 -读取文件的内容并响应给客户端**
+
+```javascript
+    // 4.1 根据“映射”过来的文件路径读取文件的内容
+  fs.readFile(filePath, "utf8", (err, dataStr) => {
+    // 4.2 读取失败，向客户端响应固定的“错误消息”
+    if (err) return res.end("404 Not found.");
+    // 4.3 读取成功，将读取成功的内容，响应给客户端
+    res.end(dataStr);
+  });
+```
+
+> 步骤5- 优化资源的请求路径
+
+   ```javascript
+     // 5.1 预定义一个空白的文件存放路径
+     let filePath = "";
+     if (url === "/") {
+       filePath = path.join(__dirname, "./clock/index.html");
+     } else {
+       //     /index.html
+       //     /index.css
+       //     /index.js
+       filePath = path.join(__dirname, "/clock", url);
+     }
+   ```
+
 # 模块化
 
 ### 模块化概念
 
-- 模块化是指解决一个复杂问题时，自顶向下逐层把系统划分为若干模块的过程，模块是可组合、分解和更换的单元。
-- 模块化可提高代码的复用性和可维护性，实现按需加载。
+- 模块化是指解决一个复杂问题时，自顶向下逐层把系统划分为若干模块的过程，模块是*可组合、分解和更换的单元。*
+- 模块化*可提高代码的复用性和可维护性*，实现按需加载。
 - 模块化规范是对代码进行模块化拆分和组合时需要遵守的规则，如使用何种语法格式引用模块和向外暴露成员。
 
 ### Node.js 中模块的分类
@@ -444,7 +541,7 @@ server.listen(80, () => {
 
 ### Node.js 中的模块作用域
 
-- 和函数作用域类似，在自定义模块中定义的变量、方法等成员，只能在当前模块内被访问，这种模块级别的访问限制，叫做模块作用域
+- 和函数作用域类似，在自定义模块中定义的变量、方法等成员，只能在当前模块内被访问，这种模块级别的访问限制，叫做**模块作用域**
 - 防止全局变量污染
 
 ### 模块作用域的成员
