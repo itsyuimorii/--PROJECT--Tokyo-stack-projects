@@ -1,4 +1,4 @@
-# ⛳️初识 Nodejs
+# ⛳️ 初识 Nodejs
 
 > Node.js® is a JavaScript runtime built on Chrome's V8 JavaScript engine
 >
@@ -28,27 +28,27 @@ Buffer 常用方法：
 - `buf.toString()`：将 Buffer 数据转为字符串
 
 ```javascript
-var str = 'Hello前端'
+var str = "Hello前端";
 
-var buf = Buffer.from(str)
+var buf = Buffer.from(str);
 
 // 占用内存的大小，一个汉字3字节 13
-console.log(buf.length)
+console.log(buf.length);
 // 字符串的长度 7
-console.log(str.length)
+console.log(str.length);
 // 8进制输出第一个元素 145
-console.log(buf[1].toString(8))
+console.log(buf[1].toString(8));
 
 //创建一个10个字节的buffer
-var buf2 = Buffer.alloc(10)
+var buf2 = Buffer.alloc(10);
 //通过索引，来操作buf中的元素
-buf2[0] = 88
-buf2[1] = 255
-buf2[2] = 0xaa
-buf2[3] = 255
+buf2[0] = 88;
+buf2[1] = 255;
+buf2[2] = 0xaa;
+buf2[3] = 255;
 
-var buf3 = Buffer.allocUnsafe(10)
-console.log(buf3)
+var buf3 = Buffer.allocUnsafe(10);
+console.log(buf3);
 ```
 
 # fs 文件系统模块
@@ -76,17 +76,20 @@ console.log(buf3)
 | ax+  | 追加和读取，存在失败                     |
 
 ### 读取文件
-fs模块是Node.js官方提供的用来操作稳健的模块
+
+fs 模块是 Node.js 官方提供的用来操作稳健的模块
 
 #语法格式：
+
 ```js
 fs.readFile(path[, options], callback)  //[]-可选参数项
 ```
-- `path`：必选参数,*代表文件路径*
+
+- `path`：必选参数,_代表文件路径_
 - `options`：配置选项，若是字符串则指定编码格式
   - `encoding`：编码格式
   - `flag`：打开方式
-- `callback`：必选参数, *通过回调函数拿到读取结果*
+- `callback`：必选参数, _通过回调函数拿到读取结果_
   - `err`：错误信息
   - `data`：读取的数据，如果未指定编码格式则返回一个 Buffer
 
@@ -121,51 +124,51 @@ fs.readFile("C:/Users/笔记.mp3", function(err, data) {
 - 大文件适合用流式文件读取，它会分多次将文件读取到内存中
 
 ```js
-var fs = require('fs')
+var fs = require("fs");
 
 // 创建一个可读流
-var rs = fs.createReadStream('C:/Users/笔记.mp3')
+var rs = fs.createReadStream("C:/Users/笔记.mp3");
 // 创建一个可写流
-var ws = fs.createWriteStream('a.mp3')
+var ws = fs.createWriteStream("a.mp3");
 
 // 监听流的开启和关闭
 // 这几个监听不是必须的
-rs.once('open', function () {
-  console.log('可读流打开了~~')
-})
+rs.once("open", function () {
+  console.log("可读流打开了~~");
+});
 
-rs.once('close', function () {
-  console.log('可读流关闭了~~')
+rs.once("close", function () {
+  console.log("可读流关闭了~~");
   //数据读取完毕，关闭可写流
-  ws.end()
-})
+  ws.end();
+});
 
-ws.once('open', function () {
-  console.log('可写流打开了~~')
-})
+ws.once("open", function () {
+  console.log("可写流打开了~~");
+});
 
-ws.once('close', function () {
-  console.log('可写流关闭了~~')
-})
+ws.once("close", function () {
+  console.log("可写流关闭了~~");
+});
 
 //要读取一个可读流中的数据，要为可读流绑定一个data事件，data事件绑定完毕自动开始读取数据
-rs.on('data', function (data) {
-  console.log(data)
+rs.on("data", function (data) {
+  console.log(data);
   //将读取到的数据写入到可写流中
-  ws.write(data)
-})
+  ws.write(data);
+});
 ```
 
 简便方式：
 
 ```js
-var fs = require('fs')
+var fs = require("fs");
 
-var rs = fs.createReadStream('C:/Users/lilichao/Desktop/笔记.mp3')
-var ws = fs.createWriteStream('b.mp3')
+var rs = fs.createReadStream("C:/Users/lilichao/Desktop/笔记.mp3");
+var ws = fs.createWriteStream("b.mp3");
 
 // pipe()可以将可读流中的内容，直接输出到可写流中
-rs.pipe(ws)
+rs.pipe(ws);
 ```
 
 ### 写入文件
@@ -184,49 +187,54 @@ fs.writeFile(file, data[, options], callback)
 - `callback`：回调函数
 
 ```js
-const fs = require('fs')
-fs.writeFile('./files/2.txt', 'Hello Nodejs', function (err) {
+const fs = require("fs");
+fs.writeFile("./files/2.txt", "Hello Nodejs", function (err) {
   if (err) {
-    return console.log('failed!' + err.message)
+    return console.log("failed!" + err.message);
   }
-  console.log('success!')
-})
+  console.log("success!");
+});
 
-fs.writeFile('C:/Users/hello.txt', '通过 writeFile 写入的内容', { flag: 'w' }, function (err) {
-  if (!err) {
-    console.log('写入成功！')
-  } else {
-    console.log(err)
+fs.writeFile(
+  "C:/Users/hello.txt",
+  "通过 writeFile 写入的内容",
+  { flag: "w" },
+  function (err) {
+    if (!err) {
+      console.log("写入成功！");
+    } else {
+      console.log(err);
+    }
   }
-})
+);
 ```
 
 流式文件写入
 
 ```js
 // 同步、异步、简单文件的写入都不适合大文件的写入，性能较差，容易导致内存溢出
-var fs = require('fs')
+var fs = require("fs");
 
 // 创建一个可写流
-var ws = fs.createWriteStream('hello3.txt')
+var ws = fs.createWriteStream("hello3.txt");
 
-ws.once('open', function () {
-  console.log('流打开了~~')
-})
+ws.once("open", function () {
+  console.log("流打开了~~");
+});
 
-ws.once('close', function () {
-  console.log('流关闭了~~')
-})
+ws.once("close", function () {
+  console.log("流关闭了~~");
+});
 
 // 通过ws向文件中输出内容
-ws.write('通过可写流写入文件的内容')
-ws.write('1')
-ws.write('2')
-ws.write('3')
-ws.write('4')
+ws.write("通过可写流写入文件的内容");
+ws.write("1");
+ws.write("2");
+ws.write("3");
+ws.write("4");
 
 // 关闭流
-ws.end()
+ws.end();
 ```
 
 ### 路径动态拼接问题 `__dirname`
@@ -295,20 +303,24 @@ path 模块是 Node.js 官方提供的、用来处理路径的模块。它提供
 ### 路径拼接 `path.join()`
 
 ```js
-const path = require('path')
-const fs = require('fs')
+const path = require("path");
+const fs = require("fs");
 
 // 注意 ../ 会抵消前面的路径
 // ./ 会被忽略
-const pathStr = path.join('/a', '/b/c', '../../', './d', 'e')
-console.log(pathStr) // \a\d\e
+const pathStr = path.join("/a", "/b/c", "../../", "./d", "e");
+console.log(pathStr); // \a\d\e
 
-fs.readFile(path.join(__dirname, './files/1.txt'), 'utf8', function (err, dataStr) {
-  if (err) {
-    return console.log(err.message)
+fs.readFile(
+  path.join(__dirname, "./files/1.txt"),
+  "utf8",
+  function (err, dataStr) {
+    if (err) {
+      return console.log(err.message);
+    }
+    console.log(dataStr);
   }
-  console.log(dataStr)
-})
+);
 ```
 
 ### 获取路径中文件名 `path.basename()`
@@ -323,108 +335,105 @@ path.basename(path[, ext])
 - ext: 文件扩展名
 
 ```js
-const path = require('path')
+const path = require("path");
 
 // 定义文件的存放路径
-const fpath = '/a/b/c/index.html'
+const fpath = "/a/b/c/index.html";
 
-const fullName = path.basename(fpath)
-console.log(fullName) // index.html
+const fullName = path.basename(fpath);
+console.log(fullName); // index.html
 
-const nameWithoutExt = path.basename(fpath, '.html')
-console.log(nameWithoutExt) // index
+const nameWithoutExt = path.basename(fpath, ".html");
+console.log(nameWithoutExt); // index
 ```
 
 ### 获取路径中文件扩展名 `path.extname()`
 
 ```js
-const path = require('path')
+const path = require("path");
 
-const fpath = '/a/b/c/index.html'
+const fpath = "/a/b/c/index.html";
 
-const fext = path.extname(fpath)
-console.log(fext) // .html
+const fext = path.extname(fpath);
+console.log(fext); // .html
 ```
 
 # http 模块
 
 http 模块是 Node.js 官方提供的、用来创建 web 服务器的模块。
 
-> req-只要服务器接收到了客户端的请求，就会调用通过server.on() 为服务器绑定的request 事件处理函数。如果想在事件处理函数中，**访问与客户端相关的数据或属性**
+> req-只要服务器接收到了客户端的请求，就会调用通过 server.on() 为服务器绑定的 request 事件处理函数。如果想在事件处理函数中，**访问与客户端相关的数据或属性**
 
->  Res-在服务器的request 事件处理函数中，如果想访问与服务器相关的**数据**或**属性**
->
+> Res-在服务器的 request 事件处理函数中，如果想访问与服务器相关的**数据**或**属性**
 
-###  创建基本 Web 服务器
+### 创建基本 Web 服务器
 
 ```js
-const http = require('http')
+const http = require("http");
 
 // 创建 web 服务器实例
-const server = http.createServer()
+const server = http.createServer();
 
 // 为服务器实例绑定 request 事件，监听客户端的请求
-server.on('request', function (req, res) {
-  const url = req.url
-  const method = req.method
-  const str = `Your request url is ${url}, and request method is ${method}`
-  console.log(str)
+server.on("request", function (req, res) {
+  const url = req.url;
+  const method = req.method;
+  const str = `Your request url is ${url}, and request method is ${method}`;
+  console.log(str);
 
   // 设置 Content-Type 响应头，解决中文乱码的问题
-  res.setHeader('Content-Type', 'text/html; charset=utf-8')
+  res.setHeader("Content-Type", "text/html; charset=utf-8");
   // 向客户端响应内容
-  res.end(str)
-})
+  res.end(str);
+});
 
 server.listen(8080, function () {
-  console.log('server running at http://127.0.0.1:8080')
-})
+  console.log("server running at http://127.0.0.1:8080");
+});
 ```
 
-
-
-###  实现简陋路由效果
+### 实现简陋路由效果
 
 ```js
-const http = require('http')
-const server = http.createServer()
+const http = require("http");
+const server = http.createServer();
 
-server.on('request', (req, res) => {
-  const url = req.url
+server.on("request", (req, res) => {
+  const url = req.url;
   // 设置默认的响应内容为 404 Not found
-  let content = '<h1>404 Not found!</h1>'
+  let content = "<h1>404 Not found!</h1>";
   // 判断用户请求的是否为 / 或 /index.html 首页
   // 判断用户请求的是否为 /about.html 关于页面
-  if (url === '/' || url === '/index.html') {
-    content = '<h1>首页</h1>'
-  } else if (url === '/about.html') {
-    content = '<h1>关于页面</h1>'
+  if (url === "/" || url === "/index.html") {
+    content = "<h1>首页</h1>";
+  } else if (url === "/about.html") {
+    content = "<h1>关于页面</h1>";
   }
 
-  res.setHeader('Content-Type', 'text/html; charset=utf-8')
-  res.end(content)
-})
+  res.setHeader("Content-Type", "text/html; charset=utf-8");
+  res.end(content);
+});
 
 server.listen(80, () => {
-  console.log('server running at http://127.0.0.1')
-})
+  console.log("server running at http://127.0.0.1");
+});
 ```
 
-### **根据不同的url 响应不同的html 内容**
+### **根据不同的 url 响应不同的 html 内容**
 
 1. 核心实现步骤
 
-   ①获取请求的url地址
+   ① 获取请求的 url 地址
 
-   ②设置默认的响应内容为404 Not found
+   ② 设置默认的响应内容为 404 Not found
 
-   ③判断用户请求的是否为/ 或/index.html 首页
+   ③ 判断用户请求的是否为/ 或/index.html 首页
 
-   ④判断用户请求的是否为/about.html 关于页面
+   ④ 判断用户请求的是否为/about.html 关于页面
 
-   ⑤设置Content-Type 响应头，防止中文乱码
+   ⑤ 设置 Content-Type 响应头，防止中文乱码
 
-   ⑥使用res.end() 把内容响应给客户端
+   ⑥ 使用 res.end() 把内容响应给客户端
 
 2. 动态响应内容
 
@@ -453,16 +462,15 @@ server.listen(80, () => {
    server.listen(8080, () => {
      console.log("server running at http://127.0.0.1");
    });
-   
    ```
 
-   >  文件的实际存放路径, 作为每个资源的请求url地址
+   > 文件的实际存放路径, 作为每个资源的请求 url 地址
    >
-   > 读取到的文件内容(字符串) 通过res.end()响应给客户的
+   > 读取到的文件内容(字符串) 通过 res.end()响应给客户的
 
 ### 案例
 
-> 步骤1: 导入需要的模块
+> 步骤 1: 导入需要的模块
 
 ```javascript
 // 1.1 导入 http 模块
@@ -473,7 +481,7 @@ const fs = require("fs");
 const path = require("path");
 ```
 
-> 步骤2- 创建web服务器
+> 步骤 2- 创建 web 服务器
 
 ```javascript
 // 1.1 导入 http 模块
@@ -481,49 +489,48 @@ const http = require("http");
 
 // 2.1 创建 web 服务器
 const server = http.createServer();
- 
+
 // 2.3 启动服务器
 server.listen(8080, () => {
   console.log("server running at http://127.0.0.1:8080");
 });
-
 ```
 
-> 步骤3- 将资源的请求url 地址映射为文件的存放路径
+> 步骤 3- 将资源的请求 url 地址映射为文件的存放路径
 
 ```javascript
-  // 3.1 获取到客户端请求的 URL 地址
-  const url = req.url;
-  // 3.2 把请求的 URL 地址映射为具体文件的存放路径
-  const filePath = path.join(__dirname, url)
+// 3.1 获取到客户端请求的 URL 地址
+const url = req.url;
+// 3.2 把请求的 URL 地址映射为具体文件的存放路径
+const filePath = path.join(__dirname, url);
 ```
 
-> **步骤4 -读取文件的内容并响应给客户端**
+> **步骤 4 -读取文件的内容并响应给客户端**
 
 ```javascript
-    // 4.1 根据“映射”过来的文件路径读取文件的内容
-  fs.readFile(filePath, "utf8", (err, dataStr) => {
-    // 4.2 读取失败，向客户端响应固定的“错误消息”
-    if (err) return res.end("404 Not found.");
-    // 4.3 读取成功，将读取成功的内容，响应给客户端
-    res.end(dataStr);
-  });
+// 4.1 根据“映射”过来的文件路径读取文件的内容
+fs.readFile(filePath, "utf8", (err, dataStr) => {
+  // 4.2 读取失败，向客户端响应固定的“错误消息”
+  if (err) return res.end("404 Not found.");
+  // 4.3 读取成功，将读取成功的内容，响应给客户端
+  res.end(dataStr);
+});
 ```
 
-> 步骤5- 优化资源的请求路径
+> 步骤 5- 优化资源的请求路径
 
-   ```javascript
-     // 5.1 预定义一个空白的文件存放路径
-     let filePath = "";
-     if (url === "/") {
-       filePath = path.join(__dirname, "./clock/index.html");
-     } else {
-       //     /index.html
-       //     /index.css
-       //     /index.js
-       filePath = path.join(__dirname, "/clock", url);
-     }
-   ```
+```javascript
+// 5.1 预定义一个空白的文件存放路径
+let filePath = "";
+if (url === "/") {
+  filePath = path.join(__dirname, "./clock/index.html");
+} else {
+  //     /index.html
+  //     /index.css
+  //     /index.js
+  filePath = path.join(__dirname, "/clock", url);
+}
+```
 
 # 模块化
 
@@ -588,10 +595,32 @@ server.listen(8080, () => {
 - `C:\Users\node_modules\tools`
 - `C:\node_modules\tools`
 
-目录作为模块加载
+### 目录作为模块加载
 
 当把目录作为模块标识符进行加载的时候，有三种加载方式：
 
 - 在被加载的目录下查找 `package.json` 的文件，并寻找 `main` 属性，作为 `require()` 加载的入口
 - 如果没有 `package.json` 文件，或者 `main` 入口不存在或无法解析，则 Node.js 将会试图加载目录下的 `index.js` 文件。
 - 若失败则报错
+
+Node.js 遵循了 CommonJS 模块化规范， CommonJS 规定了 模块的特性 和 各模块之间如何相互依赖 。
+
+### CommonJS 规定：
+
+① 每个模块内部， module 变量 代表当前模块。
+②module 变量是一个对象，它的 exports 属性（即 module.exports 是对外的接口 
+③ 加载某个模块，其实是加载该模块的 module.exports 属性。 require() 方法用于加载模块 。
+
+### npm&package
+
+>  包的来源:
+
+不同于Node.js 中的内置模块与自定义模块，包是由第三方个人或团队开发出来的，免费供所有人使用。
+
+> 为什么需要包
+
+由于Node.js 的内置模块仅提供了一些底层的API，导致在基于内置模块进行项目开发的时，效率很低。*包是基于内置模块封装出来的，提供了更高级、更方便的API，极大的提高了开发效率。*包和内置模块之间的关系，类似于jQuery和浏览器内置API 之间的关系。
+
+> 多人协作
+
+共享时剔除node_modules
