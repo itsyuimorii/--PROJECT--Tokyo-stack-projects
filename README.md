@@ -1,4 +1,4 @@
-# ⛳️ 初识 Nodejs
+### ⛳️ 初识 Nodejs
 
 > Node.js® is a JavaScript runtime built on Chrome's V8 JavaScript engine
 >
@@ -649,8 +649,6 @@ Express 是用于快速创建服务器的第三方模块。
 - API 接口服务器：专门对外提供API 接口的服务器。
 使用Express，我们可以方便、快速的创建Web 网站的服务器或API 接口的服务器。
 
-## Express 初体验
-
 ### 基本使用
 安装 Express：
 ```bash
@@ -784,23 +782,63 @@ http://localhost:8080/bruce/images/logo.png
 */
 ```
 
+# ⛳️Express 路由
 
+## 路由的概念
 
-## [#](https://brucecai55520.gitee.io/bruceblog/notes/nodejs/express.html#express-路由)Express 路由
+> 在Express 中，路由指的是客户端的请求与服务器处理函数之间的**映射关系。**
 
-创建路由模块：
+> Express 中的路由分3 部分组成，分别是**请求的类型、请求的URL 地址、处理函数**，格式如下：`app.METHOD(path, handler) `
+
+路由的匹配过程:
+
+> 每当一个请求到达服务器之后，需要先经过路由的匹配，只有匹配成功之后，才会调用对应的处理函数。
+>
+> 在匹配时，会按照路由的顺序进行匹配，如果请求类型和请求的URL 同时匹配成功，则Express 会将这次请求，转交给对应的function 函数进行处理。
+
+路由匹配的注意点：
+> ①按照定义的**先后顺序**进行匹配
+> ②请求类型和**请求的**URL同时匹配成功，才会调用对应的处理函数**
 
 ```js
-// router.js
-
 const express = require('express')
-// 创建路由对象
-const router = express.Router()
+const router = require('./router') //创建路由对象
 
-// 挂载具体路由
+const app = express() 
+
+// 注册路由模块，添加访问前缀
+app.use('/api', router)  
+
+app.listen(80, () => {
+  console.log('http://127.0.0.1')
+})
+
+```
+
+## 注册路由模块
+
+模块化路由: 不再像👆一样,直接挂载在app里
+
+> 为了方便对路由进行模块化的管理，Express **不建议**将路由直接挂载到app 上，而是推荐将路由抽离为单独的模块。
+>
+> 将路由抽离为单独模块的步骤如下：
+> ①创建路由模块对应的`.js` 文件
+> ②调用`express.Router() `函数创建路由对象
+> ③向路由对象上挂载具体的路由
+> ④使用`module.exports `向外共享路由对象
+> ⑤使用`app.use() `函数注册路由模块
+
+```js
+// 导入express
+const express = require('express') 
+// 创建路由对象(router实例对象)
+const router = express.Router()  
+
+// 挂载获取用护列表的路由
 router.get('/user/list', (req, res) => {
   res.send('Get user list.')
 })
+//挂载添加用户
 router.post('/user/add', (req, res) => {
   res.send('Add new user.')
 })
@@ -809,27 +847,7 @@ router.post('/user/add', (req, res) => {
 module.exports = router
 ```
 
-
-
-注册路由模块：
-
-```js
-const express = require('express')
-const router = require('./router')
-
-const app = express()
-
-// 注册路由模块，添加访问前缀
-app.use('/api', router)
-
-app.listen(80, () => {
-  console.log('http://127.0.0.1')
-})
-```
-
-
-
-## Express 中间件
+# ⛳️Express 中间件
 
 - 中间件是指流程的中间处理环节
 - 服务器收到请求后，可先调用中间件进行预处理
@@ -843,7 +861,7 @@ app.listen(80, () => {
 - `next()` 函数后别写代码
 - 多个中间件共享 `req`、 `res`对象
 
-### 局中间件
+### 全局中间件
 
 - 通过 `app.use()` 定义的中间件为全局中间件
 
@@ -962,7 +980,7 @@ app.use(express.urlencoded({ extended: false }))
 
 第三方中间件
 
-## CORS 跨域资源共享
+# CORS 跨域资源共享
 
 ### cors 中间件解决跨域
 
