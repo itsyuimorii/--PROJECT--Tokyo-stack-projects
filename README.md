@@ -1237,9 +1237,7 @@ Cookie 是**存储在用户浏览器中的一段不超过4 KB 的字符串**。�
 
 随后，当客户端浏览器每次请求服务器的时候，浏览器会**自动**将身份认证相关的Cookie，**通过请求头的形式**发送给服务器，服务器即可验明客户端的身份。
 
-### **![Screen Shot 2023-01-17 at 1.35.36 PM](/Users/yuimorii/Desktop/Screen Shot 2023-01-17 at 1.35.36 PM.png)**
-
-
+[cooklie.png](https://github.com/itsyuimorii/Node.js--Express/blob/main/imgs/cooklie.png)
 
 ### Cookie **不具有**安全性
 
@@ -1253,7 +1251,7 @@ Cookie 是**存储在用户浏览器中的一段不超过4 KB 的字符串**。�
 
 ### Session 工作原理
 
-![Session.c66d5499.png](https://github.com/itsyuimorii/Node.js--Express/blob/main/imgs/Session.c66d5499.png)
+[Session.c66d5499.png](https://github.com/itsyuimorii/Node.js--Express/blob/main/imgs/Session.c66d5499.png)
 
 ### Express 中使用 Session 认证
 
@@ -1326,7 +1324,7 @@ JWT 工作原理图：
 
 用户的信息通过 Token 字符串的形式，保存在客户端浏览器中。服务器通过还原 Token 字符串的形式来认证用户的身份。
 
-![JWT](https://brucecai55520.gitee.io/bruceblog/assets/img/JWT.6a82c41d.png)
+[JWT.6a82c41d.png](https://github.com/itsyuimorii/Node.js--Express/blob/main/imgs/JWT.6a82c41d.png)
 
 JWT 组成部分：
 
