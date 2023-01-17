@@ -989,7 +989,7 @@ app.use(express.static('public', options))
 - 导入中间件：`const cors = require('cors')`
 - 配置中间件：`app.use(cors())`
 
-### CORS
+### CORS基本解释
 
 - CORS（Cross-Origin Resource Sharing，跨域资源共享）解决跨域，是通过 HTTP 响应头决定浏览器是否阻止前端 JS 代码跨域获取资源
 - 浏览器的同源安全策略默认会阻止网页“跨域”获取资源。但如果接口服务器配置了 CORS 相关的 HTTP 响应头，就可解除浏览器端的跨域访问限制
@@ -1002,6 +1002,7 @@ app.use(express.static('public', options))
 
 ```js
 res.setHeader('Access-Control-Allow-Origin', 'http://bruceblog.io')
+//允许来自任何域的请求
 res.setHeader('Access-Control-Allow-Origin', '*')
 ```
 
@@ -1021,14 +1022,12 @@ res.setHeader('Access-Control-Allow-Methods', 'POST, GET, DELETE, HEAD')
 res.setHEader('Access-Control-Allow-Methods', '*')
 ```
 
-
-
 ### CORS 请求分类
 
 #### 簡单请求
 
 - 请求方式：GET、POST、HEAD 三者之一
-- HTTP 头部信息不超过以下几种字段：无自定义头部字段、Accept、Accept-Language、Content-Language、DPR、Downlink、Save-Data、Viewport-Width、Width 、Content-Type（只有三个值 application/x-www-formurlencoded、multipart/form-data、text/plain）
+- HTTP 头部信息不超过以下几种字段：`无自定义头部字段`、Accept、Accept-Language、Content-Language、DPR、Downlink、Save-Data、Viewport-Width、Width 、Content-Type（只有三个值 application/x-www-formurlencoded、multipart/form-data、text/plain）
 
 #### 預检请求
 
