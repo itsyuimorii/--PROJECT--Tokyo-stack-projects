@@ -1,5 +1,5 @@
 -- 通过 * 把 users 表中所有的数据查询出来
--- select * from users
+select * from users
 
 -- 从 users 表中把 username 和 password 对应的数据查询出来
 -- select username, password from users
