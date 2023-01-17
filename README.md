@@ -1339,10 +1339,6 @@ Header.Payload.Signature
 eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTcsInVzZXJuYW1lIjoiQnJ1Y2UiLCJwYXNzd29yZCI6IiIsIm5pY2tuYW1lIjoiaGVsbG8iLCJlbWFpbCI6InNjdXRAcXEuY29tIiwidXNlcl9waWMiOiIiLCJpYXQiOjE2NDE4NjU3MzEsImV4cCI6MTY0MTkwMTczMX0.bmqzAkNSZgD8IZxRGGyVlVwGl7EGMtWitvjGD-a5U5c
 ```
 
-1
-2
-3
-
 JWT 使用方式：
 
 - 客户端会把 JWT 存储在 localStorage 或 sessionStorage 中
@@ -1352,8 +1348,6 @@ JWT 使用方式：
 ```text
 Authorization: Bearer <token>
 ```
-
-1
 
 ### Express 使用 JWT
 
@@ -1396,7 +1390,7 @@ app.post('/api/login', (req, res) => {
 })
 ```
 
-1. JWT 字符串还原为 JSON 对象
+2. JWT 字符串还原为 JSON 对象
 
 - 客户端访问有权限的接口时，需通过请求头的 `Authorization` 字段，将 Token 字符串发送到服务器进行身份认证
 - 服务器可以通过 express-jwt 中间件将客户端发送过来的 Token 解析还原成 JSON 对象
@@ -1406,7 +1400,7 @@ app.post('/api/login', (req, res) => {
 app.use(expressJWT({ secret: secretKey }).unless({ path: [/^\/api\//] }))
 ```
 
-1. 获取用户信息
+3. 获取用户信息
 
 - 当 express-jwt 中间件配置成功后，即可在那些有权限的接口中，使用 `req.user` 对象，来访问从 JWT 字符串中解析出来的用户信息
 
@@ -1421,7 +1415,7 @@ app.get('/admin/getinfo', (req, res) => {
 })
 ```
 
-1. 捕获解析 JWT 失败后产生的错误
+4. 捕获解析 JWT 失败后产生的错误
 
 - 当使用 express-jwt 解析 Token 字符串时，如果客户端发送过来的 Token 字符串过期或不合法，会产生一个解析失败的错误，影响项目的正常运行
 - 通过 Express 的错误中间件，捕获这个错误并进行相关的处理
