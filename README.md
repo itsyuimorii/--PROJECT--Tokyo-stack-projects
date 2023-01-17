@@ -1228,7 +1228,7 @@ app.get('/index.html', (req, res) => {
 
 ### Session 工作原理
 
-![Session.c66d5499](/Users/yuimorii/Documents/GitHub/Node.js--Express/imgs/Session.c66d5499.png)
+![Session.c66d5499.png](https://github.com/itsyuimorii/Node.js--Express/blob/main/imgs/Session.c66d5499.png)
 
 ### Express 中使用 Session 认证
 
