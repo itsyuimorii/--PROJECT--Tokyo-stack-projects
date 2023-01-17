@@ -1255,7 +1255,7 @@ Cookie 是**存储在用户浏览器中的一段不超过4 KB 的字符串**。�
 
 ### Express 中使用 Session 认证
 
-1. 安装 express-session 中间件
+0. 安装 express-session 中间件
 
 ```bash
 npm install express-session
@@ -1274,7 +1274,7 @@ app.use(
 )
 ```
 
-1. 向 session 中存数据
+2. 向 session 中存数据
 
 中间件配置成功后，可通过 `req.session` 访问 session 对象，存储用户信息
 
@@ -1287,7 +1287,7 @@ app.post('/api/login', (req, res) => {
 })
 ```
 
-2. 从 session 取数据
+3. 从 session 取数据
 
 ```js
 app.get('/api/username', (req, res) => {
@@ -1298,7 +1298,7 @@ app.get('/api/username', (req, res) => {
 })
 ```
 
-3. 清空 session
+4. 清空 session
 
 ```js
 app.post('/api/logout', (req, res) => {
@@ -1326,11 +1326,11 @@ JWT 工作原理图：
 
 [JWT.6a82c41d.png](https://github.com/itsyuimorii/Node.js--Express/blob/main/imgs/JWT.6a82c41d.png)
 
-JWT 组成部分：
+### JWT 组成部分：
 
 - Header、Payload、Signature
 - Payload 是真正的用户信息，加密后的字符串
-- Header 和 Signature 是安全性相关部分，保证 Token 安全性
+- Header 和 Signature 是`安全性相关`部分，保证 Token 安全性
 - 三者使用 `.` 分隔
 
 ```text
@@ -1339,7 +1339,7 @@ Header.Payload.Signature
 eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTcsInVzZXJuYW1lIjoiQnJ1Y2UiLCJwYXNzd29yZCI6IiIsIm5pY2tuYW1lIjoiaGVsbG8iLCJlbWFpbCI6InNjdXRAcXEuY29tIiwidXNlcl9waWMiOiIiLCJpYXQiOjE2NDE4NjU3MzEsImV4cCI6MTY0MTkwMTczMX0.bmqzAkNSZgD8IZxRGGyVlVwGl7EGMtWitvjGD-a5U5c
 ```
 
-JWT 使用方式：
+### JWT 使用方式：
 
 - 客户端会把 JWT 存储在 localStorage 或 sessionStorage 中
 - 此后客户端与服务端通信需要携带 JWT 进行身份认证，将 JWT 存在 HTTP 请求头 Authorization 字段中
