@@ -939,7 +939,7 @@ router.use(function (req, res, next) {
 app.use('/', router)
 ```
 
-1. 错误级别的中间件
+### 错误级别的中间件
 
 - 用来捕获整个项目中发生的异常错误，从而防止项目异常崩溃的问题
 - 错误级别中间件的处理函数中，必须有 4 个形参，形参顺序从前到后分别是 `(err, req, res, next)` 。
@@ -965,7 +965,7 @@ app.listen(80, function () {
 })
 ```
 
-1. Express 内置中间件
+### Express 内置中间件
 
 自 Express 4.16.0 版本开始，Express 内置了 3 个常用的中间件，极大的提高了 Express 项目的开发效率和体验：
 
@@ -976,9 +976,10 @@ app.listen(80, function () {
 ```js
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
+app.use(express.static('public', options))
 ```
 
-第三方中间件
+### 第三方中间件
 
 # CORS 跨域资源共享
 

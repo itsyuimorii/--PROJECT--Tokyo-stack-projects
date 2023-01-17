@@ -9,7 +9,7 @@ const parser = require("body-parser");
 app.use(parser.urlencoded({ extended: false }));
 // app.use(express.urlencoded({ extended: false }))
 
-app.post("/user", (req, res) => {
+app.post("/users", (req, res) => {
   // 如果没有配置任何解析表单数据的中间件，则 req.body 默认等于 undefined
   console.log(req.body);
   res.send("ok");
