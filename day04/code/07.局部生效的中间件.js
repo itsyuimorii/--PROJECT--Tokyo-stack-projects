@@ -18,6 +18,8 @@ app.get('/user', (req, res) => {
 })
 
 // 调用 app.listen 方法，指定端口号并启动web服务器
-app.listen(80, function () {
-  console.log('Express server running at http://127.0.0.1')
+app.listen(8080, () => {
+  console.log('http://127.0.0.1:8080')
 })
+
+ 
