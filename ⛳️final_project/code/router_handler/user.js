@@ -19,10 +19,10 @@ exports.regUser = (req, res) => {
   const userinfo = req.body;
   console.log(userinfo);
   //2. 对表单中的数据,进行合法性校验
-  // if (!userinfo.username || !userinfo.password) {
-  //   return res.send({ status: 1, message: "用户名或密码不能为空！" });
-  //   res.send("regUser successfully registered");
-  // }
+  if (!userinfo.username || !userinfo.password) {
+    return res.send({ status: 1, message: "用户名或密码不能为空！" });
+  }
+  res.send("regUser successfully registered");
 };
 
 exports.login = (req, res) => {
