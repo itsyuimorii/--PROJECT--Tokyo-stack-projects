@@ -7,19 +7,16 @@
 const express = require("express");
 //创建路由对象,用常量router 来接收
 const router = express.Router();
+//导入用户路由处理函数模块
+const userHandler = require("../router_handler/user");
 
 /////////////////////////////////
 /* 挂载两个路由,监听客户端的请求 */
 
 //注册新用户
-router.post("/regUser", (req, res) => {
-  res.send("request successfully");
-});
-
+router.post("/regUser", userHandler.regUser);
 //登录
-router.post("/login", (req, res) => {
-  res.send("login successfully");
-});
+router.post("/login", userHandler.login);
 
 //暴露出去, 再app.js中导入并使用用户模块
 module.exports = router;

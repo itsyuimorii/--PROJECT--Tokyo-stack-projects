@@ -3,6 +3,7 @@
 const express = require("express");
 //2. 创建服务器的实例对象
 const app = express();
+
 ////////////////////配置cors跨域👇
 // 4.1 导入 cors 中间件
 const cors = require("cors");
