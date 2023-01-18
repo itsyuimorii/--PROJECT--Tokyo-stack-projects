@@ -847,6 +847,88 @@ router.post('/user/add', (req, res) => {
 module.exports = router
 ```
 
+## 补充: 理解路由
+
+> 告诉你去哪，对于前端，主要是导向告诉浏览器应该去哪。对于后端，可以理解为一个子服务，一个路由就是一个小的服务，处理一类接口
+>
+> 比如 /index/xxx 如果相同功能的接口，前面的（index）全部是相同的，那么就可以使用路由归类到一起
+
+```js
+
+let userRouter = express.Router();   // 1. 创建路由
+app.use('/api/user',userRouter);     //2. 安装路由
+userRouter.响应API(地址, 处理函数)    //3. 路由处理响应
+
+userRouter.get("/login",(req,res)=>{
+	res.send("这是/api/user/login的get请求！")
+})
+```
+在一个 js 文件上使用
+```js
+const express = require("express")
+const app = express()
+app.listen(3000)
+//1.创建路由对象
+let userRouter = express.Router();
+let adminRouter = express.Router()
+
+//2.安装路由  app.user()
+app.use("/api/user",userRouter)
+app.use("/api/admin",adminRouter)
+userRouter.get("/login",(req,res)=>{
+    res.send("这是/api/user/login")
+})
+userRouter.get("/reg",(req,res)=>{
+    res.send("这是/api/user/reg")
+})
+
+adminRouter.post("/login",(req,res)=>{
+    res.send("这是/api/admin/login!!")
+})
+
+```
+> 分类到多个 js 文件中
+
+```js
+var express=require("express");
+var app=express()
+
+// 需要引用路由文件
+var userRouter=require("./router/index")
+var shopRouter=require("./router/shopping")
+// 使用路由文件里面的内容  localhost:3000/shop/xxxx
+app.use("/user",userRouter)
+app.use("/shop",shopRouter)
+
+app.listen(3000)
+```
+
+>  被引用的 js 文件
+
+```js
+// 1.引用express
+var express=require("express");
+// 2.使用路由---R大写
+var router=express.Router()
+
+// 3.开始创建路由
+router.get("/login",(req,res)=>{
+    res.send({msg:"我是登录的路由"})
+})
+
+router.get("/zhuce",(req,res)=>{
+    res.send({msg:"我是注册的路由"})
+})
+```
+
+>  暴漏
+
+```js
+module.exports=router
+```
+
+
+
 # ⛳️Express 中间件
 
 - 中间件是指流程的中间处理环节
