@@ -8,7 +8,23 @@ const app = express();
 //4.3 (注意：这个中间件，只能解析application/x-www-form-urlencoded 格式的表单数据)
 app.use(express.urlencoded({ extended: false }));
 
-////////////////////导入并注册用户路由模块👇no
+////////////////////优化res.send-响应数据的中间件👇
+/* 在处理函数中，需要多次调用 `res.send()` 向客户端响应 `处理失败` 的结果，为了简化代码，可以手动封装一个 res.cc() 函数 */
+
+app.use(function (req, res, next) {
+  // status = 0 为成功； status = 1 为失败； 默认将 status 的值设置为 1，方便处理失败的情况
+  res.encap = function (err, status = 1) {
+    res.send({
+      // 状态
+      status,
+      // 状态描述，判断 err 是 错误对象 还是 字符串
+      message: err instanceof Error ? err.message : err,
+    });
+  };
+  next();
+});
+
+////////////////////导入并注册用户路由模块👇
 const userRouter = require("./router/user");
 /* 用app.use 注册为路由模块, /api表示在访问userRouter里面每一个模块的时候, 都必须加入/api前缀 */
 app.use("/api", userRouter);

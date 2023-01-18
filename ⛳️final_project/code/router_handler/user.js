@@ -22,7 +22,7 @@ exports.regUser = (req, res) => {
   console.log(userinfo);
   /////////TODO:对表单中的数据,进行合法性校验
   if (!userinfo.username || !userinfo.password) {
-    return res.send({ status: 1, message: "用户名或密码不能为空！" });
+    return res.encap("用户名或密码不能为空！");
     // res.send("regUser successfully registered");
   }
 
@@ -34,14 +34,16 @@ exports.regUser = (req, res) => {
   db.query(sqlString01, userinfo.username, (err, results) => {
     // 判断 执行 SQL 语句失败
     if (err) {
-      return res.send({ status: 1, message: err.message });
+      //return res.send({ status: 1, message: err.message });
+      return res.encap(err);
     }
     // 用户名被占用
     if (results.length > 0) {
-      return res.send({
-        status: 1,
-        message: "用户名被占用，请更换其他用户名！",
-      });
+      // return res.send({
+      //   status: 1,
+      //   message: "用户名被占用，请更换其他用户名！",
+      // });
+      return res.encap("用户名被占用，请更换其他用户名！");
     }
     // 对用户的密码,进行 bcrype 加密，返回值是加密之后的密码字符串
     userinfo.password = bcrypt.hashSync(userinfo.password, 10);
@@ -55,14 +57,16 @@ exports.regUser = (req, res) => {
       (err, results) => {
         // 执行 SQL 语句失败
         if (err) {
-          return res.send({ status: 1, message: err.message });
+          //return res.send({ status: 1, message: err.message });
+          return res.encap(err);
         }
         // SQL 语句执行成功，但影响行数不为 1
         if (results.affectedRows !== 1) {
-          return res.send({ status: 1, message: "注册用户失败，请稍后再试！" });
+          // return res.send({ status: 1, message: "注册用户失败，请稍后再试！" });
+          return res.encap(err);
         }
         // 注册成功
-        res.send({ status: 0, message: "注册成功！" });
+        return res.encap("注册成功", 0);
       }
     );
   });
