@@ -151,7 +151,19 @@ module.exports = router
 ### 2.1 新建 ev_users 表
 
 1. 在 `my_db_01` 数据库中，新建 `ev_users` 表如下：
-   ![ev_users表结构](./images/1.jpg)
+   ```sql
+   CREATE TABLE `blog_db_2023`.`ev_users` (
+     `id` INT NOT NULL AUTO_INCREMENT,
+     `username` VARCHAR(255) NOT NULL,
+     `password` VARCHAR(255) NOT NULL,
+     `nickname` VARCHAR(255) NULL,
+     `email` VARCHAR(255) NULL,
+     `user_pic` VARCHAR(255) NULL COMMENT 'User information table',
+     PRIMARY KEY (`id`),
+     UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
+     UNIQUE INDEX `username_UNIQUE` (`username` ASC) VISIBLE);
+   
+   ```
 
 ### 2.2 安装并配置 mysql 模块
 
@@ -166,16 +178,17 @@ npm i mysql@2.18.1
 2. 在项目根目录中新建 `/db/index.js` 文件，在此自定义模块中创建数据库的连接对象：
 
 ```js
-// 导入 mysql 模块
+// 1. 导入 mysql 模块
 const mysql = require('mysql')
 
-// 创建数据库连接对象
+// 2. 建立与 MySQL 数据库的连接关系~
 const db = mysql.createPool({
-  host: '127.0.0.1',
-  user: 'root',
-  password: 'admin123',
-  database: 'my_db_01',
-})
+  host: "127.0.0.1", // 数据库的 IP 地址
+  user: "root", // 登录数据库的账号
+  password: "yuimorii", // 登录数据库的密码
+  database: "blog_db_2023", // 指定要操作哪个数据库
+});
+
 
 // 向外共享 db 数据库连接对象
 module.exports = db
