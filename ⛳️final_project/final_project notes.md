@@ -246,6 +246,15 @@ db.query(sql, [userinfo.username], function (err, results) {
 })
 ```
 
+在db中, 增加 username: admin 密码: 000000
+
+```sql
+UPDATE `blog_db_2023`.`ev_users` SET `username` = 'admin' WHERE (`id` = '1');
+
+```
+
+
+
 #### 2.3.3 对密码进行加密处理
 
 > 为了保证密码的安全性，不建议在数据库以 `明文` 的形式保存用户密码，推荐对密码进行 `加密存储`
