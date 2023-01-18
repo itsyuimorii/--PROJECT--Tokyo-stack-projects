@@ -11,15 +11,18 @@
 3. 对密码进行加密处理
 4. 插入新用户 */
 
+//导入数据库操作模块
+const db = require("../db/index");
+
 exports.regUser = (req, res) => {
-  res.send("regUser successfully registered");
   //1. 接收表单数据
-  const userInfo = req.body;
-  console.log(userInfo);
+  const userinfo = req.body;
+  console.log(userinfo);
   //2. 对表单中的数据,进行合法性校验
-  if (!userInfo.username || !userInfo.password) {
-    return res.send({ status: 1, message: "用户名或密码不能为空！" });
-  }
+  // if (!userinfo.username || !userinfo.password) {
+  //   return res.send({ status: 1, message: "用户名或密码不能为空！" });
+  //   res.send("regUser successfully registered");
+  // }
 };
 
 exports.login = (req, res) => {
