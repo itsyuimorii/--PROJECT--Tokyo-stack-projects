@@ -80,62 +80,58 @@ exports.regUser = (req, res) => {
   });
 };
 
-// //登录的处理函数
-// /* 实现步骤✅
-// 1. 检测表单数据是否合法
-// 2. 根据用户名查询用户的数据
-// 3. 判断用户输入的密码是否正确(匹配用户输入的密码)
-// 4. 生成 JWT 的 Token 字符串 */
-// exports.login = (req, res) => {
-//   //res.send("login successfully registered");
-//   //接收表单数据
-//   const userinfo = req.body;
-//   //定义 SQL 语句
-//   const sql = `select * from ev_users where username=?`;
-//   //执行 SQL 语句，查询用户的数据
-//   db.query(sql, userinfo.username, (err, results) => {
-//     //执行sql语句失败
-//     if (err) return res.encap();
-//     // 执行 SQL 语句成功，但是查询到数据条数不等于 1
-//     if (results.length !== 1) return res.encap("登录失败！");
-
-//     // TODO: 判断用户输入的登录密码是否和数据库中的密码一致
-//     // 拿着用户输入的密码,和数据库中存储的密码进行对比
-//     const compareResult = bcrypt.compareSync(
-//       userinfo.password,
-//       results[0].password
-//     );
-
-//     // 如果对比的结果等于 false, 则证明用户输入的密码错误
-//     if (!compareResult) {
-//       return res.encap;
-//     }
-
-//     // TODO：在服务器端生成 Token 的字符串
-//     // 剔除完毕之后，user 中只保留了用户的 id, username, nickname, email 这四个属性的值
-//     const user = { ...results[0], password: "", user_pic: "" };
-//     console.log(user);
-
-//     // 对用户的信息进行加密, 生成 Token 字符串
-//     // 第一个是需要加密的对象, 第二个参数是加密时候用到的secret值,第三个是配置对象
-//     const tokenStr = jwt.sign(user, config.jwtSecretKey, {
-//       expiresIn: config.expiresIn, // token 有效期为 10 个小时
-//     });
-//     //console.log(tokenStr);
-//     //将生成的 Token 字符串响应给客户端
-//     res.send({
-//       status: 0,
-//       message: "登录成功！",
-//       // 为了方便客户端使用 Token，在服务器端直接拼接上 Bearer 的前缀
-//       token: "Bearer " + tokenStr,
-//     });
-//   });
-// };
-
-// 登录的处理函数
+//登录的处理函数
+/* 实现步骤✅
+1. 检测表单数据是否合法
+2. 根据用户名查询用户的数据
+3. 判断用户输入的密码是否正确(匹配用户输入的密码)
+4. 生成 JWT 的 Token 字符串 */
 exports.login = (req, res) => {
-  // 接收表单的数据
+  //接收表单数据
   const userinfo = req.body;
+  //console.log(userinfo);
+  //res.send("login successfully");
+  //定义SQL语句
+  const sql = `select * from ev_users where username=?`;
+  // 执行 SQL 语句，根据用户名查询用户的信息
+
+  db.query(sql, userinfo.username, (err, results) => {
+    // 执行 SQL 语句失败
+    if (err) return res.encap(err);
+    // 执行 SQL 语句成功，但是获取到的数据条数不等于 1
+    if (results.length !== 1) return res.encap("登录失败！");
+
+    // TODO: 判断用户输入的登录密码是否和数据库中的密码一致
+    // 拿着用户输入的密码,和数据库中存储的密码进行对比
+    const compareResult = bcrypt.compareSync(
+      userinfo.password,
+      results[0].password
+    );
+    // 如果对比的结果等于 false, 则证明用户输入的密码错误
+    if (!compareResult) {
+      return res.encap;
+    }
+    // TODO：在服务器端生成 Token 的字符串
+    // 剔除完毕之后，user 中只保留了用户的 id, username, nickname, email 这四个属性的值
+    const user = { ...results[0], password: "", user_pic: "" };
+
+    // 对用户的信息进行加密, 生成 Token 字符串
+    // 第一个是需要加密的对象, 第二个参数是加密时候用到的secret值,第三个是配置对象
+    const tokenStr = jwt.sign(user, config.jwtSecretKey, {
+      expiresIn: config.expiresIn, // token 有效期为 10 个小时
+    });
+    //console.log(tokenStr);
+    //将生成的 Token 字符串响应给客户端
+    res.send({
+      status: 0,
+      message: "登录成功！",
+      // 为了方便客户端使用 Token，在服务器端直接拼接上 Bearer 的前缀
+      token: "Bearer " + tokenStr,
+    });
+  });
+};
+
+/*  
   // 定义 SQL 语句
   const sql = `select * from ev_users where username=?`;
   // 执行 SQL 语句，根据用户名查询用户的信息
@@ -166,3 +162,4 @@ exports.login = (req, res) => {
     });
   });
 };
+ */
