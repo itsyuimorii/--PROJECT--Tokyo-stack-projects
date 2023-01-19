@@ -17,16 +17,16 @@ const bcrypt = require("bcryptjs");
 
 //注册有新用户的处理函数
 exports.regUser = (req, res) => {
-  //1. 接收表单数据
+  //1. 接收表单数据-获取客户端提交到服务器的用户信息
   const userinfo = req.body;
   console.log(userinfo);
-  /////////TODO:对表单中的数据,进行合法性校验
+  /////////对表单中的数据,进行合法性校验
   if (!userinfo.username || !userinfo.password) {
     return res.encap("用户名或密码不能为空！");
     // res.send("regUser successfully registered");
   }
 
-  /////////TODO:检测用户名是否被占用;
+  /////////检测用户名是否被占用;
   //定义检测用户名是否被占用sql语句
   const sqlString01 = `select * from ev_users where username=?`;
 

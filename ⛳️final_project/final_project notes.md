@@ -312,15 +312,15 @@ db.query(sql, { username: userinfo.username, password: userinfo.password }, func
 
 ### 2.4 优化 res.send() 代码
 
-> 在处理函数中，需要多次调用 `res.send()` 向客户端响应 `处理失败` 的结果，为了简化代码，可以手动封装一个 res.cc() 函数
+> 在处理函数中，需要多次调用 `res.send()` 向客户端响应 `处理失败` 的结果，为了简化代码，可以手动封装一个 res.encap() 函数
 
-1. 在 `app.js` 中，所有路由之前，声明一个全局中间件，为 res 对象挂载一个 `res.cc()` 函数 ：
+1. 在 `app.js` 中，所有路由之前，声明一个全局中间件，为 res 对象挂载一个 `res.encap()` 函数 ：
 
 ```js
 // 响应数据的中间件
 app.use(function (req, res, next) {
   // status = 0 为成功； status = 1 为失败； 默认将 status 的值设置为 1，方便处理失败的情况
-  res.cc = function (err, status = 1) {
+  res.encap = function (err, status = 1) {
     res.send({
       // 状态
       status,
@@ -338,25 +338,27 @@ app.use(function (req, res, next) {
 
 在实际开发中，前后端都需要对表单的数据进行合法性的验证，而且，**后端做为数据合法性验证的最后一个关口**，在拦截非法数据方面，起到了至关重要的作用。
 
-## 安装
+### #joi官方案例
+
+> 安装
 
 ```js
 npm install @escook/express-joi
 ```
 
-## 依赖
+>  依赖
 
 ```js
 npm install joi@17.4.0
 ```
 
-## 导入
+> 导入
 
 ```js
 const expressJoi = require('@escook/express-joi')
 ```
 
-## 使用
+> 使用(在开发中, userSchema会写在单独schema 文件中,里面包含验证规则,再 exports出去)
 
 ```js
 const express = require('express')
@@ -369,7 +371,7 @@ const expressJoi = require('@escook/express-joi')
 // 解析 x-www-form-urlencoded 格式的表单数据
 app.use(express.urlencoded({ extended: false }))
 
-// 2. 定义验证规则
+// 2. 定义验证规则对象userSchema
 // 注意：如果客户端提交的某些参数项未在 schema 中定义，
 // 此时，这些多余的参数项默认会被忽略掉
 const userSchema = {
@@ -377,7 +379,7 @@ const userSchema = {
   body: {
     username: Joi.string().alphanum().min(3).max(12).required(),
     password: Joi.string()
-      .pattern(/^[\S]{6,15}$/)
+      .pattern(/^[\S]{6,15}$/) //.pattern可以define正则表达式
       .required(),
     repassword: Joi.ref('password')
   },
@@ -392,8 +394,8 @@ const userSchema = {
   }
 }
 
-// 3. 在路由中通过 expressJoi(userSchema) 的方式
-//    调用中间件进行参数验证
+// 3. 在路由中通过 expressJoi(userSchema) 的方式, 调用中间件进行参数验证
+//(局部中间件) =>
 app.post('/adduser/:id', expressJoi(userSchema), function (req, res) {
   const body = req.body
   res.send(body)
@@ -414,18 +416,14 @@ app.use(function (err, req, res, next) {
     message: err.message
   })
 })
-
-// 调用 app.listen 方法，指定端口号并启动web服务器
-app.listen(3001, function () {
-  console.log('Express server running at http://127.0.0.1:3001')
-})
+ 
 ```
 
-## 验证规则
-
-更多的验证规则，请参考 [Joi](https://joi.dev/) 的官方文档。
+> 实现定义验证规则 更多的验证规则，请参考 [Joi](https://joi.dev/) 的官方文档。
 
 单纯的使用 `if...else...` 的形式对数据合法性进行验证，效率低下、出错率高、维护性差。因此，推荐使用**第三方数据验证模块**，来降低出错率、提高验证的效率与可维护性，**让后端程序员把更多的精力放在核心业务逻辑的处理上**。
+
+### #优化表单数据验证CODE
 
 1. 安装 `@hapi/joi` 包，为表单中携带的每个数据项，定义验证规则：
 
@@ -472,42 +470,76 @@ exports.reg_login_schema = {
 ```
 
 4. 修改 `/router/user.js` 中的代码如下：
+   🌟 如果根据刚才schema里定义的验证规则对象, 来对服务器的注册表单数据进行验证
 
 ```js
-const express = require('express')
-const router = express.Router()
+/* TODO: router文件夹中过专门用来存放所有的路由模块.路由模块中,
+  值存放可互关的请求和处理函数之间的映射关系; */
 
-// 导入用户路由处理函数模块
-const userHandler = require('../router_handler/user')
+//👇user.js 作为用户的路由模块, 并初始化代码如下👇
 
-// 1. 导入验证表单数据的中间件
-const expressJoi = require('@escook/express-joi')
-// 2. 导入需要的验证规则对象
-const { reg_login_schema } = require('../schema/user')
+//导入express
+const express = require("express");
+//创建路由对象,用常量router 来接收
+const router = express.Router();
+//导入用户路由处理函数模块
+const user_handler = require("../router_handler/user");
 
-// 注册新用户
-// 3. 在注册新用户的路由中，声明局部中间件，对当前请求中携带的数据进行验证
+//1. 导入验证表单数据的中间件
+const expressJoi = require("@escook/express-joi");
+//2. 导入需要验证的规则对象
+const { reg_login_schema } = require("../schema/user");
+
+////////////////////////挂载两个路由,监听客户端的请求
+
+// 3.  在注册新用户的路由中，声明局部中间件，对当前请求中携带的数据进行验证
 // 3.1 数据验证通过后，会把这次请求流转给后面的路由处理函数
 // 3.2 数据验证失败后，终止后续代码的执行，并抛出一个全局的 Error 错误，进入全局错误级别中间件中进行处理
-router.post('/reguser', expressJoi(reg_login_schema), userHandler.regUser)
-// 登录
-router.post('/login', userHandler.login)
 
-module.exports = router
+//注册新用户
+router.post("/reguser", expressJoi(reg_login_schema), user_handler.regUser);
+//登录
+router.post("/login", user_handler.login);
+
+//暴露出去, 再app.js中导入并使用用户模块
+module.exports = router;
+
 ```
 
 5. 在 `app.js` 的全局错误级别中间件中，捕获验证失败的错误，并把验证失败的结果响应给客户端：
 
 ```js
-const joi = require('@hapi/joi')
+// 定义错误级别的中间件
+app.use((err, req, res, next) => {
+  // 验证失败导致的错误
+  if (err instanceof joi.ValidationError) return res.encap(err);
+  // 身份认证失败后的错误
+  if (err.name === "UnauthorizedError") return res.encap("身份认证失败！");
+  // 未知的错误
+  res.encap(err);
+});
+```
 
-// 错误中间件
-app.use(function (err, req, res, next) {
-  // 数据验证失败
-  if (err instanceof joi.ValidationError) return res.cc(err)
-  // 未知错误
-  res.cc(err)
-})
+### 报错 @hapi/joi 第三方包不可用
+
+如果报错 @hapi/joi 第三方包不可用，需要下载其它版本；使用第三方包@hapi/joi 定义[表单](https://so.csdn.net/so/search?q=表单&spm=1001.2101.3001.7020)验证规则，然后利用postman检测到返回错误为：
+`Cannot mix different versions of joi schemas`
+
+解决办法：
+
+运行如下命令重新安装第三方包
+
+```javascript
+npm i joi
+```
+
+将将导入的@hapi/joi 更改为 joi
+
+```javascript
+将
+const joi = require("@hapi/joi")
+改为：
+const joi = require("joi")
 ```
 
 ### 2.6 登录
@@ -547,7 +579,7 @@ const sql = `select * from ev_users where username=?`
 ```js
 db.query(sql, userinfo.username, function (err, results) {
   // 执行 SQL 语句失败
-  if (err) return res.cc(err)
+  if (err) return res.encap(err)
   // 执行 SQL 语句成功，但是查询到数据条数不等于 1
   if (results.length !== 1) return res.cc('登录失败！')
   // TODO：判断用户输入的登录密码是否和数据库中的密码一致
