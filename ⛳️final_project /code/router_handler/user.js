@@ -21,10 +21,10 @@ exports.regUser = (req, res) => {
   const userinfo = req.body;
   console.log(userinfo);
   /////////对表单中的数据,进行合法性校验
-  if (!userinfo.username || !userinfo.password) {
-    return res.encap("用户名或密码不能为空！");
-    // res.send("regUser successfully registered");
-  }
+  // if (!userinfo.username || !userinfo.password) {
+  //   return res.encap("用户名或密码不能为空！");
+  //   // res.send("regUser successfully registered");
+  // }
 
   /////////检测用户名是否被占用;
   //定义检测用户名是否被占用sql语句
