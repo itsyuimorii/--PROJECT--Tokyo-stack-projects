@@ -8,14 +8,14 @@ const db = require("../db/index");
 // 导入 bcryptjs 这个包
 const bcrypt = require("bcryptjs");
 
-////////////////////////
-/* 这里需要✅四项任务:
+////////////////////////注册模块
+/* 实现步骤✅:
 1. 检测表单数据是否合法
 2. 检测用户名是否被占用
 3. 对密码进行加密处理
 4. 插入新用户 */
 
-//注册有新用户的处理函数
+//注册新用户的处理函数
 exports.regUser = (req, res) => {
   //1. 接收表单数据-获取客户端提交到服务器的用户信息
   const userinfo = req.body;
@@ -72,6 +72,24 @@ exports.regUser = (req, res) => {
   });
 };
 
+//登录的处理函数
+/* 实现步骤✅
+1. 检测表单数据是否合法
+2. 根据用户名查询用户的数据
+3. 判断用户输入的密码是否正确(匹配用户输入的密码)
+4. 生成 JWT 的 Token 字符串 */
 exports.login = (req, res) => {
-  res.send("login successfully registered");
+  //res.send("login successfully registered");
+  //接收表单数据
+  const userinfo = req.body;
+  //定义 SQL 语句
+  const sqlString03 = `select * from ev_users where username=?`;
+  //执行 SQL 语句，查询用户的数据
+  db.query(sqlString03, userinfo.username, (err, results) => {
+    //执行sql语句失败
+    if (err) return res.encap();
+    // 执行 SQL 语句成功，但是查询到数据条数不等于 1
+    if (results.length !== 1) return res.encap("登录失败！");
+    // TODO：判断用户输入的登录密码是否和数据库中的密码一致
+  });
 };
