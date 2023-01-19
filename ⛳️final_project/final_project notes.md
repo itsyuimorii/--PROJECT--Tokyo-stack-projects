@@ -332,11 +332,98 @@ app.use(function (req, res, next) {
 })
 ```
 
-### 2.5 优化表单数据验证
+### 2.5 [优化表单数据验证](https://www.npmjs.com/package/express-joi-validation?activeTab=readme#validatorparamsschema-options)
 
 > 表单验证的原则：前端验证为辅，后端验证为主，后端**永远不要相信**前端提交过来的**任何内容**
 
 在实际开发中，前后端都需要对表单的数据进行合法性的验证，而且，**后端做为数据合法性验证的最后一个关口**，在拦截非法数据方面，起到了至关重要的作用。
+
+## 安装
+
+```js
+npm install @escook/express-joi
+```
+
+## 依赖
+
+```js
+npm install joi@17.4.0
+```
+
+## 导入
+
+```js
+const expressJoi = require('@escook/express-joi')
+```
+
+## 使用
+
+```js
+const express = require('express')
+const app = express()
+// 导入 Joi 来定义验证规则
+const Joi = require('joi')
+// 1. 导入 @escook/express-joi
+const expressJoi = require('@escook/express-joi')
+
+// 解析 x-www-form-urlencoded 格式的表单数据
+app.use(express.urlencoded({ extended: false }))
+
+// 2. 定义验证规则
+// 注意：如果客户端提交的某些参数项未在 schema 中定义，
+// 此时，这些多余的参数项默认会被忽略掉
+const userSchema = {
+  // 2.1 校验 req.body 中的数据 (表单)
+  body: {
+    username: Joi.string().alphanum().min(3).max(12).required(),
+    password: Joi.string()
+      .pattern(/^[\S]{6,15}$/)
+      .required(),
+    repassword: Joi.ref('password')
+  },
+  // 2.2 校验 req.query 中的数据()
+  query: {
+    name: Joi.string().alphanum().min(3).required(),
+    age: Joi.number().integer().min(1).max(100).required()
+  },
+  // 2.3 校验 req.params 中的数据(URL里带的数据)
+  params: {
+    id: Joi.number().integer().min(0).required()
+  }
+}
+
+// 3. 在路由中通过 expressJoi(userSchema) 的方式
+//    调用中间件进行参数验证
+app.post('/adduser/:id', expressJoi(userSchema), function (req, res) {
+  const body = req.body
+  res.send(body)
+})
+
+// 4.1 错误级别中间件
+app.use(function (err, req, res, next) {
+  // 4.1 Joi 参数校验失败
+  if (err instanceof Joi.ValidationError) {
+    return res.send({
+      status: 1,
+      message: err.message
+    })
+  }
+  // 4.2 未知错误
+  res.send({
+    status: 1,
+    message: err.message
+  })
+})
+
+// 调用 app.listen 方法，指定端口号并启动web服务器
+app.listen(3001, function () {
+  console.log('Express server running at http://127.0.0.1:3001')
+})
+```
+
+## 验证规则
+
+更多的验证规则，请参考 [Joi](https://joi.dev/) 的官方文档。
 
 单纯的使用 `if...else...` 的形式对数据合法性进行验证，效率低下、出错率高、维护性差。因此，推荐使用**第三方数据验证模块**，来降低出错率、提高验证的效率与可维护性，**让后端程序员把更多的精力放在核心业务逻辑的处理上**。
 
@@ -1559,7 +1646,7 @@ exports.addArticle = (req, res) => {
 })
 ```
 
-#### 5.2.4 验证表单数据
+#### 5.2.4 [验证表单数据](https://www.npmjs.com/package/express-joi-validation?activeTab=readme#validatorparamsschema-options)
 
 > 实现思路：通过 express-joi **自动验证** req.body 中的文本数据；通过 if 判断**手动验证** req.file 中的文件数据；
 
