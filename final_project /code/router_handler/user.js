@@ -118,17 +118,17 @@ exports.login = (req, res) => {
     console.log(user);
     // 对用户的信息进行加密, 生成 Token 字符串
     // 第一个是需要加密的对象, 第二个参数是加密时候用到的secret值,第三个是配置对象
-    const tokenStr = jwt.sign(user, config.jwtSecretKey, {
-      expiresIn: config.expiresIn, // token 有效期为 10 个小时
-    });
+    // const tokenStr = jwt.sign(user, config.jwtSecretKey, {
+    //   expiresIn: config.expiresIn, // token 有效期为 10 个小时
+    // });
 
-    console.log(tokenStr);
-    //将生成的 Token 字符串响应给客户端
-    res.send({
-      status: 0,
-      message: "登录成功！",
-      // 为了方便客户端使用 Token，在服务器端直接拼接上 Bearer 的前缀
-      token: "Bearer " + tokenStr,
-    });
+    // console.log(tokenStr);
+    // //将生成的 Token 字符串响应给客户端
+    // res.send({
+    //   status: 0,
+    //   message: "登录成功！",
+    //   // 为了方便客户端使用 Token，在服务器端直接拼接上 Bearer 的前缀
+    //   token: "Bearer " + tokenStr,
+    // });
   });
 };
