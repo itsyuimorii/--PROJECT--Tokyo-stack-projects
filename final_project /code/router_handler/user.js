@@ -94,7 +94,19 @@ exports.login = (req, res) => {
     if (err) return res.encap(err);
     // 执行 SQL 语句成功，但是获取到的数据条数不等于 1
     if (results.length !== 1) return res.encap("登录失败！");
-    //TODO : 判断密码是否正确
+
+    //TODO : 判断用户提交的密码是否正确
+    // 拿着用户输入的密码,和数据库中存储的密码进行对比
+    const compareResult = bcrypt.compareSync(
+      userinfo.password,
+      results[0].password
+    );
+    // 如果对比的结果等于 false, 则证明用户输入的密码错误
+    if (!compareResult) {
+      return res.encap;
+    }
+    res.send("ok");
+
     // TODO：在服务器端生成 Token 的字符串
     //登录逻辑流程：SQL语句是否执行成功 -> 用户名是否存在 -> 密码是否正确 -> 处理token中的信息对象，生成密钥 -> 生成token -> 响应客户端
     // 剔除完之后，user 中只保留了用户的 id, username, nickname, email 这四个属性的值

@@ -5,7 +5,7 @@ const mysql = require("mysql");
 const db = mysql.createPool({
   host: "127.0.0.1", // 数据库的 IP 地址
   user: "root", // 登录数据库的账号
-  password: "yuimorii", // 登录数据库的密码
+  password: "123456", // 登录数据库的密码
   database: "blog_db_2023", // 指定要操作哪个数据库
 });
 
