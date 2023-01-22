@@ -103,7 +103,7 @@ exports.login = (req, res) => {
 
     // TODO: 判断用户输入的登录密码是否和数据库中的密码一致
     // 拿着用户输入的密码,和数据库中存储的密码进行对比
-    const compareResult = bcrypt.compareSync(
+    const comparesult = bcrypt.compareSync(
       userinfo.password,
       results[0].password
     );
@@ -112,9 +112,9 @@ exports.login = (req, res) => {
       return res.encap;
     }
     // TODO：在服务器端生成 Token 的字符串
-    // 剔除完毕之后，user 中只保留了用户的 id, username, nickname, email 这四个属性的值
+    // 剔除完之后，user 中只保留了用户的 id, username, nickname, email 这四个属性的值
     const user = { ...results[0], password: "", user_pic: "" };
-
+    console.log(user);
     // 对用户的信息进行加密, 生成 Token 字符串
     // 第一个是需要加密的对象, 第二个参数是加密时候用到的secret值,第三个是配置对象
     const tokenStr = jwt.sign(user, config.jwtSecretKey, {
