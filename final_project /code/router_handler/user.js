@@ -112,6 +112,7 @@ exports.login = (req, res) => {
       return res.encap;
     }
     // TODO：在服务器端生成 Token 的字符串
+    //登录逻辑流程：SQL语句是否执行成功 -> 用户名是否存在 -> 密码是否正确 -> 处理token中的信息对象，生成密钥 -> 生成token -> 响应客户端
     // 剔除完之后，user 中只保留了用户的 id, username, nickname, email 这四个属性的值
     const user = { ...results[0], password: "", user_pic: "" };
     console.log(user);
@@ -120,7 +121,8 @@ exports.login = (req, res) => {
     const tokenStr = jwt.sign(user, config.jwtSecretKey, {
       expiresIn: config.expiresIn, // token 有效期为 10 个小时
     });
-    //console.log(tokenStr);
+
+    console.log(tokenStr);
     //将生成的 Token 字符串响应给客户端
     res.send({
       status: 0,
