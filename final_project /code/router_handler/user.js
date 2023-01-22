@@ -72,6 +72,31 @@ exports.regUser = (req, res) => {
   });
 };
 
+//////////////////////////////////////////////////////
+
+//登录的处理函数
+/* 实现步骤✅
+1. 检测表单数据是否合法
+2. 根据用户名查询用户的数据
+3. 判断用户输入的密码是否正确(匹配用户输入的密码)
+4. 生成 JWT 的 Token 字符串 */
 exports.login = (req, res) => {
-  res.send("login successfully registered");
+  //接收表单数据
+  const userinfo = req.body;
+  //console.log(userinfo);
+  //res.send("login successfully registered");
+  //定义SQL语句
+  const sql = `select * from ev_users where username=?`;
+  // 执行 SQL 语句，根据用户名查询用户的信息
+
+  db.query(sql, userinfo.username, (err, results) => {
+    // 执行 SQL 语句失败
+    if (err) return res.encap(err);
+    // 执行 SQL 语句成功，但是获取到的数据条数不等于 1
+    if (results.length !== 1) return res.encap("登录失败！");
+    //TODO : 判断密码是否正确
+    // TODO：在服务器端生成 Token 的字符串
+    //登录逻辑流程：SQL语句是否执行成功 -> 用户名是否存在 -> 密码是否正确 -> 处理token中的信息对象，生成密钥 -> 生成token -> 响应客户端
+    // 剔除完之后，user 中只保留了用户的 id, username, nickname, email 这四个属性的值
+  });
 };
