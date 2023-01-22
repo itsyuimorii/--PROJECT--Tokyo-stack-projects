@@ -31,10 +31,30 @@ app.use(function (req, res, next) {
   next();
 });
 
+// 一定要在路由之前配置解析 Token 的中间件
+const expressJWT = require("express-jwt");
+// const { expressJWT: expressJWT } = require("express-jwt");
+const config = require("./config");
+// 使用 .unless({ path: [/^\/api\//] }) 指定哪些接口不需要进行 Token 的身份认证
+
+app.use(
+  expressJWT({ secret: config.jwtSecretKey, algorithms: ["HS256"] }).unless({
+    path: [/^\/api\//],
+  })
+);
+
+// app.use(
+//   expressJWT({ secret: config.jwtSecretKey }).unless({ path: [/^\/api\//] })
+// );
+
 ////////////////////// 导入并使用用户路由模块👇
 const userRouter = require("./router/user");
 /* 用app.use 注册为路由模块, /api表示在访问userRouter里面每一个模块的时候, 都必须加入/api前缀 */
 app.use("/api", userRouter);
+
+////////////////////// 导入并使用用户信息路由模块👇
+const userinfoRouter = require("./router/userinfo");
+app.use("/my", userinfoRouter);
 
 /* //挂载body-parser
 //要注意body-parser在项目代码中的挂载位置
