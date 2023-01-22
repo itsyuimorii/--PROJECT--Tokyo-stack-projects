@@ -44,6 +44,10 @@ const userRouter = require("./router/user");
 /* 用app.use 注册为路由模块, /api表示在访问userRouter里面每一个模块的时候, 都必须加入/api前缀 */
 app.use("/api", userRouter);
 
+////////////////////// 导入并使用用户信息路由模块👇
+const userinfoRouter = require("./router/userinfo");
+app.use("/my", userinfoRouter);
+
 /* //挂载body-parser
 //要注意body-parser在项目代码中的挂载位置
 //应该挂载的位置是：在使用路由之前
