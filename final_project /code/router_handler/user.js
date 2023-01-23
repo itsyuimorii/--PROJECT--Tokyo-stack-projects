@@ -49,7 +49,10 @@ exports.regUser = (req, res) => {
     //TODO : 用户名可以使用, 继续以下的步骤
     // 对用户的密码,进行 bcrype 加密，返回值是加密之后的密码字符串
     userinfo.password = bcrypt.hashSync(userinfo.password, 10);
-    /////////定义插入新用户的 SQL 语句
+
+
+
+    /////////2.3.4 定义插入新用户的 SQL 语句
     const sqlString02 = "insert into ev_users set ?";
 
     //execute sqlString02,并根据结果判断新用户是否注册成功
