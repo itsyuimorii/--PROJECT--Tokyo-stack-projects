@@ -11,7 +11,7 @@ npm init -y
 2. 运行如下的命令，安装特定版本的 `express`：
 
 ```bash
-npm i express@4.17.1
+inpm i express@4.17.1
 ```
 
 3. 在项目根目录中新建 `app.js` 作为整个项目的入口文件，并初始化如下的代码：
@@ -540,6 +540,7 @@ npm i joi
 const joi = require("@hapi/joi")
 改为：
 const joi = require("joi")
+ 
 ```
 
 ### 2.6 登录

@@ -14,6 +14,7 @@ const user_handler = require("../router_handler/user");
 ///////////////////导入验证
 //1. 导入验证表单数据的中间件 ,将中间件在对应的路由中进行调用 router.post
 const expressJoi = require("@escook/express-joi");
+
 //2. 导入需要验证的规则对象 (解构赋值)
 const { reg_login_schema } = require("../schema/user");
 
