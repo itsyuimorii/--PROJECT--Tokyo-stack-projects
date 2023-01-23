@@ -45,6 +45,8 @@ exports.regUser = (req, res) => {
       // });
       return res.encap("用户名被占用，请更换其他用户名！");
     }
+
+    //TODO : 用户名可以使用, 继续以下的步骤
     // 对用户的密码,进行 bcrype 加密，返回值是加密之后的密码字符串
     userinfo.password = bcrypt.hashSync(userinfo.password, 10);
     /////////定义插入新用户的 SQL 语句
