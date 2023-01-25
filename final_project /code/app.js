@@ -31,6 +31,17 @@ app.use(function (req, res, next) {
   next();
 });
 
+// 一定要在路由之前配置解析 Token 的中间件
+// 导入配置文件
+const { expressjwt } = require("express-jwt");
+const config = require("./config");
+
+app.use(
+  expressjwt({ secret: config.jwtSecretKey, algorithms: ["HS256"] }).unless({
+    path: [/^\/api/],
+  })
+);
+
 ////////////////////// 导入并使用用户路由模块👇
 const userRouter = require("./router/user");
 /* 用app.use 注册为路由模块, /api表示在访问userRouter里面每一个模块的时候, 都必须加入/api前缀 */

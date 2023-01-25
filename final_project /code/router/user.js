@@ -27,7 +27,8 @@ const { reg_login_schema } = require("../schema/user");
 //用中间件(expressJoi(reg_login_schema))进行验证, 如通过,那么进行user_handler.regUser处理函数, 如果没有, 就捕获错误, 在app.js中设置
 router.post("/reguser", expressJoi(reg_login_schema), user_handler.regUser);
 //登录
-router.post("/login", user_handler.login);
+
+router.post("/login", expressJoi(reg_login_schema), user_handler.login);
 
 //暴露出去, 再app.js中导入并使用用户模块
 module.exports = router;

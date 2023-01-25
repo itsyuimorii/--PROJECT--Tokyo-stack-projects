@@ -664,6 +664,8 @@ res.send({
 
 ### 2.7 配置解析 Token 的中间件
 
+> 使用场景: 因为服务器端已经配置生成token的过程, 但是以后当客户端启动一些有权限接口的时候是需要身份🆔认证的, 那么这个时候,就需要把用户信息从token还原回来 
+
 1. 运行如下的命令，安装解析 Token 的中间件：
 
 ```js
@@ -673,14 +675,19 @@ npm i express-jwt@5.3.3
 2. 在 `app.js` 中注册路由之前，配置解析 Token 的中间件：
 
 ```js
-// 导入配置文件
-const config = require('./config')
+ // 导入配置文件
+const { expressjwt } = require("express-jwt");
 
 // 解析 token 的中间件
-const expressJWT = require('express-jwt')
+const config = require("./config");
 
 // 使用 .unless({ path: [/^\/api\//] }) 指定哪些接口不需要进行 Token 的身份认证
-app.use(expressJWT({ secret: config.jwtSecretKey }).unless({ path: [/^\/api\//] }))
+app.use(
+  expressjwt({ secret: config.jwtSecretKey, algorithms: ["HS256"] }).unless({
+    path: [/^\/api/],
+  })
+);
+
 ```
 
 3. 在 `app.js` 中的 `错误级别中间件` 里面，捕获并处理 Token 认证失败后的错误：
@@ -691,7 +698,7 @@ app.use(function (err, req, res, next) {
   // 省略其它代码...
 
   // 捕获身份认证失败的错误
-  if (err.name === 'UnauthorizedError') return res.cc('身份认证失败！')
+  if (err.name === 'UnauthorizedError') return res.encap('身份认证失败！')
 
   // 未知错误...
 })
