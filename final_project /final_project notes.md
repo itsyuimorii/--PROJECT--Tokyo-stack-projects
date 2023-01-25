@@ -582,7 +582,7 @@ db.query(sql, userinfo.username, function (err, results) {
   // 执行 SQL 语句失败
   if (err) return res.encap(err)
   // 执行 SQL 语句成功，但是查询到数据条数不等于 1
-  if (results.length !== 1) return res.cc('登录失败！')
+  if (results.length !== 1) return res.encap('登录失败！')
   // TODO：判断用户输入的登录密码是否和数据库中的密码一致
 })
 ```
@@ -601,7 +601,7 @@ const compareResult = bcrypt.compareSync(userinfo.password, results[0].password)
 
 // 如果对比的结果等于 false, 则证明用户输入的密码错误
 if (!compareResult) {
-  return res.cc('登录失败！')
+  return res.encap('登录失败！')
 }
 
 // TODO：登录成功，生成 Token 字符串
@@ -773,36 +773,44 @@ module.exports = router
 1. 在 `/router_handler/userinfo.js` 头部导入数据库操作模块：
 
 ```js
-// 导入数据库操作模块
-const db = require('../db/index')
+//获取用户基本信息的处理函数
+exports.getUserInfo = (req, res) => {
+  //导入数据库模块
+  const db = require("../db/index");
 ```
 
 2. 定义 SQL 语句：
 
 ```js
-// 根据用户的 id，查询用户的基本信息
-// 注意：为了防止用户的密码泄露，需要排除 password 字段
-const sql = `select id, username, nickname, email, user_pic from ev_users where id=?`
+
+  // 定义查询用户信息的sql语句
+  // 根据用户的 id，查询用户的基本信息
+  // 注意：为了防止用户的密码泄露，需要排除 password 字段
+  const sql = `select id, username, nickname, email, user_pic from ev_users where id=?`;
 ```
 
 3. 调用 `db.query()` 执行 SQL 语句：
 
 ```js
-// 注意：req 对象上的 user 属性，是 Token 解析成功，express-jwt 中间件帮我们挂载上去的
-db.query(sql, req.user.id, (err, results) => {
-  // 1. 执行 SQL 语句失败
-  if (err) return res.cc(err)
+  //调用db.query执行sql 语句
+  // 注意：req 对象上的 user 属性，是 Token 解析成功，express-jwt 中间件帮我们挂载上去的
+  db.query(sql, req.auth.id, (err, results) => {
+    // 1. 执行 SQL 语句失败
+    if (err) return res.encap(err);
 
-  // 2. 执行 SQL 语句成功，但是查询到的数据条数不等于 1
-  if (results.length !== 1) return res.cc('获取用户信息失败！')
+    // 2. 执行 SQL 语句成功，但是查询到的数据条数不等于 1
+    if (results.length !== 1) return res.encap("获取用户信息失败！");
 
-  // 3. 将用户信息响应给客户端
-  res.send({
-    status: 0,
-    message: '获取用户基本信息成功！',
-    data: results[0],
-  })
-})
+    // 3. 将用户信息响应给客户端
+    res.send({
+      status: 0,
+      message: "获取用户基本信息成功！",
+      data: results[0],
+    });
+  });
+  //   res.send("ok");
+};
+
 ```
 
 ### 3.2 更新用户的基本信息
@@ -833,6 +841,8 @@ exports.updateUserInfo = (req, res) => {
 
 #### 3.2.2 验证表单数据
 
+> 使用场景: 对用户提交的数据“合法性”进行验证
+
 1. 在 `/schema/user.js` 验证规则模块中，定义 `id`，`nickname`，`email` 的验证规则如下：
 
 ```js
@@ -843,6 +853,8 @@ const email = joi.string().email().required()
 ```
 
 2. 并使用 `exports` 向外共享如下的 `验证规则对象`：
+
+   > 只有一个body属性 
 
 ```js
 // 验证规则对象 - 更新用户基本信息
@@ -889,13 +901,13 @@ const sql = `update ev_users set ? where id=?`
 ```js
 db.query(sql, [req.body, req.body.id], (err, results) => {
   // 执行 SQL 语句失败
-  if (err) return res.cc(err)
+  if (err) return res.encap(err)
 
   // 执行 SQL 语句成功，但影响行数不为 1
-  if (results.affectedRows !== 1) return res.cc('修改用户基本信息失败！')
+  if (results.affectedRows !== 1) return res.encap('修改用户基本信息失败！')
 
   // 修改用户信息成功
-  return res.cc('修改用户基本信息成功！', 0)
+  return res.encap('修改用户基本信息成功！', 0)
 })
 ```
 
@@ -971,10 +983,10 @@ const sql = `select * from ev_users where id=?`
 // 执行 SQL 语句查询用户是否存在
 db.query(sql, req.user.id, (err, results) => {
   // 执行 SQL 语句失败
-  if (err) return res.cc(err)
+  if (err) return res.encap(err)
 
   // 检查指定 id 的用户是否存在
-  if (results.length !== 1) return res.cc('用户不存在！')
+  if (results.length !== 1) return res.encap('用户不存在！')
 
   // TODO：判断提交的旧密码是否正确
 })
@@ -990,7 +1002,7 @@ const bcrypt = require('bcryptjs')
 
 // 判断提交的旧密码是否正确
 const compareResult = bcrypt.compareSync(req.body.oldPwd, results[0].password)
-if (!compareResult) return res.cc('原密码错误！')
+if (!compareResult) return res.encap('原密码错误！')
 ```
 
 3. 对新密码进行 `bcrypt` 加密之后，更新到数据库中：
@@ -1005,13 +1017,13 @@ const newPwd = bcrypt.hashSync(req.body.newPwd, 10)
 // 执行 SQL 语句，根据 id 更新用户的密码
 db.query(sql, [newPwd, req.user.id], (err, results) => {
   // SQL 语句执行失败
-  if (err) return res.cc(err)
+  if (err) return res.encap(err)
 
   // SQL 语句执行成功，但是影响行数不等于 1
-  if (results.affectedRows !== 1) return res.cc('更新密码失败！')
+  if (results.affectedRows !== 1) return res.encap('更新密码失败！')
 
   // 更新密码成功
-  res.cc('更新密码成功！', 0)
+  res.encap('更新密码成功！', 0)
 })
 ```
 
@@ -1087,13 +1099,13 @@ const sql = 'update ev_users set user_pic=? where id=?'
 ```js
 db.query(sql, [req.body.avatar, req.user.id], (err, results) => {
   // 执行 SQL 语句失败
-  if (err) return res.cc(err)
+  if (err) return res.encap(err)
 
   // 执行 SQL 语句成功，但是影响行数不等于 1
-  if (results.affectedRows !== 1) return res.cc('更新头像失败！')
+  if (results.affectedRows !== 1) return res.encap('更新头像失败！')
 
   // 更新用户头像成功
-  return res.cc('更新头像成功！', 0)
+  return res.encap('更新头像成功！', 0)
 })
 ```
 
@@ -1193,7 +1205,7 @@ const sql = 'select * from ev_article_cate where is_delete=0 order by id asc'
 ```js
 db.query(sql, (err, results) => {
   // 1. 执行 SQL 语句失败
-  if (err) return res.cc(err)
+  if (err) return res.encap(err)
 
   // 2. 执行 SQL 语句成功
   res.send({
@@ -1279,13 +1291,13 @@ const sql = `select * from ev_article_cate where name=? or alias=?`
 // 执行查重操作
 db.query(sql, [req.body.name, req.body.alias], (err, results) => {
   // 执行 SQL 语句失败
-  if (err) return res.cc(err)
+  if (err) return res.encap(err)
 
   // 判断 分类名称 和 分类别名 是否被占用
-  if (results.length === 2) return res.cc('分类名称与别名被占用，请更换后重试！')
+  if (results.length === 2) return res.encap('分类名称与别名被占用，请更换后重试！')
   // 分别判断 分类名称 和 分类别名 是否被占用
-  if (results.length === 1 && results[0].name === req.body.name) return res.cc('分类名称被占用，请更换后重试！')
-  if (results.length === 1 && results[0].alias === req.body.alias) return res.cc('分类别名被占用，请更换后重试！')
+  if (results.length === 1 && results[0].name === req.body.name) return res.encap('分类名称被占用，请更换后重试！')
+  if (results.length === 1 && results[0].alias === req.body.alias) return res.encap('分类别名被占用，请更换后重试！')
 
   // TODO：新增文章分类
 })
@@ -1304,13 +1316,13 @@ const sql = `insert into ev_article_cate set ?`
 ```js
 db.query(sql, req.body, (err, results) => {
   // SQL 语句执行失败
-  if (err) return res.cc(err)
+  if (err) return res.encap(err)
 
   // SQL 语句执行成功，但是影响行数不等于 1
-  if (results.affectedRows !== 1) return res.cc('新增文章分类失败！')
+  if (results.affectedRows !== 1) return res.encap('新增文章分类失败！')
 
   // 新增文章分类成功
-  res.cc('新增文章分类成功！', 0)
+  res.encap('新增文章分类成功！', 0)
 })
 ```
 
@@ -1383,13 +1395,13 @@ const sql = `update ev_article_cate set is_delete=1 where id=?`
 ```js
 db.query(sql, req.params.id, (err, results) => {
   // 执行 SQL 语句失败
-  if (err) return res.cc(err)
+  if (err) return res.encap(err)
 
   // SQL 语句执行成功，但是影响行数不等于 1
-  if (results.affectedRows !== 1) return res.cc('删除文章分类失败！')
+  if (results.affectedRows !== 1) return res.encap('删除文章分类失败！')
 
   // 删除文章分类成功
-  res.cc('删除文章分类成功！', 0)
+  res.encap('删除文章分类成功！', 0)
 })
 ```
 
@@ -1454,10 +1466,10 @@ const sql = `select * from ev_article_cate where id=?`
 ```js
 db.query(sql, req.params.id, (err, results) => {
   // 执行 SQL 语句失败
-  if (err) return res.cc(err)
+  if (err) return res.encap(err)
 
   // SQL 语句执行成功，但是没有查询到任何数据
-  if (results.length !== 1) return res.cc('获取文章分类数据失败！')
+  if (results.length !== 1) return res.encap('获取文章分类数据失败！')
 
   // 把数据响应给客户端
   res.send({
@@ -1535,12 +1547,12 @@ const sql = `select * from ev_article_cate where Id<>? and (name=? or alias=?)`
 // 执行查重操作
 db.query(sql, [req.body.Id, req.body.name, req.body.alias], (err, results) => {
   // 执行 SQL 语句失败
-  if (err) return res.cc(err)
+  if (err) return res.encap(err)
 
   // 判断 分类名称 和 分类别名 是否被占用
-  if (results.length === 2) return res.cc('分类名称与别名被占用，请更换后重试！')
-  if (results.length === 1 && results[0].name === req.body.name) return res.cc('分类名称被占用，请更换后重试！')
-  if (results.length === 1 && results[0].alias === req.body.alias) return res.cc('分类别名被占用，请更换后重试！')
+  if (results.length === 2) return res.encap('分类名称与别名被占用，请更换后重试！')
+  if (results.length === 1 && results[0].name === req.body.name) return res.encap('分类名称被占用，请更换后重试！')
+  if (results.length === 1 && results[0].alias === req.body.alias) return res.encap('分类别名被占用，请更换后重试！')
 
   // TODO：更新文章分类
 })
@@ -1559,13 +1571,13 @@ const sql = `update ev_article_cate set ? where Id=?`
 ```js
 db.query(sql, [req.body, req.body.Id], (err, results) => {
   // 执行 SQL 语句失败
-  if (err) return res.cc(err)
+  if (err) return res.encap(err)
 
   // SQL 语句执行成功，但是影响行数不等于 1
-  if (results.affectedRows !== 1) return res.cc('更新文章分类失败！')
+  if (results.affectedRows !== 1) return res.encap('更新文章分类失败！')
 
   // 更新文章分类成功
-  res.cc('更新文章分类成功！', 0)
+  res.encap('更新文章分类成功！', 0)
 })
 ```
 
@@ -1734,7 +1746,7 @@ router.post('/add', upload.single('cover_img'), expressJoi(add_article_schema), 
 // 发布新文章的处理函数
 exports.addArticle = (req, res) => {
     // 手动判断是否上传了文章封面
-  if (!req.file || req.file.fieldname !== 'cover_img') return res.cc('文章封面是必选参数！')
+  if (!req.file || req.file.fieldname !== 'cover_img') return res.encap('文章封面是必选参数！')
 
   // TODO：表单数据合法，继续后面的处理流程...
 })
@@ -1775,13 +1787,13 @@ const db = require('../db/index')
 // 执行 SQL 语句
 db.query(sql, articleInfo, (err, results) => {
   // 执行 SQL 语句失败
-  if (err) return res.cc(err)
+  if (err) return res.encap(err)
 
   // 执行 SQL 语句成功，但是影响行数不等于 1
-  if (results.affectedRows !== 1) return res.cc('发布文章失败！')
+  if (results.affectedRows !== 1) return res.encap('发布文章失败！')
 
   // 发布文章成功
-  res.cc('发布文章成功', 0)
+  res.encap('发布文章成功', 0)
 })
 ```
 
