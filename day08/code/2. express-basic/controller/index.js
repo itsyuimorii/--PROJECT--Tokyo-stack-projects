@@ -1,9 +1,9 @@
-var template = require('art-template')
-var path = require('path')
-var fs = require('fs')
-var jwt = require('jsonwebtoken');
+var template = require("art-template");
+var path = require("path");
+var fs = require("fs");
+var jwt = require("jsonwebtoken");
 
-const listModel = require('../model/list')
+const listModel = require("../model/list");
 
 // 应用中间件
 const list = (req, res, next) => {
@@ -19,28 +19,29 @@ const list = (req, res, next) => {
   //   ret: true,
   //   data: []
   // }
-  // for(var i = 0; i < 100; i++) {
-  //   dataObj.data.push('line' + i)
-  // }
+  let dataArray = [];
+  for (var i = 0; i < 100; i++) {
+    dataArray.data.push("line" + i);
+  }
 
-  // res.set('Content-Type', 'application/json; charset=utf-8')
+  res.set("Content-Type", "application/json; charset=utf-8");
 
-  // res.render('list', {
-  //   data: JSON.stringify(dataArray)
-  // })
+  res.render("list", {
+    data: JSON.stringify(dataArray),
+  });
 
-  // res.render('list-html', {
-  //   data: dataArray
-  // })
+  res.render("list-html", {
+    data: dataArray,
+  });
 
-  var html = template(path.join(__dirname, '../view/list-html.art'), {
-    data: listModel.dataArray
-  })
-  
-  fs.writeFileSync(path.join(__dirname, '../public/list.html'), html)
+  // var html = template(path.join(__dirname, "../view/list-html.art"), {
+  //   data: listModel.dataArray,
+  // });
 
-  res.send('pages has been compiled.')
-}
+  // fs.writeFileSync(path.join(__dirname, "../public/list.html"), html);
+
+  // res.send("pages has been compiled.");
+};
 
 const token = (req, res, next) => {
   // 对称加密
@@ -50,13 +51,19 @@ const token = (req, res, next) => {
   // res.send(decoded)
 
   // 非对称加密
-  const privateKey = fs.readFileSync(path.join(__dirname, '../keys/rsa_private_key.pem'))
-  const tk = jwt.sign({username: 'admin'}, privateKey, { algorithm: 'RS256'})
+  const privateKey = fs.readFileSync(
+    path.join(__dirname, "../keys/rsa_private_key.pem")
+  );
+  const tk = jwt.sign({ username: "admin" }, privateKey, {
+    algorithm: "RS256",
+  });
 
-  const publicKey = fs.readFileSync(path.join(__dirname, '../keys/rsa_public_key.pem'))
-  const result = jwt.verify(tk, publicKey)
-  res.send(result)
-}
+  const publicKey = fs.readFileSync(
+    path.join(__dirname, "../keys/rsa_public_key.pem")
+  );
+  const result = jwt.verify(tk, publicKey);
+  res.send(result);
+};
 
-exports.list = list
-exports.token = token
+exports.list = list;
+exports.token = token;
