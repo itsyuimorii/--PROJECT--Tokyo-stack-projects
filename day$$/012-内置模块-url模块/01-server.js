@@ -19,7 +19,7 @@ server.on("request", (req, res) => {
     // todo 读取本地图标
     return;
   }
-  // console.log(url.parse(req.url).pathname,"2222")
+  // console.log(url.par5se(req.url).pathname,"2222")
   var urlobj = url.parse(req.url, true);
   console.log(urlobj.query.name, urlobj.query.age);
 
