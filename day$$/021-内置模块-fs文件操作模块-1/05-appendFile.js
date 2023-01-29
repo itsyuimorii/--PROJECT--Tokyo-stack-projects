@@ -1,0 +1,5 @@
+const fs = require("fs");
+
+fs.appendFile("./avatar/a.txt", "\nhello world", (err) => {
+  console.log(err);
+});
