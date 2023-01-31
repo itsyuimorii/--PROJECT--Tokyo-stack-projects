@@ -1,4 +1,4 @@
-### Frontend
+# Frontend
 
 - Front-end engineering environment (webpack）
 - CSS（sass）
@@ -8,7 +8,7 @@
 - UI Component library: Bootstrap(AdminLTE)
 - RMVC: Art-template
 
-### Backend
+# Backend
 
 - Node.js
 - Express(static, Router, random string, bcrypt, cookie-session)
