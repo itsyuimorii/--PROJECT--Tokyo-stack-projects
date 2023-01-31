@@ -28,7 +28,7 @@ module.exports = {
     }),
   ],
 
-  // 配置server
+  // configuration  server
   devServer: {
     static: {
       directory: path.join(__dirname, "./dist"),
