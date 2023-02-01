@@ -3,7 +3,9 @@
     "art-template": "^4.13.2",
     "art-template-loader": "^1.4.3",
     "clean-webpack-plugin": "^4.0.0",
+    "css-loader": "^6.7.3",
     "html-webpack-plugin": "^5.5.0",
+    "style-loader": "^3.3.1",
     "webpack": "^5.75.0",
     "webpack-cli": "^5.0.1"
   },
@@ -24,7 +26,6 @@
     "commander": "^2.20.3",
     "copy-webpack-plugin": "^11.0.0",
     "cross-spawn": "^7.0.3",
-    "css-loader": "^6.7.3",
     "electron-to-chromium": "^1.4.284",
     "enhanced-resolve": "^5.12.0",
     "envinfo": "^7.8.1",
