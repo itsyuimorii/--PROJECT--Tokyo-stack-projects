@@ -4,6 +4,8 @@ const CopyPlugin = require("copy-webpack-plugin");
 
 module.exports = {
   mode: "development",
+  //在文件夹里创建一个source-map
+  devtool: "source-map",
   //Configuration entry
   entry: {
     app: "./src/app.js",
@@ -14,10 +16,29 @@ module.exports = {
     path: path.join(__dirname, "./dist"),
     filename: "app.js",
   },
+  //configuration loader
+
+  module: {
+    rules: [
+      {
+        test: /\.art$/,
+        use: {
+          loader: "art-template-loader",
+          options: {
+            escape: false,
+          },
+        },
+      },
+    ],
+  },
 
   //configuration plugins
   plugins: [
-    new HtmlWebpackPlugin(),
+    new HtmlWebpackPlugin({
+      template: path.join(__dirname, "./public/index.html"),
+      filename: "index.html",
+      inject: true,
+    }),
     new CopyPlugin({
       patterns: [
         {

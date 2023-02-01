@@ -16,7 +16,7 @@ server.on("request", (req, res) => {
 
   // res.write("aaaaa")
   if (req.url === "/favicon.ico") {
-    // todo 读取本地图标
+    // todo 读取本 地图标
     return;
   }
   // console.log(url.par5se(req.url).pathname,"2222")
