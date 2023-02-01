@@ -1,12 +1,19 @@
-import { $dataMetaSchema } from "ajv";
-import indexTpl from "./views/index.art";
-import signInTpl from "./views/signin.art";
+import SMERouter from "sme-router";
 
-const router = new SMERouter("router-view");
-const html = signInTpl({});
+const router = new SMERouter("root");
 
-$("#root").html(html);
+import { signin } from "../controller";
+// $("#root").html(htmlIndex);
 
-router.route("/signin", (req, res, next) => {
-  res.render();
-});
+router.router("/", signin);
+router.router("/signin");
+
+// router.route("/", (req, res, next) => {
+//   res.render(htmlIndex);
+// });
+
+// router.route("/signin", (req, res, next) => {
+//   res.render(htmlSignin);
+// });
+
+export default router;
