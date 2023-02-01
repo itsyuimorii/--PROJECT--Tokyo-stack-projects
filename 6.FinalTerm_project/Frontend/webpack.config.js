@@ -1,6 +1,7 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
 module.exports = {
   mode: "development",
@@ -8,13 +9,13 @@ module.exports = {
   devtool: "source-map",
   //Configuration entry
   entry: {
-    app: "./src/app.js",
+    "js/app": "./src/app.js",
   },
 
   //configuration output
   output: {
     path: path.join(__dirname, "./dist"),
-    filename: "app.js",
+    filename: "[name]-[hash:6].js",
   },
   //configuration loader
 
@@ -45,8 +46,13 @@ module.exports = {
           from: "./public/*.ico",
           to: path.join(__dirname, "./dist/favicon.ico"),
         },
+        {
+          from: "./public/libs",
+          to: path.join(__dirname, "./dist/libs"),
+        },
       ],
     }),
+    new CleanWebpackPlugin(),
   ],
 
   // configuration  server
