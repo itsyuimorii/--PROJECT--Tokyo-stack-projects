@@ -1966,6 +1966,11 @@ path-to-regexp@0.1.7:
   resolved "https://registry.yarnpkg.com/path-to-regexp/-/path-to-regexp-0.1.7.tgz#df604178005f522f15eb4490e7247a1bfaa67f8c"
   integrity sha512-5DFkuoqlv1uYQKxy8omFBeJPQcdoE07Kv2sferDCrAq1ohOU+MSDswDIbnx3YAM60qIOnYa53wBhXW0EbMonrQ==
 
+path-to-regexp@~2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/path-to-regexp/-/path-to-regexp-2.0.0.tgz#b77a8168c2e78bc31f3d312d71b1ace97df23870"
+  integrity sha512-DPZblKdQsbV6B3fHknj89h6Nw/Z5zFK0nFX+DVN7y8a+IUHf9taJWvMK+ue0+AEjXrke0KVRCcfm2pOYGSRk8g==
+
 path-type@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/path-type/-/path-type-4.0.0.tgz#84ed01c0a7ba380afe09d90a8c180dcd9d03043b"
@@ -2331,6 +2336,13 @@ slash@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/slash/-/slash-4.0.0.tgz#2422372176c4c6c5addb5e2ada885af984b396a7"
   integrity sha512-3dOsAHXXUkQTpOYcoAxLIorMTp4gIQr5IW3iVb7A7lFIp0VHhnynm9izx6TssdrIcVIESAlVjtnO2K8bg+Coew==
+
+sme-router@^0.12.8:
+  version "0.12.8"
+  resolved "https://registry.yarnpkg.com/sme-router/-/sme-router-0.12.8.tgz#cbcce0d3e65f868c490aaa8944b2c9a6305383e9"
+  integrity sha512-+WRghUCpCo1yahelvND6xx8FUO+CmJHU9PNbqwn12c7B3Irm8tMTX1MRE/cjKFpvGgmVJJR+urN8sS7UVrYySg==
+  dependencies:
+    path-to-regexp "~2.0.0"
 
 sockjs@^0.3.24:
   version "0.3.24"
