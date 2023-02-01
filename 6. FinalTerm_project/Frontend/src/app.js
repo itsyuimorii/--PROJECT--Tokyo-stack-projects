@@ -6,6 +6,8 @@
 // const html = signI({});
 
 // $("#root").html(html);
+//import css
+import "./assets/common.css";
 
-import router from "./routers";
-router.go("/");
+import router from "./routes";
+router.go("/index");

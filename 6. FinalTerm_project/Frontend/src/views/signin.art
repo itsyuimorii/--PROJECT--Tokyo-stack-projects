@@ -1,12 +1,12 @@
 <div class="login-box">
   <div class="login-logo">
-    <a href="../../index2.html"><b>Scotiabank | </b> Employee Management System</a>
+    <a href="../index2.html"><b>Scotiabank | </b> Employee Management System</a>
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">
     <p class="login-box-msg">Welcome back</p>
 
-    <form action="../../index2.html" method="post">
+    <form id ="signin" action="">
       <div class="form-group has-feedback">
         <input type="text" class="form-control" placeholder="Username">
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
@@ -19,7 +19,7 @@
        
         <!-- /.col -->
         <div class="col-xs-4">
-          <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+          <button type="submit"  class="btn btn-primary btn-block btn-flat">Sign In</button>
         </div>
         <!-- /.col -->
       </div>
