@@ -25,9 +25,6 @@ const signin = (router) => {
 const index = (router) => {
   return (req, res, next) => {
     res.render(htmlIndex);
-
-    //当页面加载完成以后, 让wrapper resize
-    $(window, ".wrapper").resize();
   };
 };
 

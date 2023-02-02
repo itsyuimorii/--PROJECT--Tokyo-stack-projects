@@ -8,7 +8,5 @@
 // $("#root").html(html);
 //import css 这样写会报错,因为webpack不认可css,需要安装webpack css loader
 
-import "./assets/style.css";
-
 import router from "./routes";
-router.go("/index");
+router.go("/");
