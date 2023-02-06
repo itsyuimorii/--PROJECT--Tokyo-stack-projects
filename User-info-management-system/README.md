@@ -1,3 +1,5 @@
+# 💥 Project Learning notes
+
 # ⛳️1. Initialization
 
 ### 1.1 Create project
