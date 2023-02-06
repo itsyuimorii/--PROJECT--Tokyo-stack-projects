@@ -1,156 +1,156 @@
-# ⛳️1. 初始化
+# ⛳️1. Initialization
 
-### 1.1 创建项目
+### 1.1 Create project
 
-1. 新建 `api_server` 文件夹作为项目根目录，并在项目根目录中运行如下的命令，初始化包管理配置文件：
+1. Create a new api_server folder as the project root, and run the following command in the project root to initialize the package management configuration file.
 
 ```bash
 npm init -y
 ```
 
-2. 运行如下的命令，安装特定版本的 `express`：
+2. 特定のバージョンのexpressをインストールする場合は、以下のコマンドを実行します。
 
 ```bash
 inpm i express@4.17.1
 ```
 
-3. 在项目根目录中新建 `app.js` 作为整个项目的入口文件，并初始化如下的代码：
+3. Create a new `app.js` in the project root directory as the entry file for the entire project and initialize the following code.
 
 ```js
-////////////////////导入所需模块👇
-// 导入 express 模块
+//////////////////// import the required modules 👇
+// Import the express module
 const express = require('express')
-// 创建 express 的服务器实例
+// Create a server instance of express
 const app = express()
 
 // write your code here...
 
-// 调用 app.listen 方法，指定端口号并启动web服务器
+// Call the app.listen method, specify the port number and start the web server
 app.listen(3007, function () {
   console.log('api server running at http://127.0.0.1:3007')
 })
 ```
 
-### 1.2 配置 cors 跨域
+### 1.2 Configuring cors 
 
-1. 运行如下的命令，安装 `cors` 中间件：
+1. Run the following command to install the `cors` middleware.
 
 ```bash
 npm i cors@2.8.5
 ```
 
-2. 在 `app.js` 中导入并配置 `cors` 中间件：
+2. Import and configure the`cors` middleware in app.js.
 
 ```js
-// 导入 cors 中间件
+// Importing cors middleware
 const cors = require('cors')
-// 将 cors 注册为全局中间件
+// Register cors as global middleware
 app.use(cors())
 ```
 
-### 1.3 配置解析表单数据的中间件
+### 1.3 Configure middleware for parsing form data
 
-1. 通过如下的代码，配置解析 `application/x-www-form-urlencoded` 格式的表单数据的中间件：
+1. The middleware for parsing form data in `application/x-www-form-urlencoded`format is configured with the following code.
 
 ```js
-////////////////////配置解析表单数据的中间件👇
+//////////////////// configures the middleware for parsing form data 👇
 app.use(express.urlencoded({ extended: false }))
 ```
 
-### 1.4 初始化路由相关的文件夹
+### 1.4 Initializing routing-related folders
 
-1. 在项目根目录中，新建 `router` 文件夹，用来存放所有的`路由`模块
+1. In the project root directory, create a new *router folder* to store all the routing modules
    
-   > 路由模块中，只存放客户端的请求与处理函数之间的映射关系
-2. 在项目根目录中，新建 `router_handler` 文件夹，用来存放所有的 `路由处理函数模块`
+   > In the routing module, only the mapping between the client's request and the processing function is stored
+2. In the project root directory, create a new *router_handler* folder to store all the `router` handler modules
    
-   > 路由处理函数模块中，专门负责存放每个路由对应的处理函数
+   > The route handler module is dedicated to holding the corresponding handler functions for each route
 
-### 1.5 初始化用户路由模块
+### 1.5 Initialize user routing module
 
-1. 在 `router` 文件夹中，新建 `user.js` 文件，**作为用户的路由模块，并初始化代码**如下：
+1. In the `router` folder, create a new `user.js` file, ** as a routing module for the user, and initialize the code** as follows.
 
 ```js
 const express = require('express')
  
-// 创建路由对象,用常量router 来接收
+// Create a routing object, using the constant router to receive
 const router = express.Router()
 
 
 /////////////////////////////////
-/* 挂载两个路由,监听客户端的请求 */
-// 注册新用户
+/* Mount two routes, listen to client requests */
+// Register new users
 router.post('/regUser', (req, res) => {
   res.send('reguser OK')
 })
 
-// 登录
+// Login
 router.post('/login', (req, res) => {
   res.send('login OK')
 })
 
-// 将路由对象共享出去,再app.js中导入并使用用户模块
+// Share the routing object, and then import and use the user module in app.js
 module.exports = router
 ```
 
-2. 在 `app.js` 中，导入并使用 `用户路由模块` ：
+2. In `app.js`, import and use the `User Routing Module`.
 
 ```js
-////////////////////导入并注册用户路由模块👇
-const userRouter = require('./router/user')
-/* 用app.use 注册为路由模块, /api表示在访问userRouter里面每一个模块的时候, 都必须加入/api前缀 */
+//////////////////// import and register the userRouter module 👇
+const userRouter = require('. /router/user')
+/* Register as a routing module with app.use, /api means that each module inside userRouter must be prefixed with /api when accessed */
 app.use('/api', userRouter)
 ```
 
-### 1.6 抽离用户路由模块中的处理函数
+### 1.6 Abstraction of processing functions in the user routing module
 
-> 目的：为了保证 `路由模块` 的纯粹性，所有的 `路由处理函数`，必须抽离到对应的 `路由处理函数模块` 中
-
-1. 在 `/router_handler/user.js` 中，使用 `exports` 对象，分别向外共享如下两个 `路由处理函数` ：
+> > Purpose: To ensure the purity of the `Route module`, all `Route handler functions` must be abstracted to the corresponding `Route handler module`.
+>
+> 1. In `/router_handler/user.js, use the exports object to share the following two routing functions with the outside.
 
 ```js
 /**
- * 在这里定义和用户相关的路由处理函数，供 /router/user.js 模块进行调用
+ * Define user-related route handling functions here for the /router/user.js module to call
  */
 
-// 注册用户的处理函数
+// Handler function for registered users
 exports.regUser = (req, res) => {
   res.send('reguser OK')
 }
 
-// 登录的处理函数
+// Login processing function
 exports.login = (req, res) => {
   res.send('login OK')
 }
 ```
 
-2. 将 `/router/user.js` 中的代码修改为如下结构：
+2. Change the code in /router/user.js to the following structure.
 
 ```js
 const express = require('express')
 const router = express.Router()
 
-// 导入用户路由处理函数模块
+// Import User Route Handler Module
 const userHandler = require('../router_handler/user')
 
 /* ❌router.post("/regUser", (req, res) => {
   res.send("request successfully");
 }); */
-//将以上代码修改为👇, 抽离用户路由模块中的处理函数
+// Modify the above code to 👇, abstracting out the handler function in the user routing module
 
-// 注册新用户
+// Register a new user
 router.post('/regUser', userHandler.regUser)
-// 登录
+// Login
 router.post('/login', userHandler.login)
 
 module.exports = router
 ```
 
-# ⛳️2. 登录注册
+# ⛳️2. Login and Registration
 
-### 2.1 新建 ev_users 表
+### 2.1 Create a new ev_users table
 
-1. 在 `my_db_01` 数据库中，新建 `ev_users` 表如下：
+1. In the `my_db_01` database, create a new ev_users table as follows.
    ```sql
    CREATE TABLE `blog_db_2023`.`ev_users` (
      `id` INT NOT NULL AUTO_INCREMENT,
@@ -165,88 +165,88 @@ module.exports = router
    
    ```
 
-### 2.2 安装并配置 mysql 模块
+### 2.2 Install and configure the mysql module
 
-> 在 API 接口项目中，需要安装并配置 `mysql` 这个第三方模块，来连接和操作 MySQL 数据库
+> In the API interface project, you need to install and configure `mysql`, a third-party module to connect and manipulate MySQL databases
 
-1. 运行如下命令，安装 `mysql` 模块：
+1. Run the following command to install the `mysql` module.
 
 ```bash
 npm i mysql@2.18.1
 ```
 
-2. 在项目根目录中新建 `/db/index.js` 文件，在此自定义模块中创建数据库的连接对象：
+2. Create a new `/db/index.js` file in the root of the project and create the database connection object in this custom module.
 
 ```js
-// 1. 导入 mysql 模块
+// 1. import mysql module
 const mysql = require('mysql')
 
-// 2. 建立与 MySQL 数据库的连接关系~
+// 2. Create a connection to the MySQL database ~
 const db = mysql.createPool({
-  host: "127.0.0.1", // 数据库的 IP 地址
-  user: "root", // 登录数据库的账号
-  password: "yuimorii", // 登录数据库的密码
-  database: "blog_db_2023", // 指定要操作哪个数据库
+  host: "127.0.0.1", // IP address of the database
+  user: "root", // account to login to the database
+  password: "yuimorii", // password to log in to the database
+  database: "blog_db_2023", // specify which database to operate
 });
 
 
-// 向外共享 db 数据库连接对象
+// Share the db database connection object externally
 module.exports = db
 ```
 
-### 2.3 注册
+### 2.3 Registration
 
-#### 2.3.0 实现步骤
+#### 2.3.0 Implementation steps
 
-1. 检测表单数据是否合法
-2. 检测用户名是否被占用
-3. 对密码进行加密处理
-4. 插入新用户
+1. detect whether the form data is legal
+2. detect whether the user name is occupied
+3. encrypt the password
+4. insert new user
 
-#### 2.3.1 检测表单数据是否合法
+#### 2.3.1 Detecting the legality of form data
 
-1. 判断用户名和密码是否为空
+1. Determine if the username and password are empty
 
 ```js
-// 接收表单数据
+// Receive form data
 const userinfo = req.body
-// 判断数据是否合法
+// Determine if the data is legitimate
 if (!userinfo.username || !userinfo.password) {
-  return res.send({ status: 1, message: '用户名或密码不能为空！' })
+  return res.send({ status: 1, message: 'Username or password cannot be empty! })
 }
 ```
 
-#### 2.3.2 检测用户名是否被占用
+#### 2.3.2 Detecting whether the user name is occupied
 
-1. 导入数据库操作模块：
+1. Importing database operation modules.
 
 ```js
 const db = require('../db/index')
 ```
 
-2. 定义 SQL 语句：
+2. Define the SQL statement.
 
 ```js
 const sql = `select * from ev_users where username=?`
 ```
 
-3. 执行 SQL 语句并根据结果判断用户名是否被占用：
+3. Execute the SQL statement and determine if the user name is occupied based on the result.
 
 ```js
 db.query(sql, [userinfo.username], function (err, results) {
-  // 执行 SQL 语句失败
+  // Failed to execute SQL statement
   if (err) {
     return res.send({ status: 1, message: err.message })
   }
-  // 用户名被占用
+  // Username is occupied
   if (results.length > 0) {
-    return res.send({ status: 1, message: '用户名被占用，请更换其他用户名！' })
+    return res.send({ status: 1, message: 'Username is taken, please change to another username! })
   }
-  // TODO: 用户名可用，继续后续流程...
+  // TODO: Username available, continue the process...
 })
 ```
 
-在db中, 增加 username: admin 密码: 000000
+In the db, add username: admin password: 000000
 
 ```sql
 UPDATE `blog_db_2023`.`ev_users` SET `username` = 'admin' WHERE (`id` = '1');
@@ -255,76 +255,74 @@ UPDATE `blog_db_2023`.`ev_users` SET `username` = 'admin' WHERE (`id` = '1');
 
 
 
-#### 2.3.3 对密码进行加密处理
-
-> 为了保证密码的安全性，不建议在数据库以 `明文` 的形式保存用户密码，推荐对密码进行 `加密存储`
+> 2.3.3 Encryption of passwords In order to ensure the security of passwords, it is not recommended to store user passwords in the form of `plaintext` in the database, it is recommended to `encrypted storage` of passwords
 
 ---
 
-在当前项目中，使用 `bcryptjs` 对用户密码进行加密，优点：
+In the current project, user passwords are encrypted using `bcryptjs`, with the following advantages.
 
-- 加密之后的密码，**无法被逆向破解**
-- 同一明文密码多次加密，得到的**加密结果各不相同**，保证了安全性
+- The encrypted password cannot be cracked in reverse.
+- The same plaintext password is encrypted multiple times, and the encryption results are different, ensuring security.
 
 ---
 
-1. 运行如下命令，安装指定版本的 `bcryptjs` ：
+1. Run the following command to install the specified version of bcryptjs.
 
 ```bash
 npm i bcryptjs@2.4.3
 ```
 
-2. 在 `/router_handler/user.js` 中，导入 `bcryptjs` ：
+2. In `/router_handler/user.js`, import bcryptjs
 
 ```js
 const bcrypt = require('bcryptjs')
 ```
 
-3. 在注册用户的处理函数中，确认用户名可用之后，调用 `bcrypt.hashSync(明文密码, 随机盐的长度)` 方法，对用户的密码进行加密处理：
+3. After confirming the availability of the username in the user registration handler, the `bcrypt.hashSync`(plaintext password, length of random salt) method is called to encrypt the user's password.
 
 ```js
-// 对用户的密码,进行 bcrype 加密，返回值是加密之后的密码字符串
+// Encrypt the user's password with bcrype, the return value is the encrypted password string
 userinfo.password = bcrypt.hashSync(userinfo.password, 10)
 ```
 
-#### 2.3.4 插入新用户
+#### 2.3.4 Insert new user
 
-1. 定义插入用户的 SQL 语句：
+1. Define the SQL statement that inserts the user.
 
 ```js
 const sql = 'insert into ev_users set ?'
 ```
 
-2. 调用 `db.query()` 执行 SQL 语句，插入新用户：
+2. Call `db.query()` to execute the SQL statement that inserts the new user.
 
 ```js
 db.query(sql, { username: userinfo.username, password: userinfo.password }, function (err, results) {
-  // 执行 SQL 语句失败
-  if (err) return res.send({ status: 1, message: err.message })
-  // SQL 语句执行成功，但影响行数不为 1
-  if (results.affectedRows !== 1) {
-    return res.send({ status: 1, message: '注册用户失败，请稍后再试！' })
+  // Failed to execute SQL statement
+  if (err) returns res.send({ status: 1, message: err.message })
+  // execution of the SQL statement succeeds, but the number of rows affected is not 1
+  if (results.affectedRows ! == 1) {
+    return res.send({ status: 1, message: 'Failed to register user, please try again later! })
   }
-  // 注册成功
-  res.send({ status: 0, message: '注册成功！' })
+  // Registration was successful
+  res.send({ status: 0, message: 'Registration was successful! })
 })
 ```
 
-### 2.4 优化 res.send() 代码
+### 2.4 Optimizing the res.send() code
 
-> 在处理函数中，需要多次调用 `res.send()` 向客户端响应 `处理失败` 的结果，为了简化代码，可以手动封装一个 res.encap() 函数
+> In the processing function, you need to call `res.send()` several times to respond to the client with the result of `processing failure`, in order to simplify the code, you can manually encapsulate a res.encap() function
 
-1. 在 `app.js` 中，所有路由之前，声明一个全局中间件，为 res 对象挂载一个 `res.encap()` 函数 ：
+1. In `app.js`, before all routes, declare a global middleware that mounts a `res.encap()` function for the res object.
 
 ```js
-// 响应数据的中间件
+// Middleware for response data
 app.use(function (req, res, next) {
-  // status = 0 为成功； status = 1 为失败； 默认将 status 的值设置为 1，方便处理失败的情况
+  // status = 0 for success; status = 1 for failure; set status to 1 by default to handle failure cases
   res.encap = function (err, status = 1) {
     res.send({
-      // 状态
+      // status
       status,
-      // 状态描述，判断 err 是 错误对象 还是 字符串
+      // status description, determine if err is an error object or a string
       message: err instanceof Error ? err.message : err,
     })
   }
@@ -332,85 +330,85 @@ app.use(function (req, res, next) {
 })
 ```
 
-### 2.5 [优化表单数据验证](https://www.npmjs.com/package/express-joi-validation?activeTab=readme#validatorparamsschema-options)
+### 2.5 [Optimize form data validation](https://www.npmjs.com/package/express-joi-validation?activeTab=readme#validatorparamsschema-options)
 
-> 表单验证的原则：前端验证为辅，后端验证为主，后端**永远不要相信**前端提交过来的**任何内容**
+> The principle of form validation: front-end validation is complementary, back-end validation is primary, and the back-end should never trust any content submitted by the front-end
 
-在实际开发中，前后端都需要对表单的数据进行合法性的验证，而且，**后端做为数据合法性验证的最后一个关口**，在拦截非法数据方面，起到了至关重要的作用。
+In actual development, both front and back ends need to verify the legality of the form data, and the back end plays a crucial role in intercepting illegal data as the last gate of data legality verification.
 
-### #joi官方案例
+### #joi official case
 
-> 安装
+> Installation
 
 ```js
 npm install @escook/express-joi
 ```
 
->  依赖
+>  Dependency
 
 ```js
 npm install joi@17.4.0
 ```
 
-> 导入
+> Import
 
 ```js
 const expressJoi = require('@escook/express-joi')
 ```
 
-> 使用(在开发中, userSchema会写在单独schema 文件中,里面包含验证规则,再 exports出去)
+> Use (in development, userSchema is written in a separate schema file that contains validation rules and then exported)
 
 ```js
 const express = require('express')
 const app = express()
-// 导入 Joi 来定义验证规则
+// Import Joi to define validation rules
 const Joi = require('joi')
-// 1. 导入 @escook/express-joi
+// 1. import @escook/express-joi
 const expressJoi = require('@escook/express-joi')
 
-// 解析 x-www-form-urlencoded 格式的表单数据
+// Parse the form data in x-www-form-urlencoded format
 app.use(express.urlencoded({ extended: false }))
 
-// 2. 定义验证规则对象userSchema
-// 注意：如果客户端提交的某些参数项未在 schema 中定义，
-// 此时，这些多余的参数项默认会被忽略掉
+// 2. Define the validation rule object userSchema
+// Note: If the client submits some parameter items that are not defined in the schema
+// In this case, these extra parameter items will be ignored by default
 const userSchema = {
-  // 2.1 校验 req.body 中的数据 (表单)
+  // 2.1 Validate the data in req.body (form)
   body: {
     username: Joi.string().alphanum().min(3).max(12).required(),
     password: Joi.string()
-      .pattern(/^[\S]{6,15}$/) //.pattern可以define正则表达式
+      .pattern(/^[\S]{6,15}$/) //.pattern can define regular expressions
       .required(),
     repassword: Joi.ref('password')
   },
-  // 2.2 校验 req.query 中的数据()
+  // 2.2 Verify the data in req.query()
   query: {
     name: Joi.string().alphanum().min(3).required(),
     age: Joi.number().integer().min(1).max(100).required()
   },
-  // 2.3 校验 req.params 中的数据(URL里带的数据)
+  // 2.3 Validate the data in req.params (the data in the URL)
   params: {
     id: Joi.number().integer().min(0).required()
   }
 }
 
-// 3. 在路由中通过 expressJoi(userSchema) 的方式, 调用中间件进行参数验证
-//(局部中间件) =>
+// 3. Call the middleware for parameter validation by expressJoi(userSchema) in the route
+// (partial middleware) =>
 app.post('/adduser/:id', expressJoi(userSchema), function (req, res) {
   const body = req.body
   res.send(body)
 })
 
-// 4.1 错误级别中间件
+// 4.1 Error-level middleware
 app.use(function (err, req, res, next) {
-  // 4.1 Joi 参数校验失败
+  // 4.1 Joi parameter validation failure
   if (err instanceof Joi.ValidationError) {
     return res.send({
       status: 1,
       message: err.message
     })
   }
-  // 4.2 未知错误
+  // 4.2 Unknown error
   res.send({
     status: 1,
     message: err.message
@@ -418,50 +416,48 @@ app.use(function (err, req, res, next) {
 })
  
 ```
+Implementation Defining Validation Rules For more validation rules, please refer to the official documentation of [Joi](https://joi.dev/).
+> Simply using `if... .else... ` is inefficient, has a high error rate, and is poorly maintained. Therefore, it is recommended to use **third-party data validation modules** to reduce the error rate, improve the efficiency and maintainability of validation, and **let back-end programmers focus more on the processing of core business logic**.
 
-> 实现定义验证规则 更多的验证规则，请参考 [Joi](https://joi.dev/) 的官方文档。
+### Optimize form data validation CODE
 
-单纯的使用 `if...else...` 的形式对数据合法性进行验证，效率低下、出错率高、维护性差。因此，推荐使用**第三方数据验证模块**，来降低出错率、提高验证的效率与可维护性，**让后端程序员把更多的精力放在核心业务逻辑的处理上**。
-
-### #优化表单数据验证CODE
-
-1. 安装 `@hapi/joi` 包，为表单中携带的每个数据项，定义验证规则：
+1. Install the `@hapi/joi` package and define validation rules for each data item carried in the form.
 
 ```bash
 npm install @hapi/joi@17.1.0
 ```
 
-2. 安装 `@escook/express-joi` 中间件，来实现自动对表单数据进行验证的功能：
+2. Install the `@escook/express-joi` middleware to automate the validation of form data.
 
 ```bash
 npm i @escook/express-joi
 ```
 
-3. 新建 `/schema/user.js` 用户信息验证规则模块，并初始化代码如下：
+3. Create a new `/schema/user.js` user information validation rules module and initialize the code as follows.
 
 ```js
 const joi = require('@hapi/joi')
 
 /**
- * string() 值必须是字符串
- * alphanum() 值只能是包含 a-zA-Z0-9 的字符串
- * min(length) 最小长度
- * max(length) 最大长度
- * required() 值是必填项，不能为 undefined
- * pattern(正则表达式) 值必须符合正则表达式的规则
+ * string() value must be a string
+ * alphanum() value can only be a string containing a-zA-Z0-9
+ * min(length) minimum length
+ * max(length) Maximum length
+ * required() value is required and cannot be undefined
+ * pattern(regular expression) values must conform to the rules of regular expressions
  */
 
-// 用户名的验证规则
+// Username validation rules
 const username = joi.string().alphanum().min(1).max(10).required()
-// 密码的验证规则
+// Password validation rules
 const password = joi
   .string()
   .pattern(/^[\S]{6,12}$/)
   .required()
 
-// 注册和登录表单的验证规则对象
+// Validation rule object for registration and login forms
 exports.reg_login_schema = {
-  // 表示需要对 req.body 中的数据进行验证
+  // indicates that the data in req.body needs to be validated
   body: {
     username,
     password,
@@ -469,88 +465,86 @@ exports.reg_login_schema = {
 }
 ```
 
-4. 修改 `/router/user.js` 中的代码如下：
-   🌟 如果根据刚才schema里定义的验证规则对象, 来对服务器的注册表单数据进行验证
+4. Modify the code in `/router/user.js` as follows.
+   
+   > 🌟 If the server's registration form data is validated against the validation rule object defined  in the schema just now
 
 ```js
-/* TODO: router文件夹中过专门用来存放所有的路由模块.路由模块中,
-  值存放可互关的请求和处理函数之间的映射关系; */
+/* TODO: The router folder is dedicated to all routing modules. The routing module,
+  value holds the mapping between interoperable requests and handler functions; */
 
-//👇user.js 作为用户的路由模块, 并初始化代码如下👇
+//👇user.js is used as the user's routing module, and initialized with the following code 👇
 
-//导入express
+//import express
 const express = require("express");
-//创建路由对象,用常量router 来接收
-const router = express.Router();
-//导入用户路由处理函数模块
-const user_handler = require("../router_handler/user");
+// Create the routing object, using the constant router to receive it
+const router = express;
+//import the user route handler module
+const user_handler = require("... /router_handler/user");
 
-//1. 导入验证表单数据的中间件
+//1. import the middleware for validating form data
 const expressJoi = require("@escook/express-joi");
-//2. 导入需要验证的规则对象
-const { reg_login_schema } = require("../schema/user");
+//2. import the rule object to be validated
+const { reg_login_schema } = require(". /schema/user");
 
-////////////////////////挂载两个路由,监听客户端的请求
+//////////////////////// mounts two routes and listens to the client's requests
 
-// 3.  在注册新用户的路由中，声明局部中间件，对当前请求中携带的数据进行验证
-// 3.1 数据验证通过后，会把这次请求流转给后面的路由处理函数
-// 3.2 数据验证失败后，终止后续代码的执行，并抛出一个全局的 Error 错误，进入全局错误级别中间件中进行处理
+// 3. In the route for registering a new user, declare a local middleware that validates the data carried in the current request
+// 3.1 If the data validation passes, the request will be forwarded to a later routing function
+// 3.2 If the data validation fails, the execution of the subsequent code is terminated and a global Error error is thrown into the global error level middleware for processing
 
-//注册新用户
+// Register a new user
 router.post("/reguser", expressJoi(reg_login_schema), user_handler.regUser);
-//登录
+//login
 router.post("/login", user_handler.login);
 
-//暴露出去, 再app.js中导入并使用用户模块
+//expose it, then import and use the user module in app.js
 module.exports = router;
 
 ```
 
-5. 在 `app.js` 的全局错误级别中间件中，捕获验证失败的错误，并把验证失败的结果响应给客户端：
+5. In the global error level middleware of `app.js`, catch the validation failure error and respond to the client with the result of the validation failure.
 
 ```js
-// 定义错误级别的中间件
+// Define error-level middleware
 app.use((err, req, res, next) => {
-  // 验证失败导致的错误
+  // Error due to validation failure
   if (err instanceof joi.ValidationError) return res.encap(err);
-  // 身份认证失败后的错误
-  if (err.name === "UnauthorizedError") return res.encap("身份认证失败！");
-  // 未知的错误
+  // error after authentication failure
+  if (err.name === "UnauthorizedError") return res.encap("Authentication failed!") ;
+  // Unknown error
   res.encap(err);
 });
 ```
 
-### 报错 @hapi/joi 第三方包不可用
+### Reported error @hapi/joi third party package not available
 
-如果报错 @hapi/joi 第三方包不可用，需要下载其它版本；使用第三方包@hapi/joi 定义[表单](https://so.csdn.net/so/search?q=表单&spm=1001.2101.3001.7020)验证规则，然后利用postman检测到返回错误为：
-`Cannot mix different versions of joi schemas`
+If an error is reported @hapi/joi third-party package is not available, you need to download another version; use the third-party package @hapi/joi to define [form](https://so.csdn.net/so/search?q=表单&spm=1001.2101.3001.7020) validation rules, then use postman to detect the Return error as`Cannot mix different versions of joi schemas`
 
-解决办法：
-
-运行如下命令重新安装第三方包
+Solution: Run the following command to reinstall the third-party package
 
 ```javascript
 npm i joi
 ```
 
-将将导入的@hapi/joi 更改为 joi
+Change the imported @hapi/joi to joi
 
 ```javascript
-将
+change
 const joi = require("@hapi/joi")
-改为：
+to：
 const joi = require("joi")
  
 ```
 
-### 2.6 登录
+### 2.6 Login
 
-#### 2.6.0 实现步骤
+#### 2.6.0 Implementation steps
 
-1. 检测表单数据是否合法
-2. 根据用户名查询用户的数据
-3. 判断用户输入的密码是否正确
-4. 生成 JWT 的 Token 字符串
+1. Check whether the form data is legitimate or not
+1. Query user data based on user name
+1. Determine if the password entered by the user is correct
+1. Generate Token string for JWT
 
 #### 2.6.1 检测登录表单的数据是否合法
 

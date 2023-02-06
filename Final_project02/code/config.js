@@ -1,8 +1,7 @@
-//这是一个全局的配置文件
-
+//This is a global configuration file
 module.exports = {
-  //这是加密&解密的token 密钥
+  //This is the token key for encryption & decryption
   jwtSecretKey: "token key",
-  // token 的有效期
+  // the validity of the token
   expiresIn: "10h",
 };
