@@ -5,25 +5,71 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>This is the ejs template</title>
+    <style>
+      table {
+        border-collapse: collapse;
+      }
+
+      th,
+      td {
+        border: 1px #649a55 solid;
+        font-size: 14px;
+        padding: 10px;
+        text-align: center;
+      }
+
+      caption {
+        font-size: 20px;
+        font-weight: bold;
+      }
+    </style>
   </head>
   <body>
-    <h1>Hello EJS</h1>
+    <!-- It is possible to display the data passed in by render directly in the web page -->
+    <table>
+      <caption>
+        student list
+      </caption>
+      <thead>
+        <tr>
+          <th>id</th>
+          <th>name</th>
+          <th>age</th>
+          <th>gender</th>
+          <th>Country</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for(const stu of stuData){ %>
+        <tr>
+          <td><%=stu.id%></td>
+          <td><%=stu.name %></td>
+          <td><%=stu.age %></td>
+          <td><%=stu.gender %></td>
+          <td><%=stu.country %></td>
+        </tr>
+        <% } %>
+      </tbody>
+    </table>
 
-    <!-- 
-            It is possible to display the data passed in by render directly in the web page
-
-            ejs  
-        -->
-
-    <form action="/set_name">
-      <input type="text" name="name" placeholder="please enter name" />
-      <button>submit</button>
+    <form action="/add-student" method="post">
+      <div>
+        name: <input type="text" name="name" placeholder="insert your name" />
+      </div>
+      <div>
+        age: <input type="text" name="age" placeholder="insert your age" />
+      </div>
+      <div>
+        gender:<input type="radio" name="gender" value="male" /> male
+        <input type="radio" name="gender" value="female" /> female
+      </div>
+      <div>
+        country:
+        <input type="text" name="country" placeholder="insert your country" />
+      </div>
+      <div>
+        <button>add</button>
+      </div>
     </form>
-
-    <% if(name === "AAAAA") {%>
-    <h2>AAAAA is coming</h2>
-    <%} else{%>
-    <h2>BBBBB is coming</h2>
-    <%}%>
   </body>
 </html>
