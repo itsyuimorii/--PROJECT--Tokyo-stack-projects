@@ -21,6 +21,12 @@ app.get("/students", (req, res) => {
   res.render("students", { stuData: STUDENT_ARR });
 });
 
+app.get("/delete", (req, res) => {
+  //获取要删除的学生的id
+  const id = req.query.id;
+  console.log(id);
+});
+
 // TODO:After users click add button, we need to submit the form to another route /addStudent
 
 app.post("/addStudent", (req, res) => {
