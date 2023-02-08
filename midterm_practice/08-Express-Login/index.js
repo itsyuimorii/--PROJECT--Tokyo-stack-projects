@@ -51,7 +51,7 @@ app.post("/register", (req, res) => {
 
   // console.log(user)
   if (!user) {
-    // 进入判断说明用户不存在，可以注册
+    // Enter the judgment that the user does not exist and can register
     USERS.push({
       username,
       password,

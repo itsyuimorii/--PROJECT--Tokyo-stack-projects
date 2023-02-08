@@ -1,30 +1,9 @@
 const express = require("express");
 const app = express();
 const path = require("path");
+const fs = require("fs").promises;
 
-const STUDENT_ARR = [
-  {
-    id: 1,
-    name: "AAAAA",
-    age: 18,
-    gender: "male",
-    country: "🇯🇵",
-  },
-  {
-    id: 2,
-    name: "BBBBB",
-    age: 28,
-    gender: "male",
-    country: "🇺🇸",
-  },
-  {
-    id: 3,
-    name: "CCCCC",
-    age: 38,
-    gender: "v",
-    country: "🇨🇦",
-  },
-];
+const STUDENT_ARR = require("./data/students.json");
 
 // Set ejs as the default template engine
 app.set("view engine", "ejs");
@@ -60,7 +39,7 @@ app.post("/addStudent", (req, res) => {
     gender: req.body.gender,
     country: req.body.country,
   };
-  console.log(newUser);
+  //console.log(newUser);
   //2. Validate user information(skip)
 
   //3. Add user information to the array
@@ -71,21 +50,22 @@ app.post("/addStudent", (req, res) => {
   // Rendering ejs directly in the add route will face the problem of duplicate form submissions
   //❌res.render("students", { stuData: STUDENT_ARR });
 
-  res.redirect("/students");
-  // // 将新的数据写入到json文件中
-  // fs.writeFile(
-  //   path.resolve(__dirname, "./data/students.json"),
-  //   JSON.stringify(STUDENT_ARR)
-  // )
-  //   .then(() => {
-  //     // res.redirect() 用来发起请求重定向
-  //     // 重定向的作用是告诉浏览器你向另外一个地址再发起一次请求
+  //The redirect here avoids the problem of resubmitting the form to addStudents for the first time, and locating students after submission
+  //res.redirect("/students");
 
-  //     res.redirect("/students");
-  //   })
-  //   .catch(() => {
-  //     // ....
-  //   });
+  // Data persistence: Write new data to a json file
+  fs.writeFile(
+    path.resolve(__dirname, "./data/students.json"),
+    JSON.stringify(STUDENT_ARR)
+  )
+    .then(() => {
+      // res.redirect() 用来发起请求重定向
+      // 重定向的作用是告诉浏览器你向另外一个地址再发起一次请求
+      res.redirect("/students");
+    })
+    .catch(() => {
+      //.......
+    });
 });
 //Configure error routes, need to be under all routes
 app.use((req, res) => {
