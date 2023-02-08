@@ -4,21 +4,21 @@ const path = require("path");
 
 const STUDENT_ARR = [
   {
-    id: "1",
+    id: 1,
     name: "AAAAA",
     age: 18,
     gender: "male",
     country: "🇯🇵",
   },
   {
-    id: "2",
+    id: 2,
     name: "BBBBB",
     age: 28,
     gender: "male",
     country: "🇺🇸",
   },
   {
-    id: "3",
+    id: 3,
     name: "CCCCC",
     age: 38,
     gender: "v",
@@ -42,25 +42,51 @@ app.get("/students", (req, res) => {
   res.render("students", { stuData: STUDENT_ARR });
 });
 
-//点提交button后, 我们需要将表单提交给另一个路由
-app.post("/add-student", (req, res) => {
-  //路由里步骤是什么:
-  //1. 获取用户填写的信息
-  //1.2生成一个id
+// TODO:After users click add button, we need to submit the form to another route /addStudent
+
+app.post("/addStudent", (req, res) => {
+  // What are the steps in the routing:
+  //1. get the information filled in by the user
+  //1.2 Generate an id
+  //2. Validate user information
+  //3. Add user information to the array
+
   const id = STUDENT_ARR.at(-1).id + 1;
   // const newUser = req.body;
   const newUser = {
-    id: req.params.id,
+    id,
     name: req.body.name,
     age: req.body.age,
     gender: req.body.gender,
     country: req.body.country,
   };
   console.log(newUser);
-  //2. 验证用户信息
-  //3. 将用户信息添加到数组中
-});
+  //2. Validate user information(skip)
 
+  //3. Add user information to the array
+  STUDENT_ARR.push(newUser);
+
+  // 4. Return Response
+  //res.send("add success");
+  // Rendering ejs directly in the add route will face the problem of duplicate form submissions
+  //❌res.render("students", { stuData: STUDENT_ARR });
+
+  res.redirect("/students");
+  // // 将新的数据写入到json文件中
+  // fs.writeFile(
+  //   path.resolve(__dirname, "./data/students.json"),
+  //   JSON.stringify(STUDENT_ARR)
+  // )
+  //   .then(() => {
+  //     // res.redirect() 用来发起请求重定向
+  //     // 重定向的作用是告诉浏览器你向另外一个地址再发起一次请求
+
+  //     res.redirect("/students");
+  //   })
+  //   .catch(() => {
+  //     // ....
+  //   });
+});
 //Configure error routes, need to be under all routes
 app.use((req, res) => {
   res.status(404);
