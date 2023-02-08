@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>This is the ejs template</title>
+  </head>
+  <body>
+    <h1>Hello EJS</h1>
+
+    <!-- 
+            It is possible to display the data passed in by render directly in the web page
+        -->
+
+    <form action="/set_name">
+      <input type="text" name="name" placeholder="please enter name" />
+      <button>submit</button>
+    </form>
+
+    <% if(name === "AAAAA") {%>
+    <h2>AAAAA is coming</h2>
+    <%} else{%>
+    <h2>BBBBB is coming</h2>
+    <%}%>
+  </body>
+</html>
