@@ -3,7 +3,7 @@ const app = express();
 const path = require("path");
 const fs = require("fs").promises;
 
-const STUDENT_ARR = require("./data/students.json");
+let STUDENT_ARR = require("./data/students.json");
 
 // Set ejs as the default template engine
 app.set("view engine", "ejs");
@@ -30,7 +30,8 @@ app.post("/addStudent", (req, res) => {
   //2. Validate user information
   //3. Add user information to the array
 
-  const id = STUDENT_ARR.at(-1).id + 1;
+  // const id = STUDENT_ARR.at(-1).id + 1;
+  const id = STUDENT_ARR.at(-1) ? STUDENT_ARR.at(-1).id + 1 : 1;
   // const newUser = req.body;
   const newUser = {
     id,
@@ -67,6 +68,39 @@ app.post("/addStudent", (req, res) => {
       //.......
     });
 });
+
+/* - Function: After clicking Delete🔗, delete the current data
+
+1. Click the delete button to delete the student with id 5
+2. send a request to the route
+3. how to write the route?
+   - Get the student id n
+   - Delete the student with id n
+   - Write the new array to the file
+   - Redirect to student list page */
+
+app.get("/delete", (req, res) => {
+  //获取要删除的学生的id
+  const id = +req.query.id;
+  console.log(id);
+  //根据id删除学生
+  STUDENT_ARR = STUDENT_ARR.filter((stu) => stu.id !== id);
+
+  // Data persistence: Write new data to a json file
+  fs.writeFile(
+    path.resolve(__dirname, "./data/students.json"),
+    JSON.stringify(STUDENT_ARR)
+  )
+    .then(() => {
+      // res.redirect() is used to initiate a request redirection
+      // The purpose of the redirect is to tell the browser that you are making another request to another address
+      res.redirect("/students");
+    })
+    .catch(() => {
+      //.......
+    });
+});
+
 //Configure error routes, need to be under all routes
 app.use((req, res) => {
   res.status(404);

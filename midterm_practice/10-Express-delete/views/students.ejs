@@ -25,6 +25,7 @@
     </style>
   </head>
   <body>
+    <% if(stuData && stuData.length>0) { %>
     <!-- It is possible to display the data passed in by render directly in the web page -->
     <table>
       <caption>
@@ -48,12 +49,21 @@
           <td><%=stu.age %></td>
           <td><%=stu.gender %></td>
           <td><%=stu.country %></td>
-          <td><a href="/delete">delete</a> <a href="">edit</a></td>
+          <td>
+            <a
+              onclick="return confirm('confirm delete')"
+              href="/delete?id=<%=stu.id%>"
+              >删除</a
+            >
+            <a href="/update?id=<%=stu.id%>">edit</a>
+          </td>
         </tr>
         <% } %>
       </tbody>
     </table>
-
+    <%}else{%>
+    <p>studnet list is empty</p>
+    <% } %>
     <form action="/addStudent" method="post">
       <div>
         name: <input type="text" name="name" placeholder="insert your name" />

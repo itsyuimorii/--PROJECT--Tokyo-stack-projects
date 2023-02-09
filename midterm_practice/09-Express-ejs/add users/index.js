@@ -21,12 +21,6 @@ app.get("/students", (req, res) => {
   res.render("students", { stuData: STUDENT_ARR });
 });
 
-app.get("/delete", (req, res) => {
-  //获取要删除的学生的id
-  const id = req.query.id;
-  console.log(id);
-});
-
 // TODO:After users click add button, we need to submit the form to another route /addStudent
 
 app.post("/addStudent", (req, res) => {
@@ -36,7 +30,7 @@ app.post("/addStudent", (req, res) => {
   //2. Validate user information
   //3. Add user information to the array
 
-  const id = STUDENT_ARR.at(-1).id + 1;
+  let id = STUDENT_ARR.at(-1).id + 1;
   // const newUser = req.body;
   const newUser = {
     id,
@@ -73,6 +67,7 @@ app.post("/addStudent", (req, res) => {
       //.......
     });
 });
+
 //Configure error routes, need to be under all routes
 app.use((req, res) => {
   res.status(404);

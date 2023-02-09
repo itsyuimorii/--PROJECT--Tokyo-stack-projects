@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- 
+      When the user clicks on update🔗, the browser will res.render() the page, and the user will see the page update.ejs
+     -->
+    <h1>Update student information</h1>
+    <form action="/update-student" method="post">
+      <div>
+        name: <input type="text" name="name" value="<%= student.name%>" />
+      </div>
+      <div>
+        age: <input type="text" name="age" placeholder="insert your age" />
+      </div>
+      <div>
+        gender:<input type="radio" name="gender" value="male" /> male
+        <input type="radio" name="gender" value="female" /> female
+      </div>
+      <div>
+        country:
+        <input type="text" name="country" placeholder="insert your country" />
+      </div>
+      <div>
+        <button>update</button>
+      </div>
+    </form>
+  </body>
+</html>
