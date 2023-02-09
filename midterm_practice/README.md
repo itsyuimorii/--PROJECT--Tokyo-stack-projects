@@ -605,7 +605,7 @@ router.get("/list", (req, res) => {
 
 [Using HTTP cookies](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies)
 
-#### cookie🍪
+### cookie🍪
 
 クッキーは、`HTTPプロトコル`の中で、**ステートレス問題**を解決するために使われている技術です。
 
@@ -622,8 +622,6 @@ Cookies are a technology used in the `HTTP protocol` to solve the **stateless pr
 2. 服务器以响应头的形式将cookie发送给客户端, 客户端收到以后会将其存储，并在下次向服务器发送请求时将其传回, 这样服务器就可以根据cookie来识别出客户端了
 3. cookie是浏览器创建的
 ```
-
-
 
 ```js
 app.get("/get-cookie", (req, res) => {
@@ -655,3 +653,37 @@ app.get("/hello", (req, res) => {
 ![bring cookie ](/Users/yuimorii/Documents/GitHub/Tokyo-stack-projects/images/bring cookie .png)
 
 💥这时候的cookie 是浏览器发的, 当不同用户访问浏览器, 浏览器就可以根据用户携带的cookie 来判定用户是谁了! 
+
+### How to read cookies in the browser 🍪
+
+ Middleware needs to be installed to enable express to parse cookies
+  1. Install cookie-parser
+
+      ```
+      yarn add cookie-parser
+      ```
+
+  2. Introduce
+
+      ```js
+       const cookieParser = require("cookie-parser");
+      ```
+
+  3. Set it as middleware
+
+      ```js
+      app.use(cookieParser())
+      ```
+
+  4. ```js
+      app.get("/hello", (req, res) => {
+        // req.cookies are used to read the cookies sent back by the client
+        console.log(req.cookies);
+        res.send("携带cookie");
+      });
+      
+      //console return {username: "admin"}
+      ```
+
+ 
+

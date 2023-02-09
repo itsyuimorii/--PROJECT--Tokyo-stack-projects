@@ -3,7 +3,7 @@ const path = require("path");
 const app = express();
 const fs = require("fs/promises");
 
-// const cookieParser = require("cookie-parser");
+const cookieParser = require("cookie-parser");
 
 const userRouter = require("./routes/user");
 const goodsRouter = require("./routes/goods");
@@ -13,7 +13,7 @@ app.set("views", path.resolve(__dirname, "views"));
 app.use(express.static(path.resolve(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
 
-// app.use(cookieParser());
+app.use(cookieParser());
 
 // Make the route effective
 // app.use("/user", userRouter);
@@ -32,19 +32,10 @@ app.get("/get-cookie", (req, res) => {
   res.cookie("username", "admin");
   res.send("The cookie has been sent");
 });
-//   /*
-//         需要安装中间件来使得express可以解析cookie
-//             1.安装cookie-parser
-//                 yarn add cookie-parser
-//             2.引入
-//                 const cookieParser = require("cookie-parser")
-//             3.设置为中间件
-//                 app.use(cookieParser())
-//     */
+
 app.get("/hello", (req, res) => {
   // req.cookies are used to read the cookies sent back by the client
   console.log(req.cookies);
-
   res.send("携带cookie");
 });
 
