@@ -375,5 +375,113 @@ Step 5: Get the update id in the client student.ejs
 
 Step 5: 👆The above steps complete the update route, and get the student data in the route, the next step is to display the data back to the user in update.ejs.
 
-Step 6: update-student Need to write data to JSON 
+Step 6: update-student, Need to write data to JSON 
+
+```js
+//After fill the update form, need to submit it to a new route
+//get student information and edit the information
+app.post("/update-student", (req, res) => {
+  const { id, name, age, gender, country } = req.body;
+  console.log(id, name, age, gender, country);
+
+  // Modify student information
+  // Get student object based on student id
+  const student = STUDENT_ARR.find((item) => item.id == id);
+
+  student.name = name;
+  student.age = +age;
+  student.gender = gender;
+  student.country = country;
+
+  fs.writeFile(
+    path.resolve(__dirname, "./data/students.json"),
+    JSON.stringify(STUDENT_ARR)
+  )
+    .then(() => {
+      // res.redirect() is used to initiate a request redirection
+      // The purpose of the redirect is to tell the browser that you are making another request to another address
+
+      res.redirect("/students");
+    })
+    .catch(() => {
+      // ....
+    });
+});
+```
+
+### Code optimization, introduction of `Router()`
+
+1. In the `index.js` file, **register the route** with `app.use`, and **require** the route file `student.js`
+
+```js
+//first method of registering routes
+const goodsRouter = require("./routes/goods");
+app.use("/goods", userRouter);
+
+// Second method of registering routes
+app.use("/students", require("./routes/student"));
+```
+
+```console
+http://localhost:3000/students/list
+```
+
+2. routers📁 => `student.js`
+
+```js
+const express = require("express");
+const router = express.Router();
+const fs = require("fs/promises");
+const path = require("path");
+
+let STUDENT_ARR = require("../data/students.json");
+
+//Routing of student lists
+router.get("/list", (req, res) => {
+  res.render("students", { stuData: STUDENT_ARR });
+});
+```
+
+💥: **NOTES**
+
+- The path **must be** modified !
+
+  ```ejs
+  都要加上 /students/  
+  <form action="/students/add" method="post">
+    		  <td>
+              <a
+                onclick="return confirm('confirm delete')"
+                href="/students/delete?id=<%=stu.id%>"
+                >delete</a
+              >
+              <a href="/students/to-update?id=<%=stu.id%>">edit</a>
+            </td>
+  ```
+  
+  ```js
+  let STUDENT_ARR = require("../data/students.json");
+  ...
+  path.resolve(__dirname, "../data/students.json"),
+  ...
+  res.redirect("/students/list");
+  ```
+
+3. Extraction Middleware for processing fs
+
+```js
+// Middleware for extracting and processing stored files
+router.use((req, res) => {
+  fs.writeFile(
+    path.resolve(__dirname, "../data/students.json"),
+    JSON.stringify(STUDENT_ARR)
+  )
+    .then(() => {
+      res.redirect("/students/list");
+    })
+    .catch(() => {
+      res.send("error");
+    });
+});
+```
 

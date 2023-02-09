@@ -13,7 +13,7 @@ router.get("/list", (req, res) => {
 //添加学生的路由
 router.post("/add", (req, res, next) => {
   const id = STUDENT_ARR.at(-1) ? STUDENT_ARR.at(-1).id + 1 : 1;
-  // const newUser = req.body;
+
   const newUser = {
     id,
     name: req.body.name,
@@ -27,8 +27,36 @@ router.post("/add", (req, res, next) => {
   //3. Add user information to the array
   STUDENT_ARR.push(newUser);
 
-  // 4. 调用next(),交由后续路由继续处理
+  // 4. call next(), leave it to subsequent routes to continue processing
   next();
+});
+//Delete the student's route
+router.get("/delete", (req, res, next) => {
+  const id = +req.query.id;
+  console.log(id);
+
+  STUDENT_ARR = STUDENT_ARR.filter((stu) => stu.id !== id);
+
+  next();
+});
+
+//Routing of /Update Student Information
+router.post("/update-student", (req, res, next) => {
+  const { id, name, age, gender, address } = req.body;
+  const student = STUDENT_ARR.find((item) => item.id == id);
+
+  student.name = name;
+  student.age = +age;
+  student.gender = gender;
+  student.address = address;
+  next();
+});
+
+router.get("/to-update", (req, res) => {
+  const id = +req.query.id;
+  const student = STUDENT_ARR.find((item) => item.id === id);
+
+  res.render("update", { student });
 });
 
 // Middleware for extracting and processing stored files
@@ -41,9 +69,8 @@ router.use((req, res) => {
       res.redirect("/students/list");
     })
     .catch(() => {
-      res.send("操作失败！");
+      res.send("error");
     });
 });
 
-//删除学生的路由
 module.exports = router;
