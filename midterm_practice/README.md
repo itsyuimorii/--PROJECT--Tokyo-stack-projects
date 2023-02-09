@@ -493,85 +493,112 @@ router.get("/list", (req, res) => {
    });
    ```
 
-4. **final code** for `routes` ->` student.js`
+   4. **final code** for `routes` ->` student.js`
 
-   ```js
-   const express = require("express");
-   const router = express.Router();
-   const fs = require("fs/promises");
-   const path = require("path");
-   
-   let STUDENT_ARR = require("../data/students.json");
-   
-   //Routing of the /student list
-   router.get("/list", (req, res) => {
-     res.render("students", { stuData: STUDENT_ARR });
-   });
-   
-   // Add a route for students
-   router.post("/add", (req, res, next) => {
-     const id = STUDENT_ARR.at(-1) ? STUDENT_ARR.at(-1).id + 1 : 1;
-   
-     const newUser = {
-       id,
-       name: req.body.name,
-       age: req.body.age,
-       gender: req.body.gender,
-       country: req.body.country,
-     };
-     //console.log(newUser);
-     //2. Validate user information(skip)
-   
-     //3. Add user information to the array
-     STUDENT_ARR.push(newUser);
-   
-     // 4. call next(), leave it to subsequent routes to continue processing
-     next();
-   });
-   //Delete the student's route
-   router.get("/delete", (req, res, next) => {
-     const id = +req.query.id;
-     console.log(id);
-   
-     STUDENT_ARR = STUDENT_ARR.filter((stu) => stu.id !== id);
-   
-     next();
-   });
-   
-   //Routing of /Update Student Information
-   router.post("/update-student", (req, res, next) => {
-     const { id, name, age, gender, address } = req.body;
-     const student = STUDENT_ARR.find((item) => item.id == id);
-   
-     student.name = name;
-     student.age = +age;
-     student.gender = gender;
-     student.address = address;
-     next();
-   });
-   
-   router.get("/to-update", (req, res) => {
-     const id = +req.query.id;
-     const student = STUDENT_ARR.find((item) => item.id === id);
-   
-     res.render("update", { student });
-   });
-   
-   // Middleware for extracting and processing stored files
-   router.use((req, res) => {
-     fs.writeFile(
-       path.resolve(__dirname, "../data/students.json"),
-       JSON.stringify(STUDENT_ARR)
-     )
-       .then(() => {
-         res.redirect("/students/list");
-       })
-       .catch(() => {
-         res.send("error");
-       });
-   });
-   
-   module.exports = router;
-   ```
+      ```js
+      const express = require("express");
+      const router = express.Router();
+      const fs = require("fs/promises");
+      const path = require("path");
+      
+      let STUDENT_ARR = require("../data/students.json");
+      
+      //Routing of the /student list
+      router.get("/list", (req, res) => {
+        res.render("students", { stuData: STUDENT_ARR });
+      });
+      
+      // Add a route for students
+      router.post("/add", (req, res, next) => {
+        const id = STUDENT_ARR.at(-1) ? STUDENT_ARR.at(-1).id + 1 : 1;
+      
+        const newUser = {
+          id,
+          name: req.body.name,
+          age: req.body.age,
+          gender: req.body.gender,
+          country: req.body.country,
+        };
+        //console.log(newUser);
+        //2. Validate user information(skip)
+      
+        //3. Add user information to the array
+        STUDENT_ARR.push(newUser);
+      
+        // 4. call next(), leave it to subsequent routes to continue processing
+        next();
+      });
+      //Delete the student's route
+      router.get("/delete", (req, res, next) => {
+        const id = +req.query.id;
+        console.log(id);
+      
+        STUDENT_ARR = STUDENT_ARR.filter((stu) => stu.id !== id);
+      
+        next();
+      });
+      
+      //Routing of /Update Student Information
+      router.post("/update-student", (req, res, next) => {
+        const { id, name, age, gender, address } = req.body;
+        const student = STUDENT_ARR.find((item) => item.id == id);
+      
+        student.name = name;
+        student.age = +age;
+        student.gender = gender;
+        student.address = address;
+        next();
+      });
+      
+      router.get("/to-update", (req, res) => {
+        const id = +req.query.id;
+        const student = STUDENT_ARR.find((item) => item.id === id);
+      
+        res.render("update", { student });
+      });
+      
+      // Middleware for extracting and processing stored files
+      router.use((req, res) => {
+        fs.writeFile(
+          path.resolve(__dirname, "../data/students.json"),
+          JSON.stringify(STUDENT_ARR)
+        )
+          .then(() => {
+            res.redirect("/students/list");
+          })
+          .catch(() => {
+            res.send("error");
+          });
+      });
+      
+      module.exports = router;
+      ```
 
-   
+      ### Function 4: 🍪 cookie (login)
+
+      ```js
+      app.post("/login", (req, res) => {
+        // Get the user's username and password
+        const { username, password } = req.body;
+        if (username === "admin" && password === "123123") {
+          // Login was successful
+          //res.send("Login successful");
+          res.redirect("/students/list");
+      });
+      ```
+
+      `login.ejs`
+
+      ```ejs
+      <form action="/login" method="post">
+      ```
+
+      But 👆 the way it's written, it makes no sense, so here's where the `cookie` comes in
+
+
+
+###  その他の知識 HTTP
+
+> ***Hypertext Transfer Protocol (HTTP)\*** is an [application-layer](https://en.wikipedia.org/wiki/Application_Layer) protocol for transmitting hypermedia documents, such as HTML. It was designed for communication between web browsers and web servers, but it can also be used for other purposes. HTTP follows a classical [client-server model](https://en.wikipedia.org/wiki/Client–server_model), with a client opening a connection to make a request, then waiting until it receives a response. HTTP is a [stateless protocol](https://en.wikipedia.org/wiki/Stateless_protocol), meaning that the server does not keep any data (state) between two requests.
+
+💡 The HTTP protocol is a stateless protocol and the server cannot distinguish whether a request is sent from the same client or not.

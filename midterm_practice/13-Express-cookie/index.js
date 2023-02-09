@@ -52,35 +52,21 @@ app.get("/", (req, res) => {
 // });
 
 app.post("/login", (req, res) => {
-  /*
-        现在咱们这个登录，简直形同虚设，
-            HTTP协议是一个无状态的协议，
-                服务器无法区分请求是否发送自同一个客户端
-
-            cookie
-                - cookie是HTTP协议中用来解决无状态问题的技术
-                - cookie的本质就是一个头
-                    - 服务器以响应头的形式将cookie发送给客户端
-                        客户端收到以后会将其存储，并在下次向服务器发送请求时将其传回
-                        这样服务器就可以根据cookie来识别出客户端了
-    */
-  // 获取用户的用户名和密码
+  // Get the user's username and password
   const { username, password } = req.body;
   if (username === "admin" && password === "123123") {
-    // 登录成功
-    res.send("登录成功");
+    //res.send("Login successful");
     // 将用户名放入cookie
     //   res.cookie("username", username);
-    //   res.redirect("/students/list");
-    // } else {
-    //   res.send("Incorrect username or password");
+    res.redirect("/students/list");
+  } else {
+    res.send("Incorrect username or password");
   }
 });
 
 app.use((req, res) => {
-  res
-    .status(404)
-    .send("<h1>The page you are visiting has been hijacked by aliens</h1>");
+  res.status(404);
+  res.send("The address you are visiting has been hijacked by aliens");
 });
 
 app.listen(3000, () => {
