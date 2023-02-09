@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const path = require("path");
 const fs = require("fs").promises;
+var bodyParser = require("body-parser");
 
 let STUDENT_ARR = require("./data/students.json");
 
@@ -9,16 +10,60 @@ let STUDENT_ARR = require("./data/students.json");
 app.set("view engine", "ejs");
 //配置模版的路径
 app.set("views", path.resolve(__dirname, "views"));
-
+// Processing request body parsing
+app.use(express.urlencoded({ extended: false }));
 // Configure static resource paths
 app.use(express.static(path.resolve(__dirname, "views")));
 
-// Processing request body parsing
-app.use(express.urlencoded({ extended: true }));
 // TODO: Implement a page that returns student information to the user when the user accesses the students route
 
 app.get("/students", (req, res) => {
   res.render("students", { stuData: STUDENT_ARR });
+});
+
+/* After clicking on the modify link, a form will be displayed, which should contain the information of the student to be modified, and the user should modify the student's information and click on the button to submit the form after the modification.
+   - Process: 
+     1. click on update link, jump to update route
+        - This `route` will return a page with a form that should display various information about new info
+     2. the user fills out the form and clicks a button to submit it to a new route
+        - Get the student information and make changes to it
+ */
+
+//After fill the update form, need to submit it to a new route
+//get student information and edit the information
+app.post("/update-student", (req, res) => {
+  const { id, name, age, gender, country } = req.body;
+  console.log(id, name, age, gender, country);
+
+  // Modify student information
+  // Get student object based on student id
+  const student = STUDENT_ARR.find((item) => item.id == id);
+
+  student.name = name;
+  student.age = +age;
+  student.gender = gender;
+  student.country = country;
+
+  fs.writeFile(
+    path.resolve(__dirname, "./data/students.json"),
+    JSON.stringify(STUDENT_ARR)
+  )
+    .then(() => {
+      // res.redirect() is used to initiate a request redirection
+      // The purpose of the redirect is to tell the browser that you are making another request to another address
+
+      res.redirect("/students");
+    })
+    .catch(() => {
+      // ....
+    });
+});
+
+app.get("/to-update", (req, res) => {
+  const id = +req.query.id;
+  const student = STUDENT_ARR.find((item) => item.id === id);
+  //console.log(student);
+  res.render("update", { student });
 });
 
 // TODO:After users click add button, we need to submit the form to another route /addStudent
@@ -100,22 +145,6 @@ app.get("/delete", (req, res) => {
       //.......
     });
 });
-
-/* After clicking on the modify link, a form will be displayed, which should contain the information of the student to be modified, and the user should modify the student's information and click on the button to submit the form after the modification.
-   - Process: 
-     1. click on update link, jump to update route
-        - This `route` will return a page with a form that should display various information about new info
-     2. the user fills out the form and clicks a button to submit it to a new route
-        - Get the student information and make changes to it
- */
-app.get("/to-update", (req, res) => {
-  const id = +req.query.id;
-  const student = STUDENT_ARR.find((item) => item.id === id);
-  //console.log(student);
-  res.render("update", { student });
-});
-
-app.get("/update-student", (req, res) => {});
 
 //Configure error routes, need to be under all routes
 app.use((req, res) => {
