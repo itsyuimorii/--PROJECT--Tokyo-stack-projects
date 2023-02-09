@@ -602,3 +602,26 @@ router.get("/list", (req, res) => {
 > ***Hypertext Transfer Protocol (HTTP)\*** is an [application-layer](https://en.wikipedia.org/wiki/Application_Layer) protocol for transmitting hypermedia documents, such as HTML. It was designed for communication between web browsers and web servers, but it can also be used for other purposes. HTTP follows a classical [client-server model](https://en.wikipedia.org/wiki/Client–server_model), with a client opening a connection to make a request, then waiting until it receives a response. HTTP is a [stateless protocol](https://en.wikipedia.org/wiki/Stateless_protocol), meaning that the server does not keep any data (state) between two requests.
 
 💡 The HTTP protocol is a stateless protocol and the server cannot distinguish whether a request is sent from the same client or not.
+
+[Using HTTP cookies](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies)
+
+#### cookie🍪
+
+クッキーは、`HTTPプロトコル`の中で、**ステートレス問題**を解決するために使われている技術です。
+
+> サーバはクッキーをレスポンスヘッダの形でクライアントに送り、**クライアントはそれを保存し、次にリクエストを送るときにサーバに渡す**ことで、サーバはクッキーに基づいてクライアントを識別することができます。
+
+
+
+Cookies are a technology used in the `HTTP protocol` to solve the **stateless problem**
+
+> The server sends a cookie to the client in the form of a `response header`, which the **client stores and passes to the server** the next time it sends a request, allowing the server to identify the client based on the cookie
+
+```
+app.get("/get-cookie", (req, res) => {
+  // 给客户端发送一个cookie
+  res.cookie("username", "admin");
+});
+```
+
+![Screen Shot 2023-02-09 at 2.12.21 PM](/Users/yuimorii/Library/Application Support/typora-user-images/Screen Shot 2023-02-09 at 2.12.21 PM.png)

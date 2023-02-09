@@ -27,12 +27,12 @@ app.get("/", (req, res) => {
   res.render("login");
 });
 
-// app.get("/get-cookie", (req, res) => {
-//   // 给客户端发送一个cookie
-//   res.cookie("username", "admin");
+app.get("/get-cookie", (req, res) => {
+  // 给客户端发送一个cookie
+  res.cookie("username", "admin");
 
-//   res.send("cookie已经发送");
-// });
+  res.send("The cookie has been sent");
+});
 
 // app.get("/hello", (req, res) => {
 //   /*
@@ -56,8 +56,8 @@ app.post("/login", (req, res) => {
   const { username, password } = req.body;
   if (username === "admin" && password === "123123") {
     //res.send("Login successful");
-    // 将用户名放入cookie
-    //   res.cookie("username", username);
+    // ユーザー名をクッキーに入れる
+    //res.cookie("username", username);
     res.redirect("/students/list");
   } else {
     res.send("Incorrect username or password");
