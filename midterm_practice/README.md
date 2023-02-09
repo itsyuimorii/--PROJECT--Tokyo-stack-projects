@@ -617,6 +617,14 @@ Cookies are a technology used in the `HTTP protocol` to solve the **stateless pr
 
 > The server sends a cookie to the client in the form of a `response header`, which the **client stores and passes to the server** the next time it sends a request, allowing the server to identify the client based on the cookie
 
+```text
+1. cookie的本质就是一个头
+2. 服务器以响应头的形式将cookie发送给客户端, 客户端收到以后会将其存储，并在下次向服务器发送请求时将其传回, 这样服务器就可以根据cookie来识别出客户端了
+3. cookie是浏览器创建的
+```
+
+
+
 ```js
 app.get("/get-cookie", (req, res) => {
   // 给客户端发送一个cookie
@@ -625,7 +633,13 @@ app.get("/get-cookie", (req, res) => {
 });
 ```
 
-![Screen Shot 2023-02-09 at 2.12.21 PM](/Users/yuimorii/Documents/GitHub/Tokyo-stack-projects/images/cookie.png)
+- `response`客户端给浏览器发送cookie 要用res
+  - 下图中,`response`里有`username =admin`💥
+- 上面这一步中, 已经将cookie发送给了浏览器
+
+![get-cookie](/Users/yuimorii/Documents/GitHub/Tokyo-stack-projects/images/get-cookie.png) 
+
+💥 这时候, 浏览器再访问其他路由的时候, 比如`/hello`时,  浏览器会**携带**`cookie`回来, 接着,通过cookie, 就可以识别浏览器的身份了
 
 ```js
 app.get("/hello", (req, res) => {
@@ -636,10 +650,8 @@ app.get("/hello", (req, res) => {
 });
 ```
 
-![cookie request](/Users/yuimorii/Documents/GitHub/Tokyo-stack-projects/images/cookie request.png)
+💥看浏览器是否把cookie发回来, 是看请求
 
-- `req`  用来读取由客户端发回来的cookie
-  - The browser returns information to the client💥
+![bring cookie ](/Users/yuimorii/Documents/GitHub/Tokyo-stack-projects/images/bring cookie .png)
 
-- `res`client request information to browser 💥
-
+💥这时候的cookie 是浏览器发的, 当不同用户访问浏览器, 浏览器就可以根据用户携带的cookie 来判定用户是谁了! 
