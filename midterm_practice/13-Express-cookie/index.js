@@ -22,9 +22,10 @@ app.use(express.urlencoded({ extended: true }));
 // Second method of registering routes
 app.use("/students", require("./routes/student"));
 
-// app.get("/", (req, res) => {
-//   res.render("login");
-// });
+//login routes
+app.get("/", (req, res) => {
+  res.render("login");
+});
 
 // app.get("/get-cookie", (req, res) => {
 //   // 给客户端发送一个cookie
@@ -50,31 +51,31 @@ app.use("/students", require("./routes/student"));
 //   res.send("hello路由");
 // });
 
-// app.post("/login", (req, res) => {
-//   /*
-//         现在咱们这个登录，简直形同虚设，
-//             HTTP协议是一个无状态的协议，
-//                 服务器无法区分请求是否发送自同一个客户端
+app.post("/login", (req, res) => {
+  /*
+        现在咱们这个登录，简直形同虚设，
+            HTTP协议是一个无状态的协议，
+                服务器无法区分请求是否发送自同一个客户端
 
-//             cookie
-//                 - cookie是HTTP协议中用来解决无状态问题的技术
-//                 - cookie的本质就是一个头
-//                     - 服务器以响应头的形式将cookie发送给客户端
-//                         客户端收到以后会将其存储，并在下次向服务器发送请求时将其传回
-//                         这样服务器就可以根据cookie来识别出客户端了
-//     */
-//   // 获取用户的用户名和密码
-//   const { username, password } = req.body;
-//   if (username === "admin" && password === "123123") {
-//     // 登录成功
-//     // res.send("登录成功")
-//     // 将用户名放入cookie
-//     res.cookie("username", username);
-//     res.redirect("/students/list");
-//   } else {
-//     res.send("用户名或密码错误");
-//   }
-// });
+            cookie
+                - cookie是HTTP协议中用来解决无状态问题的技术
+                - cookie的本质就是一个头
+                    - 服务器以响应头的形式将cookie发送给客户端
+                        客户端收到以后会将其存储，并在下次向服务器发送请求时将其传回
+                        这样服务器就可以根据cookie来识别出客户端了
+    */
+  // 获取用户的用户名和密码
+  const { username, password } = req.body;
+  if (username === "admin" && password === "123123") {
+    // 登录成功
+    res.send("登录成功");
+    // 将用户名放入cookie
+    //   res.cookie("username", username);
+    //   res.redirect("/students/list");
+    // } else {
+    //   res.send("Incorrect username or password");
+  }
+});
 
 app.use((req, res) => {
   res

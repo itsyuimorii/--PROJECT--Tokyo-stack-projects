@@ -26,7 +26,7 @@ router.post("/add", (req, res, next) => {
 
   //3. Add user information to the array
   STUDENT_ARR.push(newUser);
-
+  s;
   // 4. call next(), leave it to subsequent routes to continue processing
   next();
 });
