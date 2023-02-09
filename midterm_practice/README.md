@@ -617,11 +617,29 @@ Cookies are a technology used in the `HTTP protocol` to solve the **stateless pr
 
 > The server sends a cookie to the client in the form of a `response header`, which the **client stores and passes to the server** the next time it sends a request, allowing the server to identify the client based on the cookie
 
-```
+```js
 app.get("/get-cookie", (req, res) => {
   // 给客户端发送一个cookie
   res.cookie("username", "admin");
+  res.send("The cookie has been sent");
 });
 ```
 
-![Screen Shot 2023-02-09 at 2.12.21 PM](/Users/yuimorii/Library/Application Support/typora-user-images/Screen Shot 2023-02-09 at 2.12.21 PM.png)
+![Screen Shot 2023-02-09 at 2.12.21 PM](/Users/yuimorii/Documents/GitHub/Tokyo-stack-projects/images/cookie.png)
+
+```js
+app.get("/hello", (req, res) => {
+  // req.cookies are used to read the cookies sent back by the client
+  console.log(req.cookies);
+
+  res.send("携带cookie");
+});
+```
+
+![cookie request](/Users/yuimorii/Documents/GitHub/Tokyo-stack-projects/images/cookie request.png)
+
+- `req`  用来读取由客户端发回来的cookie
+  - The browser returns information to the client💥
+
+- `res`client request information to browser 💥
+

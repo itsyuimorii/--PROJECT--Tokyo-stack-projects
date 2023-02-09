@@ -28,13 +28,10 @@ app.get("/", (req, res) => {
 });
 
 app.get("/get-cookie", (req, res) => {
-  // 给客户端发送一个cookie
+  // send a cookie to the client, using the res
   res.cookie("username", "admin");
-
   res.send("The cookie has been sent");
 });
-
-// app.get("/hello", (req, res) => {
 //   /*
 //         需要安装中间件来使得express可以解析cookie
 //             1.安装cookie-parser
@@ -44,12 +41,12 @@ app.get("/get-cookie", (req, res) => {
 //             3.设置为中间件
 //                 app.use(cookieParser())
 //     */
+app.get("/hello", (req, res) => {
+  // req.cookies are used to read the cookies sent back by the client
+  console.log(req.cookies);
 
-//   // req.cookies 用来读取客户端发回的cookie
-//   console.log(req.cookies);
-
-//   res.send("hello路由");
-// });
+  res.send("携带cookie");
+});
 
 app.post("/login", (req, res) => {
   // Get the user's username and password
