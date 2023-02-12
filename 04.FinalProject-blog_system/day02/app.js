@@ -7,24 +7,23 @@ const mime = require("mime");
 const app = http.createServer();
 
 app.on("request", (req, res) => {
-  // 获取用户的请求路径
+  // Get the user's request path
   let pathname = url.parse(req.url).pathname;
 
   pathname = pathname == "/" ? "/default.html" : pathname;
 
-  // 将用户的请求路径转换为实际的服务器硬盘路径
+  // Convert the user's request path to the actual server hard drive path
   let realPath = path.join(__dirname, "public" + pathname);
 
   let type = mime.getType(realPath);
 
-  // 读取文件
   fs.readFile(realPath, (error, result) => {
-    // 如果文件读取失败
     if (error != null) {
+      // Specify the type of file to return
       res.writeHead(404, {
         "content-type": "text/html;charset=utf8",
       });
-      res.end("文件读取失败");
+      res.end("File read failure");
       return;
     }
 
@@ -37,4 +36,4 @@ app.on("request", (req, res) => {
 });
 
 app.listen(3000);
-console.log("服务器启动成功");
+console.log("Server started successfully: http://localhost:3000");
