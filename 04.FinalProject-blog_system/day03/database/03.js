@@ -1,31 +1,35 @@
-// 引入mongoose第三方模块 用来操作数据库
-const mongoose = require('mongoose');
-// 数据库连接
-mongoose.connect('mongodb://localhost/playground', { useNewUrlParser: true})
-	// 连接成功
-	.then(() => console.log('数据库连接成功'))
-	// 连接失败
-	.catch(err => console.log(err, '数据库连接失败'));
+const mongoose = require("mongoose");
 
-// 创建集合规则
+mongoose
+  .connect("mongodb://localhost/playground", { useNewUrlParser: true })
+
+  .then(() => console.log("Database connection successful"))
+
+  .catch((err) => console.log(err, "database connection failed"));
+
+// Create collection rules
 const courseSchema = new mongoose.Schema({
-	name: String,
-	author: String,
-	isPublished: Boolean
+  name: String,
+  author: String,
+  isPublished: Boolean,
 });
 
-// 使用规则创建集合
-// 1.集合名称
-// 2.集合规则
-const Course = mongoose.model('Course', courseSchema) // courses
+// Create collections using rules
+// 1. Collection name
+// 2. Collection rules
+const Course = mongoose.model("Course", courseSchema); // courses
 
-// 向集合中插入文档
-// Course.create({name: 'Javascript', author: '黑马讲师', isPublished: false}, (err, result) => {
-// 	console.log(err)
-// 	console.log(result)
-// })
+// // Create a document
+// const course = new Course({
+//   name: "node.js basic",
+//   author: "hekuro",
+//   isPublished: true,
+// });
 
-Course.create({name: 'Javascript123', author: '黑马讲师', isPublished: false})
-	  .then(result => {
-	  	console.log(result)
-	  })
+Course.create({
+  name: "node.js basic",
+  author: "sakura",
+  isPublished: false,
+}).then((result) => {
+  console.log(result);
+});
