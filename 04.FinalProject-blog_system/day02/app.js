@@ -14,8 +14,9 @@ app.on("request", (req, res) => {
 
   // Convert the user's request path to the actual server hard drive path
   let realPath = path.join(__dirname, "public" + pathname);
-
+  //mime getType method
   let type = mime.getType(realPath);
+  console.log(type);
 
   fs.readFile(realPath, (error, result) => {
     if (error != null) {
