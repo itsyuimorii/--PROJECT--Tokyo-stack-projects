@@ -1,8 +1,0 @@
-01.js How to connect to a mongodb database
-02.js How to create a collection and insert documents into the collection
-03.js Another way to insert documents into a collection
-04.js document query
-05.js Deleting documents
-06.js updating documents
-07.js mongoose validation
-08.js collection association

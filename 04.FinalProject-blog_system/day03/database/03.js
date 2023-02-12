@@ -28,7 +28,7 @@ const Course = mongoose.model("Course", courseSchema); // courses
 
 Course.create({
   name: "node.js basic",
-  author: "sakura",
+  author: "Sakura",
   isPublished: false,
 }).then((result) => {
   console.log(result);

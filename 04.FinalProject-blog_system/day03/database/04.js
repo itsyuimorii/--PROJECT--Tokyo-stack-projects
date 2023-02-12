@@ -16,24 +16,33 @@ const userSchema = new mongoose.Schema({
 // Create collections using rules
 const User = mongoose.model("User", userSchema);
 
-// 查询用户集合中的所有文档
-// User.find().then(result => console.log(result));
-// 通过_id字段查找文档
-// User.find({_id: '5c09f267aeb04b22f8460968'}).then(result => console.log(result))
+// Query all documents in the user collection
+User.find().then((result) => console.log(result));
+// Find documents by the _id field
 
-// findOne方法返回一条文档 默认返回当前集合中的第一条文档
-// User.findOne({name: '李四'}).then(result => console.log(result))
-// 查询用户集合中年龄字段大于20并且小于40的文档
-// User.find({age: {$gt: 20, $lt: 40}}).then(result => console.log(result))
-// 查询用户集合中hobbies字段值包含足球的文档
-// User.find({hobbies: {$in: ['足球']}}).then(result => console.log(result))
-// 选择要查询的字段
-// User.find().select('name email -_id').then(result => console.log(result))
-// 根据年龄字段进行升序排列
-// User.find().sort('age').then(result => console.log(result))
-// 根据年龄字段进行降序排列
-// User.find().sort('-age').then(result => console.log(result))
-// 查询文档跳过前两条结果 限制显示3条结果
+User.find({ _id: "5c09f267aeb04b22f8460968" }).then((result) =>
+  console.log(result)
+);
+
+// findOne method returns a document by default returns the first document in the current collection
+User.findOne({ name: "BB" }).then((result) => console.log(result));
+// Query the user collection for documents with an age field greater than 20 and less than 40
+User.find({ age: { $gt: 20, $lt: 40 } }).then((result) => console.log(result));
+//query the user collection in the hobbies field value contains soccer documents
+User.find({ hobbies: { $in: ["BB"] } }).then((result) => console.log(result));
+//Select the fields to be queried
+User.find()
+  .select("name email -_id")
+  .then((result) => console.log(result));
+// Ascending order by age field
+User.find()
+  .sort("age")
+  .then((result) => console.log(result));
+// Sort by age field in descending order
+User.find()
+  .sort("-age")
+  .then((result) => console.log(result));
+// Query document to skip the first two results Limit to 3 results
 User.find()
   .skip(2)
   .limit(3)
