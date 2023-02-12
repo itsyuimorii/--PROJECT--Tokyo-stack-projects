@@ -4,6 +4,9 @@ const url = require("url");
 // 2. Create the web server
 const app = http.createServer();
 // 3. Add request events to the web server object
+// 4. Implement the routing function
+// 1. Get the request method of the client
+// 2. Get the request address of the client
 app.on("request", (req, res) => {
   // Get the request method
   const method = req.method.toLowerCase();
@@ -13,9 +16,7 @@ app.on("request", (req, res) => {
   res.writeHead(200, {
     "content-type": "text/html;charset=utf8",
   });
-  // 4. Implement the routing function
-  // 1. Get the request method of the client
-  // 2. Get the request address of the client
+
   if (method == "get") {
     if (pathname == "/" || pathname == "/index") {
       res.end("Welcome to the home page");
