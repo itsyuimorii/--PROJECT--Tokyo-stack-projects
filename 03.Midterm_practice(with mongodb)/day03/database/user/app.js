@@ -1,53 +1,49 @@
-// 搭建网站服务器，实现客户端与服务器端的通信
-// 连接数据库，创建用户集合，向集合中插入文档
-// 当用户访问/list时，将所有用户信息查询出来
-// 	实现路由功能
-// 	呈现用户列表页面
-// 	从数据库中查询用户信息 将用户信息展示在列表中
-// 将用户信息和表格HTML进行拼接并将拼接结果响应回客户端
-// 当用户访问/add时，呈现表单页面，并实现添加用户信息功能
-// 当用户访问/modify时，呈现修改页面，并实现修改用户信息功能
-// 	修改用户信息分为两大步骤
-// 		1.增加页面路由 呈现页面
-// 			1.在点击修改按钮的时候 将用户ID传递到当前页面
-// 			2.从数据库中查询当前用户信息 将用户信息展示到页面中
-// 		2.实现用户修改功能
-// 			1.指定表单的提交地址以及请求方式
-// 			2.接受客户端传递过来的修改信息 找到用户 将用户信息更改为最新的
-// 当用户访问/delete时，实现用户删除功能
+// 1. set up the web server and realize the communication between the client and the server
+// 2. connect to the database, create a collection of users, insert documents into the collection
+// 3. query all user information when a user accesses the /list
+// Implement the routing function
+// render the user list page
+// Query user information from the database Display user information in the list
+// 4. stitch user information and form HTML and respond the stitching result back to the client
+// 5. render the form page and add user information when user accesses/add
+// 6. When the user visits /modify, the modification page is rendered and the user information is modified
+// There are two major steps to modify user information
+// 1. Add a page route to render the page
+// 1.1 Pass the user ID to the current page when the modify button is clicked
+// 1.2 Query the current user information from the database and display the user information on the page
+// 2. Implementing the user modification function
+// 2.1 Specify the form submission address and request method
+// 2.2 Receive the modification information from the client, find the user, and change the user information to the latest one.
+// 7. Implement the user delete function when the user accesses/deletes
 
-const http = require('http');
+const http = require("http");
 
-const url = require('url');
-const querystring = require('querystring');
+const url = require("url");
+const querystring = require("querystring");
 
-require('./model/index.js');
-const User = require('./model/user');
+//import user database
+require("./model/index.js");
+const User = require("./model/user.js");
 
-
-
-// 创建服务器
 const app = http.createServer();
 
-// 为服务器对象添加请求事件
-app.on('request', async (req, res) => {
-	// 请求方式
-	const method = req.method;
-	// 请求地址
-	const { pathname, query } = url.parse(req.url, true);
+// Add request events to the server object
+app.on("request", async (req, res) => {
+  const method = req.method;
+  const { pathname, query } = url.parse(req.url, true);
 
-	if (method == 'GET') {
-		// 呈现用户列表页面
-		if (pathname == '/list') {
-			// 查询用户信息
-			let users = await User.find();
-			// html字符串
-			let list = `
+  if (method == "GET") {
+    // Render the user list page
+    if (pathname == "/list") {
+      // Query user information
+      let users = await User.find();
+      // html string
+      let list = `
 				<!DOCTYPE html>
 				<html lang="en">
 				<head>
 					<meta charset="UTF-8">
-					<title>用户列表</title>
+					<title>User List</title>
 					<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">
 				</head>
 				<body>
@@ -65,43 +61,43 @@ app.on('request', async (req, res) => {
 							</tr>
 			`;
 
-			// 对数据进行循环操作
-			users.forEach(item => {
-				list += `
+      // Loop operations on data
+      users.forEach((item) => {
+        list += `
 					<tr>
 						<td>${item.name}</td>
 						<td>${item.age}</td>
 						<td>
 				`;
 
-				item.hobbies.forEach(item => {
-					list += `<span>${item}</span>`;
-				})
+        item.hobbies.forEach((item) => {
+          list += `<span>${item}</span>`;
+        });
 
-				list += `</td>
+        list += `</td>
 						<td>${item.email}</td>
 						<td>
-							<a href="/remove?id=${item._id}" class="btn btn-danger btn-xs">删除</a>
-							<a href="/modify?id=${item._id}" class="btn btn-success btn-xs">修改</a>
+							<a href="/remove?id=${item._id}" class="btn btn-danger btn-xs">delete</a>
+							<a href="/modify?id=${item._id}" class="btn btn-success btn-xs">edit</a>
 						</td>
 					</tr>`;
-			});
+      });
 
-			list += `
+      list += `
 						</table>
 					</div>
 				</body>
 				</html>
 			`;
-			res.end(list);
-		}else if (pathname == '/add') {
-			// 呈现添加用户表单页面
-			let add = `
+      res.end(list);
+    } else if (pathname == "/add") {
+      // Render the Add User Form page
+      let add = `
 				<!DOCTYPE html>
 				<html lang="en">
 				<head>
 					<meta charset="UTF-8">
-					<title>用户列表</title>
+					<title>User List</title>
 					<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">
 				</head>
 				<body>
@@ -156,13 +152,24 @@ app.on('request', async (req, res) => {
 				</body>
 				</html>
 			`;
-			res.end(add)
-		}else if (pathname == '/modify') {
-			let user = await User.findOne({_id: query.id});
-			let hobbies = ['足球', '篮球', '橄榄球', '敲代码', '抽烟', '喝酒', '烫头', '吃饭', '睡觉', '打豆豆']
-			console.log(user)
-			// 呈现修改用户表单页面
-			let modify = `
+      res.end(add);
+    } else if (pathname == "/modify") {
+      let user = await User.findOne({ _id: query.id });
+      let hobbies = [
+        "足球",
+        "篮球",
+        "橄榄球",
+        "敲代码",
+        "抽烟",
+        "喝酒",
+        "烫头",
+        "吃饭",
+        "睡觉",
+        "打豆豆",
+      ];
+      console.log(user);
+      // 呈现修改用户表单页面
+      let modify = `
 				<!DOCTYPE html>
 				<html lang="en">
 				<head>
@@ -197,25 +204,25 @@ app.on('request', async (req, res) => {
 						    
 			`;
 
-			hobbies.forEach(item => {
-				// 判断当前循环项在不在用户的爱好数据组
-				let isHobby = user.hobbies.includes(item);
-				if (isHobby) {
-					modify += `
+      hobbies.forEach((item) => {
+        // 判断当前循环项在不在用户的爱好数据组
+        let isHobby = user.hobbies.includes(item);
+        if (isHobby) {
+          modify += `
 						<label class="checkbox-inline">
 						  <input type="checkbox" value="${item}" name="hobbies" checked> ${item}
 						</label>
-					`
-				}else {
-					modify += `
+					`;
+        } else {
+          modify += `
 						<label class="checkbox-inline">
 						  <input type="checkbox" value="${item}" name="hobbies"> ${item}
 						</label>
-					`
-				}
-			})
+					`;
+        }
+      });
 
-			modify += `
+      modify += `
 						    </div>
 						  </div>
 						  <button type="submit" class="btn btn-primary">修改用户</button>
@@ -224,58 +231,57 @@ app.on('request', async (req, res) => {
 				</body>
 				</html>
 			`;
-			res.end(modify)
-		}else if (pathname == '/remove') {
-			// res.end(query.id)
-			await User.findOneAndDelete({_id: query.id});
-			res.writeHead(301, {
-				Location: '/list'
-			});
-			res.end();
-		}
-	}else if (method == 'POST') {
-		// 用户添加功能
-		if (pathname == '/add') {
-			// 接受用户提交的信息
-			let formData = '';
-			// 接受post参数
-			req.on('data', param => {
-				formData += param;
-			})
-			// post参数接受完毕
-			req.on('end', async () => {
-				let user = querystring.parse(formData)
-				// 将用户提交的信息添加到数据库中
-				await User.create(user);
-				// 301代表重定向
-				// location 跳转地址
-				res.writeHead(301, {
-					Location: '/list'
-				});
-				res.end();
-			})
-		}else if (pathname == '/modify') {
-			// 接受用户提交的信息
-			let formData = '';
-			// 接受post参数
-			req.on('data', param => {
-				formData += param;
-			})
-			// post参数接受完毕
-			req.on('end', async () => {
-				let user = querystring.parse(formData)
-				// 将用户提交的信息添加到数据库中
-				await User.updateOne({_id: query.id}, user);
-				// 301代表重定向
-				// location 跳转地址
-				res.writeHead(301, {
-					Location: '/list'
-				});
-				res.end();
-			})
-		}
-	}
-
+      res.end(modify);
+    } else if (pathname == "/remove") {
+      // res.end(query.id)
+      await User.findOneAndDelete({ _id: query.id });
+      res.writeHead(301, {
+        Location: "/list",
+      });
+      res.end();
+    }
+  } else if (method == "POST") {
+    // 用户添加功能
+    if (pathname == "/add") {
+      // 接受用户提交的信息
+      let formData = "";
+      // 接受post参数
+      req.on("data", (param) => {
+        formData += param;
+      });
+      // post参数接受完毕
+      req.on("end", async () => {
+        let user = querystring.parse(formData);
+        // 将用户提交的信息添加到数据库中
+        await User.create(user);
+        // 301代表重定向
+        // location 跳转地址
+        res.writeHead(301, {
+          Location: "/list",
+        });
+        res.end();
+      });
+    } else if (pathname == "/modify") {
+      // 接受用户提交的信息
+      let formData = "";
+      // 接受post参数
+      req.on("data", (param) => {
+        formData += param;
+      });
+      // post参数接受完毕
+      req.on("end", async () => {
+        let user = querystring.parse(formData);
+        // 将用户提交的信息添加到数据库中
+        await User.updateOne({ _id: query.id }, user);
+        // 301代表重定向
+        // location 跳转地址
+        res.writeHead(301, {
+          Location: "/list",
+        });
+        res.end();
+      });
+    }
+  }
 });
-// 监听端口
+
 app.listen(3000);
