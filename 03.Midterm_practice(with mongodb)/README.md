@@ -2,15 +2,15 @@
 
 ## 0. all Steps:
 
-1. Build the web server, achieve communication between client and server side
-2. Connect to the database, create a collection of users, and insert documents into the collection
-3. Query all users' information when they visit/list
-4. Splice the user information with the form HTML and respond the spliced result back to the client
-5. When the user accesses /add, the form page is rendered and the user information is added.
-6. When the user accesses /modify, the modification page is rendered, and the user information is modified.
-7. When the user accesses /delete, the user deletion function is implemented.
+1. Create the project folder and generate the project description file
+2. create web server to implement client-server communication
+3. connect to the database and design the student information table according to the requirements
+4. create routes and implement page template presentation
+5. implement static resource access
+6. add student information
+7. implement student information display function
 
-## 1. Create server
+## 1. create web server to implement client-server communication
 
 ```js
 const http = require("http");
@@ -27,18 +27,26 @@ app.listen(3000);
 
 ## 2. Connect to mongodb
 
+model📁=>connect.js
+
 ```js
 const mongoose = require("mongoose");
-
-mongoose.connect("mongodb://localhost:27017/playground"),
+mongoose.connect("mongodb://localhost/playground"),
   { userNewUrlParser: true }
     .then(() => console.log("database connection established"))
     .catch(() => console.log("database connection failed"));
 ```
 
->  Create collection rules
+> Set  collection rules
+
+### 3. Connect to the database and design the student information table according to the requirements
+
+model📁=>user.js
 
 ```js
+// Set collection rules
+const mongoose = require("mongoose");
+
 const userSchema = new mongoose.Schema({
   name: {
     type: "string",
@@ -51,18 +59,33 @@ const userSchema = new mongoose.Schema({
     min: 18,
     max: 80,
   },
-  password: String,
+  sex: {
+    type: "String",
+  },
   email: String,
   hobbies: [String],
-})
+  college: String,
+  entryDate: {
+    type: Date,
+    default: Date.now,
+  },
+});
+//create collection, return collection construct function
+const studentsSchema = mongoose.model("User", userSchema);
+
+const Student = mongoose.model("Student", studentsSchema);
+// Export the student information collection
+module.exports = Student;
+
 ```
 
-After creating the collection rule, you need to create the collection and use the collection rule instance `UserSchema `that you have just created.
+After creating the collection rule, you need to create the collection and use the collection rule instance `studentsSchema `that you have just created.
 
-> create collection 
+> create collection
 
 ```js
-const User = mongoose.model("User",userSchema)
+//create collection, return collection construct function
+const studentsSchema = mongoose.model("User", userSchema);
 ```
 
 💡`mongoose.model("User",userSchema)` will get a **construct function** here, and use `User` to receive it, The later additions, deletions, and changes to the database all rely on this structured function `User`
@@ -73,10 +96,24 @@ import user.json file to mongodb
 mongoimport -d playground -c users --jsonArray ./user.json
 ```
 
-## 3. Query all users' information when they visit/list
+###  4. Create routes and implement page template presentation
 
-### 3.1 Realize routing function
+Third-party module: `router`
 
-### 3.2 Present the user list page 
+> Steps to use:
 
-### 3.3 Query user information from the database and display user information in the list
+1. Get the routing object
+2. Call the methods provided by the route object to create the route
+3. Enable the route and make it effective
+
+```js
+const getRouter = require('router')
+const router = getRouter();
+router.get('/add', (req, res) => {
+    res.end('Hello World!')
+}) 
+server.on('request', (req, res) => {
+    router(req, res)
+})
+```
+

@@ -1,27 +1,29 @@
 const http = require("http");
-const url = require("url");
+//import router module
+const getRouter = require("router");
+//get router object
+const router = getRouter();
+
+router.get("/test", (req, res) => {
+  res.end("test");
+});
+
+router.get("/index", (req, res) => {
+  res.end("index");
+});
+
+//<<<<<<database>>>>>
+//connect database
+require("./model/connect");
+//get students collection
+const Student = require("./model/users");
 
 //create server
 const app = http.createServer();
-//Adding request events to server objects
+
+//adding request events to server objects
 app.on("request", (req, res) => {
-  //request method
-  req.method = req.method;
-  //request path
-  const { pathname } = url.parse(req.url);
-  if (method === "GET") {
-    // present the user list page
-    if (pathname == "/list") {
-    }
-  } else if (method === "POST") {
-    if (pathname == "/add") {
-      let formData = "";
-      req.on("data", (param) => {
-        formData = param;
-      });
-    }
-  }
-  res.end("ok");
+  router(req, res, () => {});
 });
 
 app.listen(3000);

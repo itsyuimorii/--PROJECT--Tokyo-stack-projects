@@ -1,6 +1,6 @@
+// Set collection rules
 const mongoose = require("mongoose");
 
-// Create collection rules
 const userSchema = new mongoose.Schema({
   name: {
     type: "string",
@@ -13,12 +13,20 @@ const userSchema = new mongoose.Schema({
     min: 18,
     max: 80,
   },
-  password: String,
+  sex: {
+    type: "String",
+  },
   email: String,
   hobbies: [String],
+  college: String,
+  entryDate: {
+    type: Date,
+    default: Date.now,
+  },
 });
+
 //create collection, return collection construct function
-const User = mongoose.model("User", userSchema);
+const studentsSchema = mongoose.model("User", userSchema);
 
 const Student = mongoose.model("Student", studentsSchema);
 // Export the student information collection
