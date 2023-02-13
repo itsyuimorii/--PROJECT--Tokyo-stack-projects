@@ -1,0 +1,62 @@
+[
+  {
+    "_id": {
+      "$oid": "5c09f236aeb04b22f8460967"
+    },
+    "name": "Matthew",
+    "age": 10,
+    "hobbies": ["Football", "Basketball"],
+    "email": "Matthew@gmail.com",
+    "password": "654321"
+  },
+  {
+    "_id": {
+      "$oid": "5c09f294aeb04b22f8460969"
+    },
+    "name": "Amy",
+    "age": 50,
+    "hobbies": ["Read", "Travel", "Football"],
+    "email": "Amy@gmail.com",
+    "password": "123456"
+  },
+  {
+    "_id": {
+      "$oid": "5c09f1e5aeb04b22f8460965"
+    },
+    "name": "Emile",
+    "age": 20,
+    "hobbies": ["AA", "AA", "AA"],
+    "email": "Emile@gmail.com",
+    "password": "123456"
+  },
+  {
+    "_id": {
+      "$oid": "5c09f267aeb04b22f8460968"
+    },
+    "name": "Jason",
+    "age": 25,
+    "hobbies": ["Read"],
+    "email": "Jason@gmail.com",
+    "password": "123456"
+  },
+  {
+    "_id": {
+      "$oid": "5c09f2b6aeb04b22f846096a"
+    },
+    "name": "Emma",
+    "age": 32,
+    "hobbies": ["EE"],
+    "email": "Emma@gmail.com",
+    "password": "123456"
+  },
+  {
+    "_id": {
+      "$oid": "5c09f2d9aeb04b22f846096b"
+    },
+    "name": "David",
+    "age": 14,
+    "hobbies": ["Soccer"],
+    "email": "David@gmail.com",
+    "password": "123456"
+  }
+]
