@@ -1,6 +1,4 @@
-// 引入mongoose第三方模块 用来操作数据库
 const mongoose = require("mongoose");
-// 数据库连接
 mongoose
   .connect("mongodb://localhost/playground", { useNewUrlParser: true })
   // The connection was successful

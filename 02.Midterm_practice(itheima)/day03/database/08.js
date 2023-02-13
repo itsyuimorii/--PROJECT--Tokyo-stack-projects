@@ -28,10 +28,13 @@ const User = mongoose.model("User", userSchema);
 // Article Collection
 const Post = mongoose.model("Post", postSchema);
 
-// Create User
-// User.create（{name: 'yuki'}）.then（result => console.log(result)）。
-// Create article
-// Post.create({title: '123', author: '5c0caae2c4e4081c28439791'}).then(result => console.log(result))。
-Post.find()
-  .populate("author")
-  .then((result) => console.log(result));
+//Create User
+User.create({ name: "yuki" }).then((result) => console.log(result));
+//Create article
+// Post.create({
+//   title: "life in canada",
+//   author: "5c0caae2c4e4081c28439791",
+// }).then((result) => console.log(result));
+// Post.find()
+//   .populate("author")
+//   .then((result) => console.log(result));
