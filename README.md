@@ -6,7 +6,7 @@
 
 Develop a simple student information list management system, which can be used to add, delete, and check user information.
 
-### 📝[learning notes](https://github.com/itsyuimorii/Tokyo-stack-projects/blob/main/midterm_practice/README.md) & 🤖[code](https://github.com/itsyuimorii/Tokyo-stack-projects/tree/main/User-info-management-system/code)
+### 📝[learning notes](https://github.com/itsyuimorii/Tokyo-stack-projects/blob/main/03.Midterm_practice(with mongodb)/README.md) & 🤖[code](https://github.com/itsyuimorii/Tokyo-stack-projects/tree/main/03.Midterm_practice(with mongodb)/day05_student_Info_Practice)
 
 
 
@@ -16,7 +16,7 @@ Develop a simple student information list management system, which can be used t
 
 Develop a simple student information list management system, which can be used to add, delete, and check user information.
 
-### 📝[learning notes]( ) & 🤖[code]() 
+### 📝[learning notes]([day05_student_Info_Practice](https://github.com/itsyuimorii/Tokyo-stack-projects/tree/main/03.Midterm_practice(with mongodb)/day05_student_Info_Practice) ) & 🤖[code]() 
 
 
 
