@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<!-- Standard Grammar -->
+	<p>{{ name }}</p>
+	<p>{{ 1 + 1 }}</p>
+	<p>{{ 1 + 1 == 2 ? 'equal' : 'unequal' }}</p>
+	<p>{{ content }}</p>
+	<p>{{@ content }}</p>
+	<!-- Original syntax -->
+	<p><%= name %></p>
+	<p><%= 1 + 2%></p>
+	<p><%= 1 + 1 == 2 ? 'equal' : 'unequal' %></p>
+	<p><%= content%></p>
+	<p><%- content%></p>
+</body>
+</html>
