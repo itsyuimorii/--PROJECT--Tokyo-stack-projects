@@ -8,17 +8,17 @@ const html = template(views, {
     {
       name: "matt",
       age: 20,
-      sex: "男",
+      sex: "male",
     },
     {
       name: "matt",
       age: 30,
-      sex: "男",
+      sex: "male",
     },
     {
       name: "matt",
       age: 15,
-      sex: "女",
+      sex: "male",
     },
   ],
 });
