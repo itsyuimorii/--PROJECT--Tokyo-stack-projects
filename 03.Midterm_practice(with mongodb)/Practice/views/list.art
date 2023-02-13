@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>学员信息</title>
+	<link rel="stylesheet" href="./css/list.css">
+</head>
+<body>
+	<table>
+		<caption>Student Information</caption>
+		<tr>
+			<th>Name</th>
+			<th>Age</th>
+			<th>Sex</th>
+			<th>Email</th>
+			<th>Hobby</th>
+			<th>College</th>
+			<th>adminssionDate</th>
+		</tr>
+		{{each students}}
+			<tr>
+				<th>{{$value.name}}</th>
+				<th>{{$value.age}}</th>
+				<th>{{$value.sex == '0' ? '男' : '女'}}</th>
+				<th>{{$value.email}}</th>
+				<th>
+					{{each $value.hobbies}}
+						<span>{{$value}}</span>
+					{{/each}}
+				</th>
+				<th>{{$value.collage}}</th>
+				<th>{{dateformat($value.enterDate, 'yyyy-mm-dd')}}</th>
+			</tr>
+		{{/each}}
+		
+	</table>
+</body>
+</html>

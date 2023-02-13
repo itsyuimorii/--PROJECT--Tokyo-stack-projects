@@ -1,5 +1,6 @@
 const http = require("http");
 const mongoose = require("mongoose");
+const url = require("url");
 
 mongoose.connect("mongodb://localhost/playground"),
   { userNewUrlParser: true }
@@ -30,6 +31,14 @@ const User = mongoose.model("User", userSchema);
 const app = http.createServer();
 //Adding request events to server objects
 app.on("request", (req, res) => {
+  //請求方式
+  req.method = req.method;
+  //request method
+  const { pathname } = url.parse(req.url);
+  if (method === "GET") {
+    if((pathname == "/list")
+  } else if (method === "POST") {
+  }
   res.end("ok");
 });
 

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+	<title>学生档案</title>
+	<link rel="stylesheet" href="./css/main.css">
+</head>
+<body>
+	<form action="/add" method="post">
+		<fieldset>
+			<legend>Student Profile</legend>
+			<label>
+				name: <input class="normal" type="text" autofocus placeholder="please enter your name" name="name">
+			</label>
+			<label>
+				Age: <input class="normal"  type="text" placeholder="please enter your age" name="age">
+			</label>
+			<label>
+				sex: 
+				<input type="radio" value="0" name="sex"> female
+				<input type="radio" value="1" name="sex"> male
+			</label>
+			<label>
+				email: <input class="normal" type="text" placeholder="email" name="email">
+			</label>
+			<label>
+				hobby: 
+				<input type="checkbox" value="football" name="hobbies"> football
+				<input type="checkbox" value="basketball" name="hobbies"> basketball
+				<input type="checkbox" value="read" name="hobbies"> read
+			</label>
+			<label>
+				Colleges: 
+				<select class="normal" name="collage">
+					<option value="computer science">computer science</option>
+					<option value="PHP">PHP</option>
+					<option value="JAVA">JAVA</option>
+					<option value="Android">Android</option>
+					<option value="IOS">IOS</option>
+					<option value="UI">UI</option>
+					<option value="C++">C++</option>
+				</select>
+			</label>
+			<label>
+				Admission Date: <input type="date" class="normal" name="adminssionDate">
+			</label>
+			<label class="btn">
+				<input type="submit" value="submit" class="normal">
+			</label>
+		</fieldset>
+	</form>
+</body>
+</html>
