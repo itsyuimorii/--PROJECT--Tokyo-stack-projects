@@ -3,11 +3,11 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-	<title>学生档案</title>
+	<title>Student Profile</title>
 	<link rel="stylesheet" href="./css/main.css">
 </head>
 <body>
-	<form action="/add" method="post">
+	<form action="/ add" method="post">
 		<fieldset>
 			<legend>Student Profile</legend>
 			<label>

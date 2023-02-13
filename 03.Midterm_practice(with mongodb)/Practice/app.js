@@ -36,8 +36,16 @@ app.on("request", (req, res) => {
   //request method
   const { pathname } = url.parse(req.url);
   if (method === "GET") {
-    if((pathname == "/list")
+    // present the user list page
+    if (pathname == "/list") {
+    }
   } else if (method === "POST") {
+    if (pathname == "/add") {
+      let formData = "";
+      req.on("data", (param) => {
+        formData = param;
+      });
+    }
   }
   res.end("ok");
 });

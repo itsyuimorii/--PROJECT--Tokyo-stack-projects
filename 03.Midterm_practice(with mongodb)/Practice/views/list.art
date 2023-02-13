@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>学员信息</title>
+	<title>Student Information</title>
 	<link rel="stylesheet" href="./css/list.css">
 </head>
 <body>
@@ -15,7 +15,7 @@
 			<th>Email</th>
 			<th>Hobby</th>
 			<th>College</th>
-			<th>adminssionDate</th>
+			<th>AdminssionDate</th>
 		</tr>
 		{{each students}}
 			<tr>
