@@ -5,9 +5,9 @@ const url = require("url");
 const app = http.createServer();
 //Adding request events to server objects
 app.on("request", (req, res) => {
-  //請求方式
-  req.method = req.method;
   //request method
+  req.method = req.method;
+  //request path
   const { pathname } = url.parse(req.url);
   if (method === "GET") {
     // present the user list page

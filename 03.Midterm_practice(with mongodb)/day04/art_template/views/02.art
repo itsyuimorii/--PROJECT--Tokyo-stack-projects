@@ -1,15 +1,15 @@
 {{if age > 18}}
-	年龄大于18
+	Age > 18
 {{else if age < 15 }}
-	年龄小于15
+	Age less than 15
 {{else}}
-	年龄不符合要求
+	Age does not meet the requirement
 {{/if}}
 
 <% if (age > 18) { %>
-	年龄大于18
+	Age is greater than 18
 <% } else if (age < 15) { %>
-	年龄小于15
+	Age is less than 15
 <% } else { %>
-	年龄不符合要求
+	Age does not match the requirement
 <% } %>
