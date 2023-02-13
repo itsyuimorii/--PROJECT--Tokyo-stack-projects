@@ -22,36 +22,37 @@ const postSchema = new mongoose.Schema({
   },
   age: {
     type: Number,
-    // 数字的最小范围
+    // Minimum range of numbers
     min: 18,
-    // 数字的最大范围
+    // Maximum range of numbers
     max: 100,
   },
   publishDate: {
     type: Date,
-    // 默认值
+    // Default value
     default: Date.now,
   },
   category: {
     type: String,
-    // 枚举 列举出当前字段可以拥有的值
+    // enumeration List the values that the current field can have
     enum: {
       values: ["html", "css", "javascript", "node.js"],
-      message: "分类名称要在一定的范围内才可以",
+      message:
+        "Category names are only allowed if they fall within a certain range",
     },
   },
   author: {
     type: String,
     validate: {
       validator: (v) => {
-        // 返回布尔值
-        // true 验证成功
-        // false 验证失败
-        // v 要验证的值
+        // return a boolean value
+        // true validation success
+        // false validation failed
+        // v the value to be validated
         return v && v.length > 4;
       },
-      // 自定义错误信息
-      message: "传入的值不符合验证规则",
+      // Custom error message
+      message: "The value passed in does not match the validation rules",
     },
   },
 });
@@ -61,11 +62,11 @@ const Post = mongoose.model("Post", postSchema);
 Post.create({ title: "aa", age: 60, category: "java", author: "bd" })
   .then((result) => console.log(result))
   .catch((error) => {
-    // 获取错误信息对象
+    // Get the error message object
     const err = error.errors;
-    // 循环错误信息对象
+    // Loop through the error message objects
     for (var attr in err) {
-      // 将错误信息打印到控制台中
+      // print the error message to the console
       console.log(err[attr]["message"]);
     }
   });
