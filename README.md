@@ -2,13 +2,25 @@
 
 
 
-## 💥MedTerm practice: [Students info CRUD](https://github.com/itsyuimorii/Tokyo-stack-projects/tree/main/midterm_practice)
+## 💥MedTerm practice(ejs, cookie, session): [Students info CRUD](https://github.com/itsyuimorii/Tokyo-stack-projects/tree/main/midterm_practice)
 
 Develop a simple student information list management system, which can be used to add, delete, and check user information.
 
 ### 📝[learning notes](https://github.com/itsyuimorii/Tokyo-stack-projects/blob/main/midterm_practice/README.md) & 🤖[code](https://github.com/itsyuimorii/Tokyo-stack-projects/tree/main/User-info-management-system/code)
 
-###  
+
+
+
+
+## MedTerm practice(mongodb, art-template)
+
+Develop a simple student information list management system, which can be used to add, delete, and check user information.
+
+### 📝[learning notes]( ) & 🤖[code]() 
+
+
+
+
 
 ## 💥Final project01: [User-info-management-system](https://github.com/itsyuimorii/Tokyo-stack-projects/tree/main/User-info-management-system)
 

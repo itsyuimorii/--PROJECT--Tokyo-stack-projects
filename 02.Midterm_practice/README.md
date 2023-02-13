@@ -1,4 +1,4 @@
-# 🚀 総合的な演習例
+# 🚀 総合的な演習例(ejs)
 
 ## **Example:** Login Demo
 
