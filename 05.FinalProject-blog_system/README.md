@@ -98,3 +98,21 @@ admin.get("/login", (req, res) => {
 Enter `localhost:3000/admin/login` in your browser and you will see the page rendered by `login.art`
 
 ![geekspace login](https://github.com/itsyuimorii/Tokyo-stack-projects/blob/main/images/geekspace%20login.png) 
+
+### 💥External Chain Resources⚠️
+
+**The external link resource in template 📃, its relative path is relative to the request path in the browser**, Then this **request path** will change, not safe! So in the template to use the absolute path to represent the relative path, - **"/"** represents the **absolute path.** 
+
+The relative path in the template is relative to the request path in the browser, so there is a problem here, if you change app.use`("/admin", adminRouter)` to `app.use("/abc", adminRouter)`, css 📃 will not be found
+
+So in the `login.art` file, you need to add `/admin/`
+
+```js
+<a href="/admin/lib/bootstrap/css/bootstrap.min.css" />
+<link rel="stylesheet" href="/admin/css/base.css" />
+      
+<script src="/admin/lib/jquery/dist/jquery.min.js"></script>
+<script src="/admin/lib/bootstrap/js/bootstrap.min.js"></script>
+```
+
+這是因為外鏈資源
