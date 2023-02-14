@@ -6,6 +6,9 @@ const app = express();
 //database connection
 require("./model/connect");
 
+//Create initial user
+require("./model/user");
+
 // Tell the express framework where the template is located
 app.set("views", path.join(__dirname, "views"));
 // Tell the express framework template what the default suffix is

@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-// 连接数据库
+// Connecting to the database
 mongoose
   .connect("mongodb://localhost/blog", { useNewUrlParser: true })
   .then(() => console.log("Database connection successful"))

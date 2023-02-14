@@ -205,27 +205,64 @@ admin📁-> common📁 -> aside.art
 
 ## 5. Database
 
-model📁 ->connect.js
+> model📁 ->connect.js
+
+```js
+const mongoose = require("mongoose");
+// Connecting to the database
+mongoose
+  .connect("mongodb://localhost/blog", { useNewUrlParser: true })
+  .then(() => console.log("Database connection successful"))
+  .catch(() => console.log("Database connection failure"));
+
+```
+
+> model📁 ->user.js
 
 ```js
 const mongoose = require("mongoose");
 
-mongoose
-  .connect("mongodb://localhost/blog")
-  .then(() => console.log("database connection established"))
-  .catch(() => console.log("dabase connection failed"));
+//set collection rules
+const userSchema = new mongoose.Schema({
+  username: {
+    type: String,
+    required: true,
+    minlength: 2,
+    maxlength: 20,
+  },
+  email: {
+    type: String,
+    unique: true,
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+  role: {
+    type: String,
+    required: true,
+  },
+  //0 is enabled, 1 is disabled
+  state: {
+    type: Number,
+    default: 0,
+  },
+});
+
+//set collection
+const User = mongoose.model("User", userSchema);
+
+module.exports = {
+  User: User,
+};
 ```
 
-
-
-model📁 ->user.js
-
-
-
-app.js
+> app.js
 
 ```js
 //database connection
 require("./model/connect");
+//Create initial user
+require("./model/user");
 ```
 
