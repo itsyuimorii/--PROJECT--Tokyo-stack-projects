@@ -302,4 +302,13 @@ require("./model/user");
 
 ## 6. login 
 
-1. 
+1. Create a user collection and initialize users
+
+   - Connect to the database
+   - Create a collection of users
+   - Initialize users
+2. set the request address, request method and form name attributes for the login form item
+3. when the user clicks the login button, the client verifies that the user has filled in the login form
+4. if one of the items is not entered, prevent the form from being submitted
+5. The server side receives the request parameters and verifies that the user has filled in the login form
+6. if one of them is not entered, respond for the client and stop the program from executing further
