@@ -27,3 +27,57 @@ app.listen("Server listening on http://localhost:80");
 ```
 
 ## 2. routing
+
+router📁-> admin.js
+
+```js
+// Blog administration page routing
+const express = require(" express");
+
+//create routes for blog administration
+const admin = express.Router();
+
+// Export the routing object as a member of the routing module
+module.exports = admin;
+```
+
+router📁-> home.js
+
+```js
+// Blog display page routing
+
+const express = require("express");
+//create routes for blog display page
+
+const home = express.Router();
+
+home.get("/", (req, res) => {
+  res.send("welcome to the home page");
+});
+
+// Export the routing object as a member of the routing module
+module.exports = home;
+```
+
+app.js
+
+```js
+//import routes from router file
+const homeRouter = require("./router/home");
+const adminRouter = require("./router/admin");
+
+// Match the first level request path to the routing object, introduce the routing module
+app.use("/home", homeRouter);
+app.use("/admin", adminRouter);
+```
+
+## 3. static resource
+
+```js
+
+//Open Static Source File
+app.use(express.static(path.join(__dirname, "public")));
+
+
+```
+
