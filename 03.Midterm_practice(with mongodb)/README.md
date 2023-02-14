@@ -154,6 +154,8 @@ server.on('request', () => {
 server.listen(3000)
 ```
 
+app.js
+
 ```js
 // Introduce the http module
 const http = require("http");
@@ -193,6 +195,69 @@ console.log("Server started successfully");
 
 ```
 
+Route📁 ->index.js
+
+```js
+// Introduce the router module
+const getRouter = require("router");
+// Get the routing object
+const router = getRouter();
+// Student Information Collection
+const Student = require("../model/user");
+// Introduction of the template engine
+const template = require("art-template");
+// Introduce the querystring module
+const querystring = require("querystring");
+
+//Submit Student Profile Information Page
+router.get("/add", (req, res) => {
+  let html = template("index.art", {});
+  res.end(html);
+});
+
+// List page for submitting student record information
+router.get("/list", async (req, res) => {
+  // Check student information
+  let students = await Student.find();
+  console.log(students);
+  let html = template("list.art", {
+    students: students,
+  });
+  res.end(html);
+});
+module.exports = router;
+```
+
 ### 6. add student information
 
+1. Specify the request address and request method in the form of the template
+2. Add a name attribute to each form item
+3. Add a route to implement the student information function
+4. Receive student information from the client
+5. Adding student information to the database
+6. Redirecting the page to the student information list page
+
+```js
+// Implement the student information addition function routing
+router.post("/add", (req, res) => {
+  // Receive post request parameters
+  let formData = "";
+  req.on("data", (param) => {
+    formData += param;
+  });
+  req.on("end", async () => {
+    await Student.create(querystring.parse(formData));
+    res.writeHead(301, {
+      Location: "/list",
+    });
+    res.end();
+  });
+});
+```
+
 ### 7. implement student information display function
+
+1. Search all student information from the database
+2. Stitch the student information and HTML template through the template engine
+3. Respond to the client with the stitched HTML template
+
