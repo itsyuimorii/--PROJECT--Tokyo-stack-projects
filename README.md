@@ -22,14 +22,14 @@ Develop a simple student information list management system, which can be used t
 
 
 
-## 💥04. Final project: [User-info-management-system](https://github.com/itsyuimorii/Tokyo-stack-projects/tree/main/User-info-management-system)
+## 💥04. Final project: [User-info-management-system](https://github.com/itsyuimorii/Tokyo-stack-projects/tree/main/04.FinalProject-User-info-management-system)
 
 Develop user information list management system, which can be used to add, delete, and check user information.
 
-### 📝[learning notes]([README.md](https://github.com/itsyuimorii/Tokyo-stack-projects/blob/main/User-info-management-system/README.md)) & 🤖[code](https://github.com/itsyuimorii/Tokyo-stack-projects/tree/main/User-info-management-system/code)
+### 📝[learning notes](https://github.com/itsyuimorii/Tokyo-stack-projects/blob/main/04.FinalProject-User-info-management-system/README.md) & 🤖[code](https://github.com/itsyuimorii/Tokyo-stack-projects/tree/main/04.FinalProject-User-info-management-system/code)
 
 
 
-## 💥05. Final project: [online blog (frontend&backend))](https://github.com/itsyuimorii/Tokyo-stack-projects/tree/main/User-info-management-system)
+## 💥05. Final project: [Blog Management System (frontend&backend))](https://github.com/itsyuimorii/Tokyo-stack-projects/tree/main/05.FinalProject-blog_system)
 
-### 📝[learning notes](https://github.com/itsyuimorii/Tokyo-stack-projects/blob/main/User-info-management-system/final_project%20notes.md) & 🤖[code](https://github.com/itsyuimorii/Tokyo-stack-projects/tree/main/User-info-management-system/code)
+### 📝[learning notes](https://github.com/itsyuimorii/Tokyo-stack-projects/blob/main/05.FinalProject-blog_system/README.md) & 🤖[code](https://github.com/itsyuimorii/Tokyo-stack-projects/tree/main/05.FinalProject-blog_system)
