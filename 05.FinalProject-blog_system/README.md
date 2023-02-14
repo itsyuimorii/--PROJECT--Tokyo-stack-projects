@@ -97,8 +97,4 @@ admin.get("/login", (req, res) => {
 
 Enter `localhost:3000/admin/login` in your browser and you will see the page rendered by `login.art`
 
-![login]()https://github.com/itsyuimorii/Tokyo-stack-projects/blob/main/images/geekspace%20login.png)
-
-[geekspace login.png](https://github.com/itsyuimorii/Tokyo-stack-projects/blob/main/images/geekspace login.png)
-
- 
+![geekspace login](https://github.com/itsyuimorii/Tokyo-stack-projects/blob/main/images/geekspace%20login.png) 
