@@ -1,35 +1,35 @@
-// 引入http模块
+// Introduce the http module
 const http = require("http");
-// 引入模板引擎
+// Introduce the template engine
 const template = require("art-template");
-// 引入path模块
+// Introduce the path module
 const path = require("path");
-// 引入静态资源访问模块
+// Introduce the static resource access module
 const serveStatic = require("serve-static");
-// 引入处理日期的第三方模块
+// Introduce a third-party module for handling dates
 // const dateformat = require("dateformat");
 
 const router = require("./route/index");
-// 实现静态资源访问服务
+// Implement a static resource access service
 const serve = serveStatic(path.join(__dirname, "public"));
 
-// 配置模板的根目录
+// Configure the root directory of the template
 template.defaults.root = path.join(__dirname, "views");
-// 处理日期格式的方法
+// Methods for handling date formats
 // template.defaults.imports.dateformat = dateformat;
 
-// 数据库连接
+// database connection
 require("./model/connect");
 
-// 创建网站服务器
+// Create the web server
 const app = http.createServer();
-// 当客户端访问服务器端的时候
+// When the client accesses the server side
 app.on("request", (req, res) => {
-  // 启用路由功能
+  // Enable the routing function
   router(req, res, () => {});
-  // 启用静态资源访问服务功能
+  // Enable the static resource access service function
   serve(req, res, () => {});
 });
-// 端口监听
+// Listen to the port
 app.listen(3000);
-console.log("服务器启动成功");
+console.log("Server started successfully");
