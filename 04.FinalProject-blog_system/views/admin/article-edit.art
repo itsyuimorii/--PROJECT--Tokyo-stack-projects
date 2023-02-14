@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
+    <title>Blog - Content Manager</title>
+    <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/base.css" />
+  </head>
+
+  <body>
+    <! -- header -->
+    <div class="header">
+      <! -- logo -->
+      <div class="logo fl">
+        <div class="logo fl">Geek <i>Space</i></div>
+      </div>
+      <! -- /logo -->
+      <! -- user-info -->
+      <div class="info">
+        <div class="profile dropdown fr">
+          <span class="btn dropdown-toggle" data-toggle="dropdown">
+            admin
+            <span class="caret"></span>
+          </span>
+          <ul class="dropdown-menu">
+            <li><a href="user-edit.html">Personal Information</a></li>
+            <li><a href="#">Logout</a></li>
+          </ul>
+        </div>
+      </div>
+      <! -- /user information -->
+    </div>
+    <! -- /header -->
+    <! -- main content -->
+    <div class="content">
+      <! -- Sidebar -->
+      <div class="aside fl">
+        <ul class="menu list-unstyled">
+          <li>
+            <a class="item active" href="user.html">
+              <span class="glyphicon glyphicon-user"></span>
+              User Management
+            </a>
+          </li>
+          <li>
+            <a class="item" href="article.html">
+              <span class="glyphicon glyphicon-th-list"></span>
+              Article Management
+            </a>
+          </li>
+        </ul>
+        <div class="cprt">
+          Powered by
+          <a href="https://itsyuimorii.github.io/" target="_blank"
+            >itsyuimorii</a
+          >
+        </div>
+      </div>
+      <! -- Sidebar -->
+      <div class="main">
+        <! -- Category headings -->
+        <div class="title">
+          <h4>5b9a716cb2d2bf17706bcc0a</h4>
+        </div>
+        <! -- /category title -->
+        <form class="form-container">
+          <div class="form-group">
+            <label>title</label>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Please enter the article title"
+            />
+          </div>
+          <div class="form-group">
+            <label>author</label>
+            <input type="text" class="form-control" readonly />
+          </div>
+          <div class="form-group">
+            <label>Release Time</label>
+            <input type="date" class="form-control" />
+          </div>
+
+          <div class="form-group">
+            <label for="exampleInputFile">Article Cover</label>
+            <input type="file" />
+            <div class="thumbnail-waper">
+              <img class="img-thumbnail" src="" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Content</label>
+            <textarea class="form-control" id="editor"></textarea>
+          </div>
+          <div class="buttons">
+            <input type="submit" class="btn btn-primary" />
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- /主体内容 -->
+    <script src="lib/jquery/dist/jquery.min.js"></script>
+    <script src="lib/bootstrap/js/bootstrap.min.js"></script>
+    <script src="lib/ckeditor5/ckeditor.js"></script>
+    <script type="text/javascript">
+      let editor;
+
+      ClassicEditor.create(document.querySelector("#editor"))
+        .then((newEditor) => {
+          editor = newEditor;
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+
+      // Get the data
+      // const editorData = editor.getData();
+    </script>
+  </body>
+</html>

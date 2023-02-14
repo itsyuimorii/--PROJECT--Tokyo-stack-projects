@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
+    <title>Blog - Content Manager</title>
+    <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/base.css" />
+  </head>
+
+  <body>
+    <!-- Head -->
+    <div class="header">
+      <! -- Website logo -->
+      <div class="logo fl">
+        <div class="logo fl">Geek <i>Space</i></div>
+      </div>
+      <! -- /website logo -->
+      <! -- /user information -->
+      <div class="info">
+        <div class="profile dropdown fr">
+          <span class="btn dropdown-toggle" data-toggle="dropdown">
+            admin
+            <span class="caret"></span>
+          </span>
+          <ul class="dropdown-menu">
+            <li><a href="user-edit.html">Personal Information</a></li>
+            <li><a href="#">Logout</a></li>
+          </ul>
+        </div>
+      </div>
+      <! -- /user information -->
+    </div>
+    <! -- /header -->
+    <! -- main content -->
+    <div class="content">
+      <!-- Sidebar -->
+      <div class="aside fl">
+        <ul class="menu list-unstyled">
+          <li>
+            <a class="item active" href="user.html">
+              <span class="glyphicon glyphicon-user"></span>
+              User Management
+            </a>
+          </li>
+          <li>
+            <a class="item" href="article.html">
+              <span class="glyphicon glyphicon-th-list"></span>
+              Article Management
+            </a>
+          </li>
+        </ul>
+        <div class="cprt">
+          Powered by
+          <a href="https://itsyuimorii.github.io/" target="_blank"
+            >itsyuimorii</a
+          >
+        </div>
+      </div>
+      <!-- Sidebar -->
+      <div class="main">
+        <!-- Category Title -->
+        <div class="title">
+          <h4>5b9a716cb2d2bf17706bcc0a</h4>
+          <p class="tips">Error message</p>
+        </div>
+        <!-- /Category Title -->
+        <form class="form-container">
+          <div class="form-group">
+            <label>User Name</label>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Please enter your username"
+            />
+          </div>
+          <div class="form-group">
+            <label>Mailbox</label>
+            <input
+              type="email"
+              class="form-control"
+              placeholder="Please enter your email address"
+            />
+          </div>
+          <div class="form-group">
+            <label>Password</label>
+            <input
+              type="password"
+              class="form-control"
+              placeholder="Please enter your password"
+            />
+          </div>
+          <div class="form-group">
+            <label>Roles</label>
+            <select class="form-control">
+              <option>General users</option>
+              <option>Super Administrator</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Status</label>
+            <select class="form-control">
+              <option>Enable</option>
+              <option>Disable</option>
+            </select>
+          </div>
+          <div class="buttons">
+            <input type="submit" class="btn btn-primary" />
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- /Main content -->
+    <script src="lib/jquery/dist/jquery.min.js"></script>
+    <script src="lib/bootstrap/js/bootstrap.min.js"></script>
+  </body>
+</html>
