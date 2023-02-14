@@ -31,10 +31,12 @@ model📁=>connect.js
 
 ```js
 const mongoose = require("mongoose");
-mongoose.connect("mongodb://localhost/playground"),
-  { userNewUrlParser: true }
-    .then(() => console.log("database connection established"))
-    .catch(() => console.log("database connection failed"));
+ 
+mongoose
+  .connect("mongodb://localhost/playground", { useNewUrlParser: true })
+  .then(() => console.log("Database connection successful"))
+  .catch(() => console.log("Database connection failure"));
+
 ```
 
 > Set  collection rules
@@ -47,7 +49,7 @@ model📁=>user.js
 // Set collection rules
 const mongoose = require("mongoose");
 
-const userSchema = new mongoose.Schema({
+const studentSchema = new mongoose.Schema({
   name: {
     type: "string",
     required: true,
@@ -70,10 +72,8 @@ const userSchema = new mongoose.Schema({
     default: Date.now,
   },
 });
-//create collection, return collection construct function
-const studentsSchema = mongoose.model("User", userSchema);
 
-const Student = mongoose.model("Student", studentsSchema);
+const Student = mongoose.model("Student", studentSchema);
 // Export the student information collection
 module.exports = Student;
 
@@ -107,13 +107,92 @@ Third-party module: `router`
 3. Enable the route and make it effective
 
 ```js
-const getRouter = require('router')
-const router = getRouter();
-router.get('/add', (req, res) => {
-    res.end('Hello World!')
-}) 
-server.on('request', (req, res) => {
-    router(req, res)
-})
+// Introduce the http module
+const http = require("http");
+// Introduce the path module
+const path = require("path");
+// Introduce the template engine
+const template = require("art-template")
+// Introduce a third-party module for handling dates
+const dateformat = require("dateformat");
+
+// Configure the root directory of the template
+template.defaults.root = path.join(__dirname, "views");
+// Methods for handling date formats
+template.defaults.imports.dateformat = dateformat;
+
+// database connection
+require("./model/connect");
+
+// When the client accesses the server side
+app.on("request", (req, res) => {
+  // Enable the routing function
+  router(req, res, () => {});
+});
+// Listen to the port
+app.listen(3000);
+console.log("Server started successfully");
+
+
 ```
 
+### 5. implement static resource access
+
+> Function: Implement static resource access service
+
+ Steps.
+- Introduce the` serve-static` module to get the method to create the static resource service function
+-  Call the method to create a static resource service and specify the static resource service directory
+- Enable the static resource service function
+
+```js
+const serveStatic = require('serve-static')
+const serve = serveStatic('public')
+server.on('request', () => { 
+    serve(req, res)
+})
+server.listen(3000)
+```
+
+```js
+// Introduce the http module
+const http = require("http");
+// Introduce the template engine
+const template = require("art-template");
+// Introduce the path module
+const path = require("path");
+// Introduce the static resource access module
+const serveStatic = require("serve-static");
+// Introduce a third-party module for handling dates
+const dateformat = require("dateformat");
+
+const router = require("./route/index");
+// Implement a static resource access service
+const serve = serveStatic(path.join(__dirname, "public"));
+
+// Configure the root directory of the template
+template.defaults.root = path.join(__dirname, "views");
+// Methods for handling date formats
+template.defaults.imports.dateformat = dateformat;
+
+// database connection
+require("./model/connect");
+
+// Create the web server
+const app = http.createServer();
+// When the client accesses the server side
+app.on("request", (req, res) => {
+  // Enable the routing function
+  router(req, res, () => {});
+  // Enable the static resource access service function
+  serve(req, res, () => {});
+});
+// Listen to the port
+app.listen(3000);
+console.log("Server started successfully");
+
+```
+
+### 6. add student information
+
+### 7. implement student information display function

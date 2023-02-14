@@ -31,10 +31,10 @@
 				<input type="checkbox" value="read" name="hobbies"> read
 			</label>
 			<label>
-				Colleges: 
+				courses: 
 				<select class="normal" name="collage">
-					<option value="computer science">computer science</option>
-					<option value="PHP">PHP</option>
+					<option value="IT Security  ">Security</option>
+					<option value="PHP">PHP</option>Security
 					<option value="JAVA">JAVA</option>
 					<option value="Android">Android</option>
 					<option value="IOS">IOS</option>

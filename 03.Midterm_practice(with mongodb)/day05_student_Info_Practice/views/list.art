@@ -14,7 +14,7 @@
 			<th>Sex</th>
 			<th>Email</th>
 			<th>Hobby</th>
-			<th>College</th>
+			<th>Couses</th>
 			<th>AdminssionDate</th>
 		</tr>
 		{{each students}}
