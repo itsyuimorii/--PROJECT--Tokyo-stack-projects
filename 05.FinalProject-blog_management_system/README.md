@@ -290,123 +290,190 @@ require("./model/connect");
 require("./model/user");
 ```
 
-> `node app.js `
->
-> ```bash
-> api server running at http://127.0.0.1:3000
-> Database connection successful
-> user created successfully
-> ```
+ ```bash
+ node app.js 
+ api server running at http://127.0.0.1:3000
+ Database connection successful
+ user created successfully
+ ```
 
 ![database](https://github.com/itsyuimorii/Tokyo-stack-projects/blob/main/images/database.png)
 
 ## 6. login 
 
-1. Create a user collection and initialize users
+### 1. Create a user collection and initialize users
 
-   - Connect to the database
-   - Create a collection of users
-   - Initialize users
+- Connect to the database
+- Create a collection of users
+- Initialize users
 
-2. set the ***request address**, **request method** and **form name attributes*** for the login form item
+### 2. Setup form action etc.
 
-   - Form submission needs to use `post`method, Because the post method to request parameters in the body, get is in the address bar to pass, not safe 
+> set the ***request address**, **request method** and **form name attributes*** for the login form item
 
-     > 📁views -> Login.art
+- Form submission needs to use `post`method, Because the post method to request parameters in the body, get is in the address bar to pass, not safe 
 
-   ```html
-    <form action="/admin/login" method="post" id="loginForm">
-    <input name ="email"...>
-    <input name ="password"...>
-   ```
+  > 📁views -> Login.art
 
-3. when the user clicks the login button, the client ***verifies that the user*** has filled in the login form
+```html
+ <form action="/admin/login" method="post" id="loginForm">
+ <input name ="email"...>
+ <input name ="password"...>
+```
 
-   - if one of the items is not entered, prevent the form from being submitted
+### 3. Client Authentication
 
-   a. **Block form default submission method**
+> when the user clicks the login button, the client ***verifies that the user*** has filled in the login form
 
-   ```js
-   // Add a submit event to the form
-   <script type="text/javascript">
-           $('#loginForm').on('submit', function () {
-              return false;
-           });
-       </script>
-   ```
+- if one of the items is not entered, prevent the form from being submitted
 
-   b. 處理表單公共方法 `public->js->common.js`
+a. **Block form default submission method**
 
-   ```js
+```js
+// Add a submit event to the form
+<script type="text/javascript">
+        $('#loginForm').on('submit', function () {
+           return false;
+        });
+    </script>
+```
+
+b. 處理表單公共方法 `public->js->common.js`
+
+```js
+
+function serializeToJson(form) {
+  var result = {};
+  // [{name: 'email', value: 'User input'}]
+  var f = form.serializeArray();
+  f.forEach(function (item) {
+    // result.email
+    result[item.name] = item.value;
+  });
+  return result;
+}
+```
+
+```js
+//login.art
+<script src="/admin/js/common.js"></script>
+```
+
+```js
+    <script type="text/javascript">
+        // Add a submit event to the form
+        $('#loginForm').on('submit', function () {
+            // Get the user input in the form
+            var result = serializeToJson($(this))
+            // If the user did not enter an email address
+            if (result.email.trim().length == 0) {
+                alert('Please enter an email address');
+                // Stop the program from going down
+                return false;
+            }
+            // If the user did not enter a password
+            if (result.password.trim().length == 0) {
+                alert('Please enter your password')
+                // Stop the program from going down
+                return false;
+            }
+        });
+    </script>
+```
+
+
+
+### 4. Server side receives the request parameters from client side
+
+> `app.js`
+>
+> Configure the module to handle the `post`request parameters
+
+💥`app.use` intercepts all requests and passes them to the `urlencoded` method under `body-parser`, with the required parameter: `extended:false` (will be processed using the system module `queryString`)
+
+```js
+//third_party import
+const bodyParser = require("body-parser");
+//Configure the post request parameter, body-parser parsing file
+app.use(bodyParser.urlencoded({ extended: false }));
+```
+
+> `admin.js` 
+>
+> To receive the request parameters (password and username entered by the user), use the `body-parser`
+
+```js
+//login routes
+admin.post("/login", (req, res) => {
+  //Receive request parameters (password and user name entered by the user)
+  res.send(req.body);
+});
+```
+
+### 5. Server side Authentication
+
+> `admin.js`
+>
+> Verifies that the user has filled in the login form again 
+
+- if one of them is not entered, respond for the client and stop the program from executing further
+
+ ```js
+ admin.post("/login", (req, res) => {
+   //Receive request parameters (password and user name entered by the user)
+   res.send(req.body); //Receive request parameters from the client
    
-   function serializeToJson(form) {
-     var result = {};
-     // [{name: 'email', value: 'User input'}]
-     var f = form.serializeArray();
-     f.forEach(function (item) {
-       // result.email
-       result[item.name] = item.value;
-     });
-     return result;
-   }
-   ```
+   // Secondary verification of request parameters
+   const { email, password } = req.body;
+ 	//If the user does not enter an email address
+   if (email.trim().length == 0 || password.trim().length == 0)
+     return res.status(400).send("<h4>Incorrect email address or password</h4>");
+ });
+ ```
 
-   ```js
-   //login.art
-   <script src="/admin/js/common.js"></script>
-   ```
+### 6. Optimize the error page
 
-   ```js
-       <script type="text/javascript">
-           // Add a submit event to the form
-           $('#loginForm').on('submit', function () {
-               // Get the user input in the form
-               var result = serializeToJson($(this))
-               // If the user did not enter an email address
-               if (result.email.trim().length == 0) {
-                   alert('Please enter an email address');
-                   // Stop the program from going down
-                   return false;
-               }
-               // If the user did not enter a password
-               if (result.password.trim().length == 0) {
-                   alert('Please enter your password')
-                   // Stop the program from going down
-                   return false;
-               }
-           });
-       </script>
-   ```
+> `admin.js`
 
-   
+> Optimize the error page
 
-4. The **server side** receives the ***request parameters and verifies that the user has filled in the login form again***
+```js
+  if (email.trim().length == 0 || password.trim().length == 0)
+    //return res.status(400).send("<h4>Incorrect email address or password</h4>");
+    return res
+      .status(400)
+      .render("admin/error", { msg: "Incorrect email address or password}" });
+});
+```
 
-   - if one of them is not entered, respond for the client and stop the program from executing further
+> err.art
 
-   如果 要接收請求參數(用戶輸入的密碼和用戶名), 需要用`body-parser`
+```js
+{{extend './common/layout.art'}}
 
-   ```js
-   //admin.js
-   
-   const bodyParser = require("body-parser");
-   
-   
-   
-   ```
+{{block 'main'}}
+	<p class="bg-danger error">{{msg}}</p>
+{{/block}}
+```
 
-   
+> Set the error page to jump automatically-client side
 
-5. Look up user information based on email address
+```js
+{{block 'script'}}
+	<script type="text/javascript">
+		setTimeout(function () {
+			location.href = '/admin/login';
+		}, 3000)
+	</script>
+{{/block}}
+```
 
-6. If the user does not exist, respond for the client and prevent the program from executing downward
-
-7. If the user exists, the user name and password are matched
+1. Look up user information based on email address
+2. If the user does not exist, respond for the client and prevent the program from executing downward
+3. If the user exists, the user name and password are matched
 
    1. If the match is successful, the user logs in successfully
 
    2. If the comparison fails, the user fails to log in
-
-8. Save login status
-
-9. Password encryption processing 
+4. Save login status
+5. Password encryption processing 

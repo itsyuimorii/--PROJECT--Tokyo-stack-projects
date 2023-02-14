@@ -1,5 +1,6 @@
 const express = require("express");
 const path = require("path");
+const bodyParser = require("body-parser");
 //create web server instance
 const app = express();
 
@@ -8,6 +9,8 @@ require("./model/connect");
 
 //Create initial user
 require("./model/user");
+//Configure the post request parameter, body-parser parsing file
+app.use(bodyParser.urlencoded({ extended: false }));
 
 // Tell the express framework where the template is located
 app.set("views", path.join(__dirname, "views"));

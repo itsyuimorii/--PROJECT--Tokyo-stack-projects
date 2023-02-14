@@ -1,6 +1,5 @@
 // Blog administration page routing
 const express = require("express");
-const bodyParser = require("body-parser");
 
 //create routes for blog administration
 const admin = express.Router();
@@ -16,9 +15,18 @@ admin.get("/user", (req, res) => {
 
 //login routes
 admin.post("/login", (req, res) => {
-  //接收請求參數(用戶輸入的密碼和用戶名)
+  //Receive request parameters (password and user name entered by the user)
+  //res.send(req.body); //Receive request parameters from the client
 
-  res.render("user");
+  // Secondary verification of request parameters
+  const { email, password } = req.body;
+  //If the user does not enter an email address
+  if (email.trim().length == 0 || password.trim().length == 0)
+    //return res.status(400).send("<h4>Incorrect email address or password</h4>");
+    return res
+      .status(400)
+      .render("admin/error", { msg: "Incorrect email address or password}" });
 });
+
 // Export the routing object as a member of the routing module
 module.exports = admin;
