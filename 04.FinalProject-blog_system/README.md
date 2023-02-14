@@ -74,10 +74,7 @@ app.use("/admin", adminRouter);
 ## 3. static resource
 
 ```js
-
 //Open Static Source File
 app.use(express.static(path.join(__dirname, "public")));
-
-
 ```
 
