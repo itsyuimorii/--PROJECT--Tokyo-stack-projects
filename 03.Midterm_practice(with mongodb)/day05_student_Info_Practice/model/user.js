@@ -1,7 +1,7 @@
 // Set collection rules
 const mongoose = require("mongoose");
 
-const userSchema = new mongoose.Schema({
+const studentSchema = new mongoose.Schema({
   name: {
     type: "string",
     required: true,
@@ -25,9 +25,6 @@ const userSchema = new mongoose.Schema({
   },
 });
 
-//create collection, return collection construct function
-const studentsSchema = mongoose.model("User", userSchema);
-
-const Student = mongoose.model("Student", studentsSchema);
+const Student = mongoose.model("Student", studentSchema);
 // Export the student information collection
 module.exports = Student;

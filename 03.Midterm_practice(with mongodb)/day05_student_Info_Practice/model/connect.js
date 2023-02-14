@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
-mongoose.connect("mongodb://localhost/playground"),
-  { userNewUrlParser: true }
-    .then(() => console.log("database connection established"))
-    .catch(() => console.log("database connection failed"));
+// 连接数据库
+mongoose
+  .connect("mongodb://localhost/playground", { useNewUrlParser: true })
+  .then(() => console.log("Database connection successful"))
+  .catch(() => console.log("Database connection failure"));
