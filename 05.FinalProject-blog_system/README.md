@@ -266,3 +266,12 @@ require("./model/connect");
 require("./model/user");
 ```
 
+> `node app.js `
+>
+> ```bash
+> api server running at http://127.0.0.1:3000
+> Database connection successful
+> user created successfully
+> ```
+
+![database](/Users/yuimorii/Documents/GitHub/Tokyo-stack-projects/images/database.png)
