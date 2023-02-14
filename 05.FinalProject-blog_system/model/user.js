@@ -29,7 +29,9 @@ const userSchema = new mongoose.Schema({
   },
 });
 
-//set collection
+/*-----testing code here------*/
+/* //set collection 
+
 const User = mongoose.model("User", userSchema);
 
 User.create({
@@ -44,7 +46,7 @@ User.create({
   })
   .catch(() => {
     console.log("error creating user");
-  });
+  }); */
 
 module.exports = {
   User: User,

@@ -257,6 +257,30 @@ module.exports = {
 };
 ```
 
+> user.js
+
+```js
+/*-----testing code here------*/
+//set collection 
+
+const User = mongoose.model("User", userSchema);
+
+User.create({
+  username: "admin",
+  email: "admin@example.com",
+  password: "000000",
+  role: "admin",
+  state: 0,
+})
+  .then(() => {
+    console.log("user created successfully");
+  })
+  .catch(() => {
+    console.log("error creating user");
+  });  
+
+```
+
 > app.js
 
 ```js
@@ -275,3 +299,7 @@ require("./model/user");
 > ```
 
 ![database](/Users/yuimorii/Documents/GitHub/Tokyo-stack-projects/images/database.png)
+
+## 6. login 
+
+1. 
