@@ -29,10 +29,10 @@ const userSchema = new mongoose.Schema({
   },
 });
 
+const User = mongoose.model("User", userSchema);
+
 /*-----testing code here------*/
 /* //set collection 
-
-const User = mongoose.model("User", userSchema);
 
 User.create({
   username: "admin",

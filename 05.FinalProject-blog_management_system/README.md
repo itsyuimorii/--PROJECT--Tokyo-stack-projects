@@ -312,9 +312,35 @@ require("./model/user");
 
    - Form submission needs to use `post`method, Because the post method to request parameters in the body, get is in the address bar to pass, not safe 
 
+     > 📁views -> Login.art
+
+   ```html
+    <form action="/login" method="post">
+    <input name ="email"...>
+    <input name ="password"...>
+   ```
+
 3. when the user clicks the login button, the client ***verifies that the user*** has filled in the login form
 
    - if one of the items is not entered, prevent the form from being submitted
+
+   a. **Block form default submission method**
+
+   ```js
+   // Add a submit event to the form
+   <script type="text/javascript">
+           $('#loginForm').on('submit', function () {
+              return false;
+           });
+       </script>
+   ```
+
+   b. 使用jquery方法 `serializeArray()`
+
+   ```js
+   ```
+
+   
 
 4. The server side receives the ***request parameters and verifies that the user has filled in the login form again***
 

@@ -33,5 +33,6 @@ app.on("request", (req, res) => {
   serve(req, res, () => {});
 });
 // Listen to the port
-app.listen(3000);
-console.log("Server started successfully");
+app.listen(3000, () => {
+  console.log("api server running at http://localhost:3000");
+});
