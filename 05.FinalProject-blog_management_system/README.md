@@ -298,7 +298,7 @@ require("./model/user");
 > user created successfully
 > ```
 
-![database](/Users/yuimorii/Documents/GitHub/Tokyo-stack-projects/images/database.png)
+![database](https://github.com/itsyuimorii/Tokyo-stack-projects/blob/main/images/database.png)
 
 ## 6. login 
 
@@ -307,8 +307,9 @@ require("./model/user");
    - Connect to the database
    - Create a collection of users
    - Initialize users
-2. set the request address, request method and form name attributes for the login form item
-3. when the user clicks the login button, the client verifies that the user has filled in the login form
-4. if one of the items is not entered, prevent the form from being submitted
-5. The server side receives the request parameters and verifies that the user has filled in the login form
-6. if one of them is not entered, respond for the client and stop the program from executing further
+2. set the ***request address**, **request method** and **form name attributes*** for the login form item
+   - Form submission needs to use `post`method, Because the post method to request parameters in the body, get is in the address bar to pass, not safe 
+3. when the user clicks the login button, the client ***verifies that the user*** has filled in the login form
+   - if one of the items is not entered, prevent the form from being submitted
+4. The server side receives the ***request parameters and verifies that the user has filled in the login form***
+   - if one of them is not entered, respond for the client and stop the program from executing further
