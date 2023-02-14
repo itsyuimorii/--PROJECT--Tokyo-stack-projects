@@ -307,9 +307,29 @@ require("./model/user");
    - Connect to the database
    - Create a collection of users
    - Initialize users
+
 2. set the ***request address**, **request method** and **form name attributes*** for the login form item
+
    - Form submission needs to use `post`method, Because the post method to request parameters in the body, get is in the address bar to pass, not safe 
+
 3. when the user clicks the login button, the client ***verifies that the user*** has filled in the login form
+
    - if one of the items is not entered, prevent the form from being submitted
-4. The server side receives the ***request parameters and verifies that the user has filled in the login form***
+
+4. The server side receives the ***request parameters and verifies that the user has filled in the login form again***
+
    - if one of them is not entered, respond for the client and stop the program from executing further
+
+5. Look up user information based on email address
+
+6. If the user does not exist, respond for the client and prevent the program from executing downward
+
+7. If the user exists, the user name and password are matched
+
+   1. If the match is successful, the user logs in successfully
+
+   2. If the comparison fails, the user fails to log in
+
+8. Save login status
+
+9. Password encryption processing 
