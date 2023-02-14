@@ -2,8 +2,6 @@
 
 ## Overview
 
-多人博客管理系統, 分為兩大部分, 博客內容的展示和博客內容的管理
-
 ## 1. initialization
 
 1. create the required folder for the project
