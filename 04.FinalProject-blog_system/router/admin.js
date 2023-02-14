@@ -5,7 +5,7 @@ const express = require("express");
 const admin = express.Router();
 
 admin.get("/login", (req, res) => {
-  res.render("");
+  res.render("admin/login");
 });
 
 // Export the routing object as a member of the routing module

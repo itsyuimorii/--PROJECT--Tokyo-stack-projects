@@ -3,6 +3,13 @@ const path = require("path");
 //create web server instance
 const app = express();
 
+// Tell the express framework where the template is located
+app.set("views", path.join(__dirname, "views"));
+// Tell the express framework template what the default suffix is
+app.set("view engine", "art");
+// What template engine is used when rendering templates with the art suffix
+app.engine("art", require("express-art-template"));
+
 //import routes from router file
 const homeRouter = require("./router/home");
 const adminRouter = require("./router/admin");

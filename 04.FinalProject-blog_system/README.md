@@ -73,8 +73,29 @@ app.use("/admin", adminRouter);
 
 ## 3. static resource
 
+There are two folders in public📁, `admin` and` home`,  which are used for art files respectively 
+
 ```js
 //Open Static Source File
 app.use(express.static(path.join(__dirname, "public")));
 ```
+
+```js
+// Tell the express framework where the template is located
+app.set('views', path.join(__dirname, 'views'));
+// Tell the express framework template what the default suffix is
+app.set('view engine', 'art');
+// What template engine is used when rendering templates with the art suffix
+app.engine('art', require('express-art-template'));
+```
+
+then jump to router 📁 ->admin.js
+
+```js
+admin.get("/login", (req, res) => {
+  res.render("admin/login");
+});
+```
+
+Enter `localhost:3000/admin/login` in your browser and you will see the page rendered by `login.art`
 
