@@ -129,6 +129,5 @@
       </div>
     </div>
     <!-- /Delete the confirmation pop-up box -->
-    <script src="/admin/lib/jquery/dist/jquery.min.js"></script>
-    <script src="/admin/lib/bootstrap/js/bootstrap.min.js"></script>
+ 
 {{/block}} 

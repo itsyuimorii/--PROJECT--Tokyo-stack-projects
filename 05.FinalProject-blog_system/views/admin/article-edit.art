@@ -2,7 +2,6 @@
 
 {{block 'main'}}
     {{include './common/header.art'}}
- 
     <! -- main content -->
     <div class="content">
     {{include './common/aside.art'}}

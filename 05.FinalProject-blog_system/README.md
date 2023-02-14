@@ -116,3 +116,92 @@ So in the `login.art` file, you need to add `/admin/`
 ```
 
 ## 4. Optimization Template
+
+抽離admin中 html 📃裡的common part 
+
+admin📁-> common📁 -> aside.art
+
+```js
+  <!-- Sidebar -->
+  <div class="aside fl">
+    <ul class="menu list-unstyled">
+      <li>
+        <a class="item active" href="user.html">
+          <span class="glyphicon glyphicon-user"></span>
+          User Management
+        </a>
+      </li>
+          <li>
+            <a class="item" href="article.html">
+              <span class="glyphicon glyphicon-th-list"></span>
+              Article Management
+            </a>
+          </li>
+        </ul>
+        <div class="cprt">
+            Powered by
+            <a href="https://itsyuimorii.github.io/" target="_blank"
+              >itsyuimorii</a
+            >
+          </div>
+      </div>
+      <!-- Sidebar -->
+```
+
+>  header.art
+
+```js
+    <!-- header -->
+    <div>
+    <div class="header">
+      <!-- logo -->
+      <div class="logo fl">Geek <i>Space</i></div>
+      <!-- /logo -->
+      <!-- User Information -->
+      <div class="info">
+        <div class="profile dropdown fr">
+          <span class="btn dropdown-toggle" data-toggle="dropdown">
+            admin
+            <span class="caret"></span>
+          </span>
+          <ul class="dropdown-menu">
+            <li><a href="user-edit.html">Personal Information</a></li>
+            <li><a href="#">Logout</a></li>
+          </ul>
+        </div>
+      </div>
+      <!-- /user information -->
+    </div>
+    <! -- /user information -->
+</div>
+<! -- /header -->
+```
+
+> layout.art
+
+```js
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>Blog - Content Manager</title>
+    <link rel="stylesheet" href="/admin/lib/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/admin/css/base.css">
+    {{block 'link'}}{{/block}}
+</head>
+
+<body>
+	{{block 'main'}} {{/block}}
+	<script src="/admin/lib/jquery/dist/jquery.min.js"></script>
+	<script src="/admin/lib/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/admin/js/common.js"></script>
+	{{block 'script'}} {{/block}}
+</body>
+
+</html>
+```
+
+
+
