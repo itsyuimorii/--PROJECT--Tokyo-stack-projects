@@ -3,6 +3,9 @@ const path = require("path");
 //create web server instance
 const app = express();
 
+//database connection
+require("./model/connect");
+
 // Tell the express framework where the template is located
 app.set("views", path.join(__dirname, "views"));
 // Tell the express framework template what the default suffix is

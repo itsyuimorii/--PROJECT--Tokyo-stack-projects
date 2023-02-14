@@ -203,5 +203,29 @@ admin📁-> common📁 -> aside.art
 </html>
 ```
 
+## 5. Database
 
+model📁 ->connect.js
+
+```js
+const mongoose = require("mongoose");
+
+mongoose
+  .connect("mongodb://localhost/blog")
+  .then(() => console.log("database connection established"))
+  .catch(() => console.log("dabase connection failed"));
+```
+
+
+
+model📁 ->user.js
+
+
+
+app.js
+
+```js
+//database connection
+require("./model/connect");
+```
 
