@@ -115,4 +115,4 @@ So in the `login.art` file, you need to add `/admin/`
 <script src="/admin/lib/bootstrap/js/bootstrap.min.js"></script>
 ```
 
-這是因為外鏈資源
+## 4. Optimization Template
