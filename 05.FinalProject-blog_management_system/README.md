@@ -315,7 +315,7 @@ require("./model/user");
      > 📁views -> Login.art
 
    ```html
-    <form action="/login" method="post">
+    <form action="/admin/login" method="post" id="loginForm">
     <input name ="email"...>
     <input name ="password"...>
    ```
@@ -335,16 +335,67 @@ require("./model/user");
        </script>
    ```
 
-   b. 使用jquery方法 `serializeArray()`
+   b. 處理表單公共方法 `public->js->common.js`
 
    ```js
+   
+   function serializeToJson(form) {
+     var result = {};
+     // [{name: 'email', value: 'User input'}]
+     var f = form.serializeArray();
+     f.forEach(function (item) {
+       // result.email
+       result[item.name] = item.value;
+     });
+     return result;
+   }
+   ```
+
+   ```js
+   //login.art
+   <script src="/admin/js/common.js"></script>
+   ```
+
+   ```js
+       <script type="text/javascript">
+           // Add a submit event to the form
+           $('#loginForm').on('submit', function () {
+               // Get the user input in the form
+               var result = serializeToJson($(this))
+               // If the user did not enter an email address
+               if (result.email.trim().length == 0) {
+                   alert('Please enter an email address');
+                   // Stop the program from going down
+                   return false;
+               }
+               // If the user did not enter a password
+               if (result.password.trim().length == 0) {
+                   alert('Please enter your password')
+                   // Stop the program from going down
+                   return false;
+               }
+           });
+       </script>
    ```
 
    
 
-4. The server side receives the ***request parameters and verifies that the user has filled in the login form again***
+4. The **server side** receives the ***request parameters and verifies that the user has filled in the login form again***
 
    - if one of them is not entered, respond for the client and stop the program from executing further
+
+   如果 要接收請求參數(用戶輸入的密碼和用戶名), 需要用`body-parser`
+
+   ```js
+   //admin.js
+   
+   const bodyParser = require("body-parser");
+   
+   
+   
+   ```
+
+   
 
 5. Look up user information based on email address
 
