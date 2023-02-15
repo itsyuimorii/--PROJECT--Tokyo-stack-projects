@@ -637,6 +637,20 @@ testing code
 
 ![Screen Shot 2023-02-15 at 3.00.49 PM](https://github.com/itsyuimorii/Tokyo-stack-projects/blob/main/images/fake%20user%20login.png)
 
+> Here  need to introduce cookies and session
+
+### 9. Cookie and session
+
+
+
+
+
+
+
+
+
+
+
 ### 11. Login in all code
 
 ```js
