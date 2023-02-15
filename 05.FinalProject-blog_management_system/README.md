@@ -608,7 +608,7 @@ createUser();
 
 
 
-![bcrpyt](/Users/yuimorii/Documents/GitHub/Tokyo-stack-projects/images/bcrpyt.png)
+![bcrpyt](https://github.com/itsyuimorii/Tokyo-stack-projects/blob/main/images/bcrpyt.png)
 
 
 
