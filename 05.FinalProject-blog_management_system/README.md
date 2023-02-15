@@ -424,7 +424,7 @@ admin.post("/login", (req, res) => {
    res.send(req.body); //Receive request parameters from the client
    
    // Secondary verification of request parameters
-   const { email, password } = req.body;
+   const { email, password } = req.body;yuimoriidesign@gmail.com
  	//If the user does not enter an email address
    if (email.trim().length == 0 || password.trim().length == 0)
      return res.status(400).send("<h4>Incorrect email address or password</h4>");
@@ -476,4 +476,4 @@ admin.post("/login", (req, res) => {
 
    2. If the comparison fails, the user fails to log in
 4. Save login status
-5. Password encryption processing 
+5. Password encryption processing  
