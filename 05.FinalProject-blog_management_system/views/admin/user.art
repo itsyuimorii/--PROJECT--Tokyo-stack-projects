@@ -9,6 +9,7 @@
       <div class="main">
         <!-- Category Title -->
         <div class="title">
+            // <h4>user{{msg? msg: "user is not found"}}</h4>
             <h4>user{{msg? msg: "user is not found"}}</h4>
             <span>1 user found</span>
           <a href="user-edit.html" class="btn btn-primary new">New Users</a>
