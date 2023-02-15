@@ -468,75 +468,112 @@ admin.post("/login", (req, res) => {
 {{/block}}
 ```
 
-### 7. 根據用戶的email, 查詢用戶是否存在
+### 7. according to the user's email, check whether the user exists
 
 1. Look up user information based on email address
 
-   1. 將`model`📁裡的的`user`集合信息導入`router`📁 裡的`admin.js` -> `admin.post`路由
+   - 將`model`📁裡的的`user`集合信息導入`router`📁 裡的`admin.js` -> `admin.post`路由
 
       ```js
       //導入用戶集合構造函數
       const { user } = require("../model/user");
       ```
 
-2. If the user does not exist, **respond for the client** and prevent the program from executing downward
+   - 獲取用戶輸入的參數
 
-3. If the user exists, the user name and password are matched
+      ```js
+      admin.post("/login", async (req, res) => {
+      	//receive the request parameters
+      	const { email, password } = req.body;
+        
+      .....
+      ```
 
-   1. If the match is successful, the user logs in successfully
+   - If the user does not enter an email address
 
-   2. If the comparison fails, the user fails to log in
+      ```js
+      // if (email.trim().length == 0 || password.trim().length == 0) return res.status(400).send('<h4>Incorrect email address or password</h4>');
+        if (email.trim().length == 0 || password.trim().length == 0)
+          return res
+            .status(400)
+            .render("admin/error", { msg: "Incorrect email address or password" });
+      ```
+
+   - If the user does not exist, **respond for the client** and prevent the program from executing downward
+
+   - If the user exists, the user name and password are matched
+   
+      If the match is successful, the user logs in successfully
+   
+      If the comparison fails, the user fails to log in
+   
+      ```js
+      let user = await User.findOne({ email });
+      //查詢到了用戶
+      if (user) {
+      		// 将客户端传递过来的密码和用户信息中的密码进行比对
+      		if(password == user.password){
+            //登錄成功
+          }else{
+           // No users were queried, Password Error
+      			res.status(400).render('admin/error', {msg: '邮箱地址或者密码错误'})
+	   }else{
+        // 没有查询到用户
+      		res.status(400).render('admin/error', {msg: '邮箱地址或者密码错误'})
+      }
+      ```
+      
+   
+### 8. Login in all code
 
 ```js
 //login routes
-admin.post("/login", async (req, res) => {
-  //Receive request parameters (password and user name entered by the user)
-  //res.send(req.body); //Receive request parameters from the client
-
-  // Secondary verification
-  //receive the request parameters
-  const { email, password } = req.body;
-  //If the user does not enter an email address
-  // if (email.trim().length == 0 || password.trim().length == 0) return res.status(400).send('<h4>Incorrect email address or password</h4>');
-  if (email.trim().length == 0 || password.trim().length == 0)
-    return res
-      .status(400)
-      .render("admin/error", { msg: "Incorrect email address or password" });
+  admin.post("/login", async (req, res) => {
+    //Receive request parameters (password and user name entered by the user)
+    //res.send(req.body); //Receive request parameters from the client
   
-  
-  //-------Search user information by email address-------
-  // If the user is queried, the value of the user variable is an object type, and the object stores the user's information.
-  // If the user is not queried, the user variable is empty.
-  let user = await User.findOne({ email });
-  // The user was queried
-  if (user) {
-    // Compare the passwords passed by the client with the passwords in the user information 
-    // Search user information by email address
-    // true Successful comparison
-    // false Failed to match
-    let isValid = await bcrypt.compare(password, user.password);
-    // If the password match is successful
-    if (isValid) {
-      // Login successful
-      // Store the username in the request object
-      req.session.username = user.username;
-      // res.send('Login successful');
-      req.app.locals.userInfo = user;
-      // redirects to the user list page
-      res.redirect("/admin/user");
+    // Secondary verification
+    //receive the request parameters
+    const { email, password } = req.body;
+    //If the user does not enter an email address
+    // if (email.trim().length == 0 || password.trim().length == 0) return res.status(400).send('<h4>Incorrect email address or password</h4>');
+    if (email.trim().length == 0 || password.trim().length == 0)
+      return res
+        .status(400)
+        .render("admin/error", { msg: "Incorrect email address or password" });
+    //-------Search user information by email address-------
+    // 如果查询到了用户 user变量的值是对象类型 对象中存储的是用户信息
+    // 如果没有查询到用户 user变量为空
+    let user = await User.findOne({ email });
+    // 查询到了用户
+    if (user) {
+      // 将客户端传递过来的密码和用户信息中的密码进行比对 // Search user information by email address
+      // true 比对成功
+      // false 对比失败
+      let isValid = await bcrypt.compare(password, user.password);
+      // 如果密码比对成功
+      if (isValid) {
+        // 登录成功
+        // 将用户名存储在请求对象中
+        req.session.username = user.username;
+        // res.send('登录成功');
+        req.app.locals.userInfo = user;
+        // 重定向到用户列表页面
+        res.redirect("/admin/user");
+      } else {
+        // 没有查询到用户
+        res
+          .status(400)
+          .render("admin/error", { msg: "Incorrect email address or password" });
+      }
     } else {
-      // No user is queried
+      // 没有查询到用户
       res
         .status(400)
         .render("admin/error", { msg: "Incorrect email address or password" });
     }
-  } else {
-    // No user is queried
-    res
-      .status(400)
-      .render("admin/error", { msg: "Incorrect email address or password" });
-  }
-});
+  });
+ 
 ```
 
 
