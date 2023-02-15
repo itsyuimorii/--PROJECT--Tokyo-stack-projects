@@ -48,7 +48,7 @@ admin.post("/login", async (req, res) => {
       res.send("Login successful");
 
       // Redirects to the user list page
-      //res.redirect("/admin/user");
+      res.redirect("/admin/user");
     } else {
       // No users were queried
       res.status(400).render("admin/error", { msg: "Incorrect password" });
