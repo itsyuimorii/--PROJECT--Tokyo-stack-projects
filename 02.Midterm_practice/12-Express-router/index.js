@@ -2,11 +2,10 @@ const express = require("express");
 const path = require("path");
 const app = express();
 const fs = require("fs/promises");
-
 // const cookieParser = require("cookie-parser");
 
 const userRouter = require("./routes/user");
-const goodsRouter = require("./routes/goods");
+//const goodsRouter = require("./routes/goods");
 
 app.set("view engine", "ejs");
 app.set("views", path.resolve(__dirname, "views"));
@@ -28,5 +27,5 @@ app.use((req, res) => {
 });
 
 app.listen(8080, () => {
-  console.log("server listening on http://localhost:3000");
+  console.log("server listening on http://localhost:8080");
 });
