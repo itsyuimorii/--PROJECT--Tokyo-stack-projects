@@ -44,7 +44,7 @@ async function createUser() {
     state: 0,
   });
 }
-createUser();
+// createUser();
 /* User.create({
   username: "admin",
   email: "admin@example.com",
