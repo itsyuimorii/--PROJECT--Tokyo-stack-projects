@@ -1,6 +1,6 @@
 // Blog administration page routing
 const express = require("express");
-
+const bcrypt = require("bcrypt");
 //導入用戶集合構造函數
 const { User } = require("../model/user");
 
@@ -34,19 +34,32 @@ admin.post("/login", async (req, res) => {
   // 如果查询到了用户 user变量的值是对象类型 对象中存储的是用户信息
   // 如果没有查询到用户 user变量为空
   let user = await User.findOne({ email });
-  //查詢到了用戶
+  // 查询到了用户
   if (user) {
-    // 将客户端传递过来的密码和用户信息中的密码进行比对
-    if (password == user.password) {
-      //登錄成功
-      res.send("登录成功");
+    // 将客户端传递过来的密码和用户信息中的密码进行比对 // Search user information by email address
+    // true 比对成功
+    // false 对比失败
+    let isValid = await bcrypt.compare(password, user.password);
+    // 如果密码比对成功
+    if (isValid) {
+      // 登录成功
+      // 将用户名存储在请求对象中
+      req.session.username = user.username;
+      // res.send('登录成功');
+      req.app.locals.userInfo = user;
+      // 重定向到用户列表页面
+      res.redirect("/admin/user");
     } else {
-      // No users were queried, Password Error
-      res.status(400).render("admin/error", { msg: "邮箱地址或者密码错误" });
+      // 没有查询到用户
+      res
+        .status(400)
+        .render("admin/error", { msg: "Incorrect email address or password" });
     }
   } else {
     // 没有查询到用户
-    res.status(400).render("admin/error", { msg: "邮箱地址或者密码错误" });
+    res
+      .status(400)
+      .render("admin/error", { msg: "Incorrect email address or password" });
   }
 });
 

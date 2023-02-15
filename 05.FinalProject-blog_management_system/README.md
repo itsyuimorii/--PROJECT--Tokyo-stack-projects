@@ -475,8 +475,8 @@ admin.post("/login", (req, res) => {
    - 將`model`📁裡的的`user`集合信息導入`router`📁 裡的`admin.js` -> `admin.post`路由
 
       ```js
-      //導入用戶集合構造函數
-      const { user } = require("../model/user");
+      //import user set construction function
+      const { User } = require("../model/user");
       ```
 
    - 獲取用戶輸入的參數
@@ -509,20 +509,31 @@ admin.post("/login", (req, res) => {
    
       ```js
       let user = await User.findOne({ email });
-      //查詢到了用戶
-      if (user) {
-      		// 将客户端传递过来的密码和用户信息中的密码进行比对
-      		if(password == user.password){
-            //登錄成功
-          }else{
-           // No users were queried, Password Error
-      			res.status(400).render('admin/error', {msg: '邮箱地址或者密码错误'})
-	   }else{
-        // 没有查询到用户
-      		res.status(400).render('admin/error', {msg: '邮箱地址或者密码错误'})
-      }
+        //Query the user
+        if (user) {
+          
+          // Compare the password passed by the client with the password in the user information
+          if (password == user.password) {
+            // Login successfully
+            res.send("Login successful");
+          } else {
+	         // No users were queried, Password Error
+            res.status(400).render("admin/error", { msg: "Email address or password error" });
+          }
+        } else {
+          // No user was queried
+          res.status(400).render("admin/error", { msg: "Incorrect email address or password" });
+        }
+      });
       ```
       
+   - Verify Third Party Package Password🔐 bcrypt
+   
+      ```js
+      const bcrypt = require("bcrypt");
+      
+      let isValid = await bcrypt.compare(password, user.password);
+      ```
    
 ### 8. Login in all code
 
@@ -542,32 +553,32 @@ admin.post("/login", (req, res) => {
         .status(400)
         .render("admin/error", { msg: "Incorrect email address or password" });
     //-------Search user information by email address-------
-    // 如果查询到了用户 user变量的值是对象类型 对象中存储的是用户信息
-    // 如果没有查询到用户 user变量为空
+    // If the user is queried, the value of the user variable is an object type, and the object stores the user's information.
+    // If the user is not queried, the user variable is empty.
     let user = await User.findOne({ email });
-    // 查询到了用户
+    // The user is queried
     if (user) {
-      // 将客户端传递过来的密码和用户信息中的密码进行比对 // Search user information by email address
-      // true 比对成功
-      // false 对比失败
+      // Match the password passed by the client with the password in the user information // Search user information by email address
+      // true The comparison is successful
+      // false Failed to match
       let isValid = await bcrypt.compare(password, user.password);
-      // 如果密码比对成功
+      // if the password match is successful
       if (isValid) {
-        // 登录成功
-        // 将用户名存储在请求对象中
+        // login was successful
+        // Store the username in the request object
         req.session.username = user.username;
-        // res.send('登录成功');
+        // res.send('Login successful');
         req.app.locals.userInfo = user;
-        // 重定向到用户列表页面
+        // redirect to user list page
         res.redirect("/admin/user");
       } else {
-        // 没有查询到用户
+        // No users were queried
         res
           .status(400)
           .render("admin/error", { msg: "Incorrect email address or password" });
       }
     } else {
-      // 没有查询到用户
+      // No user is queried
       res
         .status(400)
         .render("admin/error", { msg: "Incorrect email address or password" });
@@ -576,14 +587,21 @@ admin.post("/login", (req, res) => {
  
 ```
 
+## Takeaway key points
 
+### **bcrypt**
 
+```js
+// Import the bcrypt module
+const bcrypt = require('bcrypt');
+// generate a random string gen => generate generate salt salt
+let salt = await bcrypt.genSalt(10);
+// encrypt the password with a random string
+let pass = await bcrypt.hash('plaintext password', salt);
+```
 
+```js
+// Password comparison
+let isEqual = await bcrypt.compare('plaintext password', 'encrypted password');
+```
 
-
-
-
-
-4. Save login status
-
-5. Password encryption processing  
