@@ -641,7 +641,11 @@ testing code
 
 ### 9. Cookie and session
 
-
+- `cookie`: A space created by the browser on the computer's hard disk, mainly for storing data on the server side.
+  - The data in the cookie is distinguished in the form of domain names.
+  - The data in the cookie has an expiration date, and the data will be deleted automatically by the browser after the expiration date.
+  - The data in the cookie is automatically sent to the server with the request.
+- `session`: it is actually an object, stored in the server-side memory, in the session object can also store multiple data, each data has a `session id` as a unique identifier.
 
 
 
