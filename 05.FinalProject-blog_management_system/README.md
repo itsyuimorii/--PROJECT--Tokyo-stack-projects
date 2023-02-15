@@ -424,7 +424,7 @@ admin.post("/login", (req, res) => {
    res.send(req.body); //Receive request parameters from the client
    
    // Secondary verification of request parameters
-   const { email, password } = req.body;yuimoriidesign@gmail.com
+   const { email, password } = req.body; 
  	//If the user does not enter an email address
    if (email.trim().length == 0 || password.trim().length == 0)
      return res.status(400).send("<h4>Incorrect email address or password</h4>");
@@ -468,12 +468,35 @@ admin.post("/login", (req, res) => {
 {{/block}}
 ```
 
+### 7. 根據用戶的email, 查詢用戶是否存在
+
 1. Look up user information based on email address
-2. If the user does not exist, respond for the client and prevent the program from executing downward
+
+   1. 將model📁裡的的user集合信息導入router📁 裡的admin.js
+
+      ```js
+      //導入用戶集合構造函數
+      const { user } = require("../model/user");
+      ```
+
+      
+
+2. If the user does not exist, **respond for the client** and prevent the program from executing downward
+
 3. If the user exists, the user name and password are matched
 
    1. If the match is successful, the user logs in successfully
 
    2. If the comparison fails, the user fails to log in
+
+
+
+
+
+
+
+
+
 4. Save login status
+
 5. Password encryption processing  

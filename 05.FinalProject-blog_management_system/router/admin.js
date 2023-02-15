@@ -1,6 +1,9 @@
 // Blog administration page routing
 const express = require("express");
 
+//導入用戶集合構造函數
+const { user } = require("../model/user");
+
 //create routes for blog administration
 const admin = express.Router();
 
@@ -23,9 +26,8 @@ admin.post("/login", (req, res) => {
   //If the user does not enter an email address
   if (email.trim().length == 0 || password.trim().length == 0)
     //return res.status(400).send("<h4>Incorrect email address or password</h4>");
-    return res
-      .status(400)
-      .render("admin/error", { msg: "Incorrect email address or password}" });
+    return res.status(400);
+  f.render("admin/error", { msg: "Incorrect email address or password}" });
 });
 
 // Export the routing object as a member of the routing module
