@@ -1,4 +1,4 @@
-# 👩🏻‍💻Blog Management System
+# 💥👩🏻‍💻Blog Management System
 
 ## Overview
 
@@ -535,28 +535,30 @@ admin.post("/login", (req, res) => {
       let isValid = await bcrypt.compare(password, user.password);
       ```
    
-### 8. **bcrypt**
+### 8. **bcrypt** module
 
-```js
-node-gyp -g
-npm install -g node-gyp
-```
+1. Install 
 
-```js
-// Import the bcrypt module
-const bcrypt = require('bcrypt');
-// generate a random string gen => generate generate salt salt
-let salt = await bcrypt.genSalt(10);
-// encrypt the password with a random string
-let pass = await bcrypt.hash('plaintext password', salt);
-```
+  ```js
+  node-gyp -g
+  npm install -g node-gyp
+  ```
 
-```js
-// Password comparison
-let isEqual = await bcrypt.compare('plaintext password', 'encrypted password');
-```
+  ```js
+  // Import the bcrypt module
+  const bcrypt = require('bcrypt');
+  // generate a random string gen => generate generate salt salt
+  let salt = await bcrypt.genSalt(10);
+  // encrypt the password with a random string
+  let pass = await bcrypt.hash('plaintext password', salt);
+  ```
 
-Example `hash.js`
+  ```js
+  // Password comparison
+  let isEqual = await bcrypt.compare('plaintext password', 'encrypted password');
+  ```
+
+2. Example `hash.js`
 
 ```js
 // importing bcrypt
@@ -583,11 +585,7 @@ async function run () {
 run();// importing bcrypt
 ```
 
-in this case, 
-
-`model`📁 ->`User.js`
-
-重新創建一個用戶, 用bcrypt 
+3. Create a new user, using bcrypt `model`📁 ->`User.js`
 
 ```js
 /*-----testing code here------*/
@@ -606,15 +604,40 @@ async function createUser() {
 createUser();
 ```
 
-
-
 ![bcrpyt](https://github.com/itsyuimorii/Tokyo-stack-projects/blob/main/images/bcrpyt.png)
 
+4. Compare the passwords passed by the client with the passwords in the user information
 
+```js
+ if (user) {
+    // 将客户端传递过来的密码和用户信息中的密码进行比对
+    // Search user information by email address
+    // return boolean true or false
+    let isValid = await bcrypt.compare(password, user.password);
+    // If the password match is successful
+    if (isValid) {
+      // Login successful
+      // Store the username in the request object
+      req.username = user.username;
+      res.send("Login successful");
 
+      // Redirects to the user list page
+      //res.redirect("/admin/user");
+```
 
+### 💥Fake Registration Problem
 
-### 8. Login in all code
+這裡儘管輸入了密碼和用戶名顯示登錄成功,但是當登錄到http://127.0.0.1:3000/admin/user, 會顯示`user not found`
+
+testing code 
+
+```html
+ <h4>user{{msg? msg: "user is not found"}}</h4>
+```
+
+![Screen Shot 2023-02-15 at 3.05.56 PM](/Users/yuimorii/Desktop/Screen Shot 2023-02-15 at 3.05.56 PM.png)
+
+### 11. Login in all code
 
 ```js
 //login routes
@@ -663,7 +686,6 @@ createUser();
         .render("admin/error", { msg: "Incorrect email address or password" });
     }
   });
- 
 ```
 
 ## Takeaway key points
