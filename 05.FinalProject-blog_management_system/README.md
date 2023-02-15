@@ -587,7 +587,7 @@ in this case,
 
 `model`📁 ->`User.js`
 
-重新創建
+重新創建一個用戶, 用bcrypt 
 
 ```js
 /*-----testing code here------*/
