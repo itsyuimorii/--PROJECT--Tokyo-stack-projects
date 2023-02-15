@@ -125,10 +125,10 @@ app.post("/addStudent", (req, res) => {
    - Redirect to student list page */
 
 app.get("/delete", (req, res) => {
-  //获取要删除的学生的id
+  // Get the id of the student to be deleted
   const id = +req.query.id;
   console.log(id);
-  //根据id删除学生
+  //delete students based on id
   STUDENT_ARR = STUDENT_ARR.filter((stu) => stu.id !== id);
 
   // Data persistence: Write new data to a json file

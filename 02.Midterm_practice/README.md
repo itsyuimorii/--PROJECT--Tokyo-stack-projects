@@ -239,7 +239,7 @@ app.listen(3000, () => {
 
 ### Function 2: delete and edit function
 
-- Function: After clicking Delete🔗, delete the current data
+> After clicking Delete🔗, delete the current data
 
 1. Click the delete button to delete the student with id 5
 2. send a request to the route
@@ -289,7 +289,7 @@ STUDENT_ARR = STUDENT_ARR.filter((stu) => stu.id !== id);
 > Add the operation of determining whether to delete
 
 ```html
-  <a onclick="return confirm('confirm delete')" href="/delete?id=<%=stu.id%>">删除</a>
+  <a onclick="return confirm('confirm delete')" href="/delete?id=<%=stu.id%>">delete</a>
 ```
 
  After deleting all of them, id will become undefined, We need to add a judgment, when the id is not available, return a 1 
