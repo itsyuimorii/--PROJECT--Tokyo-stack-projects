@@ -472,7 +472,7 @@ admin.post("/login", (req, res) => {
 
 1. Look up user information based on email address
 
-   1. 將model📁裡的的user集合信息導入router📁 裡的admin.js
+   1. 將`model`📁裡的的`user`集合信息導入`router`📁 裡的`admin.js` -> `admin.post`路由
 
       ```js
       //導入用戶集合構造函數
