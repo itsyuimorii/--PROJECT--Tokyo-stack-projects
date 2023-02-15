@@ -1,22 +1,41 @@
-// 导入bcrypt
-const bcrypt = require('bcrypt');
+// importing bcrypt
+const bcrypt = require("bcrypt");
 
+async function run() {
+  // Generate a random string
+  // The genSalt method takes a numeric value as an argument
+  // The larger the value, the higher the complexity of the generated random string
+  // the smaller the value, the lower the complexity of the generated random string
+  // The default value is 10
+  // Returns the generated random string
+  const salt = await bcrypt.genSalt(10);
+  // Encrypt the password
+  // 1. the plaintext to be encrypted
+  // 2. a random string
+  // The return value is the encrypted password
+  const result = await bcrypt.hash("123456", salt);
+  console.log(salt);
+  console.log(result);
+}
 
-async function run () {
-	// 生成随机字符串
-	// genSalt方法接收一个数值作为参数
-	// 数值越大 生成的随机字符串复杂度越高
-	// 数值越小 生成的随机字符串复杂度越低
-	// 默认值是 10
-	// 返回生成的随机字符串
-	const salt = await bcrypt.genSalt(10);
-	// 对密码进行加密
-	// 1. 要进行加密的明文
-	// 2. 随机字符串
-	// 返回值是加密后的密码
-	const result = await bcrypt.hash('123456', salt);
-	console.log(salt);
-	console.log(result);
+run(); // importing bcrypt
+const bcrypt = require("bcrypt");
+
+async function run() {
+  // Generate a random string
+  // The genSalt method takes a numeric value as an argument
+  // The larger the value, the higher the complexity of the generated random string
+  // the smaller the value, the lower the complexity of the generated random string
+  // The default value is 10
+  // Returns the generated random string
+  const salt = await bcrypt.genSalt(10);
+  // Encrypt the password
+  // 1. the plaintext to be encrypted
+  // 2. a random string
+  // The return value is the encrypted password
+  const result = await bcrypt.hash("123456", salt);
+  console.log(salt);
+  console.log(result);
 }
 
 run();

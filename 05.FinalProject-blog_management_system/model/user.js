@@ -32,12 +32,12 @@ const userSchema = new mongoose.Schema({
 const User = mongoose.model("User", userSchema);
 
 /*-----testing code here------*/
-/* //set collection 
+//set collection
 
-User.create({
+/* User.create({
   username: "admin",
-  email: "admin@example.com",
-  password: "000000",
+  email: "admin2@example.com",
+  password: "222222",
   role: "admin",
   state: 0,
 })

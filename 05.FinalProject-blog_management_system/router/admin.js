@@ -38,26 +38,26 @@ admin.post("/login", async (req, res) => {
   if (user) {
     // 将客户端传递过来的密码和用户信息中的密码进行比对
     // Search user information by email address
-    // true 比对成功
-    // false 对比失败
+    //
+    // return boolean true or false
     let isValid = await bcrypt.compare(password, user.password);
-    // 如果密码比对成功
+    // If the password match is successful
     if (isValid) {
-      // 登录成功
-      // 将用户名存储在请求对象中
+      // Login successful
+      // Store the username in the request object
       req.session.username = user.username;
-      // res.send('登录成功');
+      // res.send('Login successful');
       req.app.locals.userInfo = user;
-      // 重定向到用户列表页面
+      // Redirects to the user list page
       res.redirect("/admin/user");
     } else {
-      // 没有查询到用户
+      // No users were queried
       res
         .status(400)
         .render("admin/error", { msg: "Incorrect email address or password" });
     }
   } else {
-    // 没有查询到用户
+    // No user is queried
     res
       .status(400)
       .render("admin/error", { msg: "Incorrect email address or password" });
