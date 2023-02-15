@@ -639,9 +639,9 @@ testing code
 
 > Here  need to introduce cookies and session
 
-### 9. Cookie and session
+### 9. Cookie & session
 
-- `cookie`: A space created by the browser on the computer's hard disk, mainly for storing data on the server side.
+- `cookie`: A **space** created by the browser on the computer's hard disk, mainly for storing data on the server side.
   - The data in the cookie is distinguished in the form of domain names.
   - The data in the cookie has an expiration date, and the data will be deleted automatically by the browser after the expiration date.
   - The data in the cookie is automatically sent to the server with the request.
