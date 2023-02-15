@@ -468,7 +468,7 @@ admin.post("/login", (req, res) => {
 {{/block}}
 ```
 
-### 7. according to the user's email, check whether the user exists
+### 7. According to the user's email, check whether the user exists
 
 1. Look up user information based on email address
 
@@ -535,6 +535,85 @@ admin.post("/login", (req, res) => {
       let isValid = await bcrypt.compare(password, user.password);
       ```
    
+### 8. **bcrypt**
+
+```js
+node-gyp -g
+npm install -g node-gyp
+```
+
+```js
+// Import the bcrypt module
+const bcrypt = require('bcrypt');
+// generate a random string gen => generate generate salt salt
+let salt = await bcrypt.genSalt(10);
+// encrypt the password with a random string
+let pass = await bcrypt.hash('plaintext password', salt);
+```
+
+```js
+// Password comparison
+let isEqual = await bcrypt.compare('plaintext password', 'encrypted password');
+```
+
+Example `hash.js`
+
+```js
+// importing bcrypt
+const bcrypt = require('bcrypt');
+
+
+async function run () {
+	// Generate a random string
+	// The genSalt method takes a numeric value as an argument
+	// The larger the value, the higher the complexity of the generated random string
+	// the smaller the value, the lower the complexity of the generated random string
+	// The default value is 10
+	// Returns the generated random string
+	const salt = await bcrypt.genSalt(10);
+	// Encrypt the password
+	// 1. the plaintext to be encrypted
+	// 2. a random string
+	// The return value is the encrypted password
+	const result = await bcrypt.hash('123456', salt);
+	console.log(salt);
+	console.log(result);
+}
+
+run();// importing bcrypt
+```
+
+in this case, 
+
+`model`📁 ->`User.js`
+
+重新創建
+
+```js
+/*-----testing code here------*/
+//set collection
+async function createUser() {
+  const salt = await bcrypt.genSalt(10);
+  const pass = await bcrypt.hash("000000", salt);
+  const user = await User.create({
+    username: "admin",
+    email: "admin@example.com",
+    password: pass,
+    role: "admin",
+    state: 0,
+  });
+}
+createUser();
+```
+
+
+
+
+
+
+
+
+
 ### 8. Login in all code
 
 ```js
@@ -588,73 +667,4 @@ admin.post("/login", (req, res) => {
 ```
 
 ## Takeaway key points
-
-### **bcrypt**
-
-```js
-node-gyp -g
-npm install -g node-gyp
-```
-
-```js
-// Import the bcrypt module
-const bcrypt = require('bcrypt');
-// generate a random string gen => generate generate salt salt
-let salt = await bcrypt.genSalt(10);
-// encrypt the password with a random string
-let pass = await bcrypt.hash('plaintext password', salt);
-```
-
-```js
-// Password comparison
-let isEqual = await bcrypt.compare('plaintext password', 'encrypted password');
-```
-
-Example `hash.js`
-
-```js
-// importing bcrypt
-const bcrypt = require('bcrypt');
-
-
-async function run () {
-	// Generate a random string
-	// The genSalt method takes a numeric value as an argument
-	// The larger the value, the higher the complexity of the generated random string
-	// the smaller the value, the lower the complexity of the generated random string
-	// The default value is 10
-	// Returns the generated random string
-	const salt = await bcrypt.genSalt(10);
-	// Encrypt the password
-	// 1. the plaintext to be encrypted
-	// 2. a random string
-	// The return value is the encrypted password
-	const result = await bcrypt.hash('123456', salt);
-	console.log(salt);
-	console.log(result);
-}
-
-run();// importing bcrypt
-const bcrypt = require('bcrypt');
-
-
-async function run () {
-	// Generate a random string
-	// The genSalt method takes a numeric value as an argument
-	// The larger the value, the higher the complexity of the generated random string
-	// the smaller the value, the lower the complexity of the generated random string
-	// The default value is 10
-	// Returns the generated random string
-	const salt = await bcrypt.genSalt(10);
-	// Encrypt the password
-	// 1. the plaintext to be encrypted
-	// 2. a random string
-	// The return value is the encrypted password
-	const result = await bcrypt.hash('123456', salt);
-	console.log(salt);
-	console.log(result);
-}
-
-run();
-```
 

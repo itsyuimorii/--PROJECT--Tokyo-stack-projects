@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-
+const bcrypt = require("bcrypt");
 //set collection rules
 const userSchema = new mongoose.Schema({
   username: {
@@ -33,11 +33,22 @@ const User = mongoose.model("User", userSchema);
 
 /*-----testing code here------*/
 //set collection
-
+async function createUser() {
+  const salt = await bcrypt.genSalt(10);
+  const pass = await bcrypt.hash("000000", salt);
+  const user = await User.create({
+    username: "admin",
+    email: "admin@example.com",
+    password: pass,
+    role: "admin",
+    state: 0,
+  });
+}
+createUser();
 /* User.create({
   username: "admin",
-  email: "admin2@example.com",
-  password: "222222",
+  email: "admin@example.com",
+  password: "000000",
   role: "admin",
   state: 0,
 })
