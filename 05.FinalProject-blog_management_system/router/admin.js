@@ -36,7 +36,8 @@ admin.post("/login", async (req, res) => {
   let user = await User.findOne({ email });
   // 查询到了用户
   if (user) {
-    // 将客户端传递过来的密码和用户信息中的密码进行比对 // Search user information by email address
+    // 将客户端传递过来的密码和用户信息中的密码进行比对
+    // Search user information by email address
     // true 比对成功
     // false 对比失败
     let isValid = await bcrypt.compare(password, user.password);
