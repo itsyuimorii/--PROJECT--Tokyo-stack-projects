@@ -2,7 +2,7 @@
 
 ## Overview
 
-## 1. initialization
+## 1. Initialization
 
 1. create the required folder for the project
    `public` Static resources
@@ -24,7 +24,7 @@ const app = express();
 app.listen("Server listening on http://localhost:80");
 ```
 
-## 2. routing
+## 2. Routing
 
 router📁-> admin.js
 
@@ -69,7 +69,7 @@ app.use("/home", homeRouter);
 app.use("/admin", adminRouter);
 ```
 
-## 3. static resource
+## 3. Static Resource
 
 There are two folders in public📁, `admin` and` home`,  which are used for art files respectively 
 
@@ -299,7 +299,7 @@ require("./model/user");
 
 ![database](https://github.com/itsyuimorii/Tokyo-stack-projects/blob/main/images/database.png)
 
-## 6. login 
+## 6. Login 
 
 ### 1. Create a user collection and initialize users
 
