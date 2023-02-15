@@ -479,8 +479,6 @@ admin.post("/login", (req, res) => {
       const { user } = require("../model/user");
       ```
 
-      
-
 2. If the user does not exist, **respond for the client** and prevent the program from executing downward
 
 3. If the user exists, the user name and password are matched
@@ -488,6 +486,58 @@ admin.post("/login", (req, res) => {
    1. If the match is successful, the user logs in successfully
 
    2. If the comparison fails, the user fails to log in
+
+```js
+//login routes
+admin.post("/login", async (req, res) => {
+  //Receive request parameters (password and user name entered by the user)
+  //res.send(req.body); //Receive request parameters from the client
+
+  // Secondary verification
+  //receive the request parameters
+  const { email, password } = req.body;
+  //If the user does not enter an email address
+  // if (email.trim().length == 0 || password.trim().length == 0) return res.status(400).send('<h4>Incorrect email address or password</h4>');
+  if (email.trim().length == 0 || password.trim().length == 0)
+    return res
+      .status(400)
+      .render("admin/error", { msg: "Incorrect email address or password" });
+  
+  
+  //-------Search user information by email address-------
+  // If the user is queried, the value of the user variable is an object type, and the object stores the user's information.
+  // If the user is not queried, the user variable is empty.
+  let user = await User.findOne({ email });
+  // The user was queried
+  if (user) {
+    // Compare the passwords passed by the client with the passwords in the user information 
+    // Search user information by email address
+    // true Successful comparison
+    // false Failed to match
+    let isValid = await bcrypt.compare(password, user.password);
+    // If the password match is successful
+    if (isValid) {
+      // Login successful
+      // Store the username in the request object
+      req.session.username = user.username;
+      // res.send('Login successful');
+      req.app.locals.userInfo = user;
+      // redirects to the user list page
+      res.redirect("/admin/user");
+    } else {
+      // No user is queried
+      res
+        .status(400)
+        .render("admin/error", { msg: "Incorrect email address or password" });
+    }
+  } else {
+    // No user is queried
+    res
+      .status(400)
+      .render("admin/error", { msg: "Incorrect email address or password" });
+  }
+});
+```
 
 
 
