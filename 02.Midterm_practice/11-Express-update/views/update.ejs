@@ -11,7 +11,7 @@
       When the user clicks on update🔗, the browser will res.render() the page, and the user will see the page update.ejs
      -->
     <h1>Update student information</h1>
-    <form action="/students/update-student" method="post">
+    <form action="/update-student" method="post">
       <input type="hidden" name="id" value="<%=student.id%>" />
       <div>
         name: <input type="text" name="name" value="<%= student.name%>" />
