@@ -20,7 +20,7 @@ admin.get("/user", require("./admin/userList"));
 admin.get("/logout", require("./admin/logout"));
 
 //edit page routes
-admin.get("/user-edit", require("./admin/userEdit"));
+admin.get("/userEdit", require("./admin/userEdit"));
 
 //創建实现添加用户的功能路由(點擊submit後的post 操作)
 admin.post("./userEdit", require("./admin/userEdit-fn"));
