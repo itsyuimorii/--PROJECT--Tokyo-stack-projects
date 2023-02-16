@@ -1,7 +1,7 @@
 const express = require("express");
 const path = require("path");
 const bodyParser = require("body-parser");
-
+const session = require("express-session");
 //create web server instance
 const app = express();
 
@@ -11,11 +11,8 @@ require("./model/connect");
 //Create initial user
 require("./model/user");
 
-app.use(
-  session({
-    secret: "secrets",
-  })
-);
+app.use(session({ secret: "secret key" }));
+
 //Configure the post request parameter, body-parser parsing file
 app.use(bodyParser.urlencoded({ extended: false }));
 
