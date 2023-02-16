@@ -916,40 +916,40 @@ module.exports = (req, res) => {
 
 ### 5. 接收到客户端传递过来的请求参数
 
+```js
+module.exports = (req, res) => {
+  //這裡實現用戶添加功能
+  res.send(req.body);
+};
+
+//{"username":"matthew","email":"matthew@gmail.com","password":"000000","state":"0"}
+```
+
+### 6. 对请求参数的格式进行验证
+
 ### Joi module 💥
 
 ```js
-// 引入joi模块
 const Joi = require('joi');
-
-// 定义对象的验证规则
 const schema = {
-	username: Joi.string().min(2).max(5).required().error(new Error('username属性没有通过验证')),
-	birth: Joi.number().min(1900).max(2020).error(new Error('birth没有通过验证'))
+    username: Joi.string().alphanum().min(3).max(30).required().error(new Error(‘错误信息’)),
+    password: Joi.string().regex(/^[a-zA-Z0-9]{3,30}$/),
+    access_token: [Joi.string(), Joi.number()],
+    birthyear: Joi.number().integer().min(1900).max(2013),
+    email: Joi.string().email() 
 };
-
-async function run () {
-	try {
-		// 实施验证
-		await Joi.validate({username: 'ab', birth: 1800}, schema);
-	}catch (ex) {
-		console.log(ex.message);
-		return;
-	}
-	console.log('验证通过')
-	
-}
-
-run();
+//param 1: validate object 2: validate rule
+Joi.validate({ username: 'abc', birthyear: 1994 }, schema);
 ```
 
 
 
-4. 对请求参数的格式进行验证
-5. 验证当前要注册的邮箱地址是否已经注册过
-6. 对密码进行加密处理
-7. 将用户信息添加到数据库中
-8. 重定向页面到用户列表页面
+
+
+4. 验证当前要注册的邮箱地址是否已经注册过
+5. 对密码进行加密处理
+6. 将用户信息添加到数据库中
+7. 重定向页面到用户列表页面
 
 
 
