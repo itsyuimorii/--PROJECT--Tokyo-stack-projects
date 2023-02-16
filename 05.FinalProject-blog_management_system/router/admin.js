@@ -46,10 +46,10 @@ admin.post("/login", async (req, res) => {
       // login was successful
       // Store the username in the request object
       req.session.username = user.username;
-      // res.send('Login successful');
+      res.send("Login successful");
       req.app.locals.userInfo = user;
       // redirect to user list page
-      res.redirect("/admin/user");
+      //res.redirect("/admin/user");
     } else {
       // No users were queried
       res

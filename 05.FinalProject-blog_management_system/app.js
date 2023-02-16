@@ -11,7 +11,13 @@ require("./model/connect");
 //Create initial user
 require("./model/user");
 
-app.use(session({ secret: "secret key" }));
+app.use(
+  session({
+    secret: "secret key",
+    resave: true,
+    saveUninitialized: true,
+  })
+);
 
 //Configure the post request parameter, body-parser parsing file
 app.use(bodyParser.urlencoded({ extended: false }));
