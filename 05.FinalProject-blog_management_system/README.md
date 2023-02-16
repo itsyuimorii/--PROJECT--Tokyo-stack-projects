@@ -722,27 +722,25 @@ if not `/admin`, intercept request
 `app.js ` \
 
 > `const guard`  must be exist before route `app.use("/admin", adminRouter);`
+>
+> 1. Determining whether the user is visiting a login page
+> 2. Determine the user's login status
+>    1. If the user is logged in, the request is released
+>    2. If the user is not logged in, redirect the request to the login page
 
 ```js
 // Intercept requests to determine user login status
 app.use('/admin', (req, res)=>{
   const guard = (req, res, next) => {
-	// 判断用户访问的是否是登录页面
-	// 判断用户的登录状态
-	// 如果用户是登录的 将请求放行
-	// 如果用户不是登录的 将请求重定向到登录页面
 	if (req.url != '/login' && !req.session.username) {
 		res.redirect('/admin/login');
 	} else {
-		// 用户是登录状态 将请求放行
+		// User is logged in Release the request
 		next();
 	}
 }
 module.exports = guard;
 }
-
-
-
 
 //import routing module
 //Match the first level request path to the routing object,
