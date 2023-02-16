@@ -676,8 +676,6 @@ admin.post("/login", async (req, res) => {
         .render("admin/error", { msg: "Incorrect email address or password" });
     }
   ...
-  
-
 ```
 
 
