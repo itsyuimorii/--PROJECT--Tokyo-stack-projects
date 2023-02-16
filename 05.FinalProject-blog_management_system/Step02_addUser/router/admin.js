@@ -19,5 +19,8 @@ admin.get("/user", require("./admin/userList"));
 //logout page
 admin.get("/logout", require("./admin/logout"));
 
+//edit page routes
+admin.get("/user-edit", require("./admin/user-edit"));
+
 // Export the routing object as a member of the routing module
 module.exports = admin;

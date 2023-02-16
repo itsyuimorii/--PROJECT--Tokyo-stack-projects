@@ -12,7 +12,7 @@
           
             <h4>user</h4>
             <span>1 user found</span>
-          <a href="user-edit.html" class="btn btn-primary new">New Users</a>
+          <a href="/admin/user-edit" class="btn btn-primary new">New Users</a>
         </div>
         <! -- /category title -->
         <! -- Content list -->
