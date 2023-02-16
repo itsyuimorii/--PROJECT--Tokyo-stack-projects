@@ -657,6 +657,8 @@ How the method works internally:
 
 2. store the session id in the client's cookie, and when the client accesses the server again, the attribute is a key value to store the information, 
 
+**router📁->admin.js**
+
 ```js
 const session = require("express-session");
 admin.post("/login", async (req, res) => {
@@ -681,17 +683,27 @@ admin.post("/login", async (req, res) => {
 
 把數據放在locals對象中, 就可以暴露給模板, 就不用`res.render`渲染給模板了
 
+The **app.locals** object has properties that are local variables within the application. These variables are local to the application and are very useful.
 
+**Syntax:**
 
-**app.locals** 
+```
+app.locals
+```
+
+**router📁->admin.js**
 
 ```js
-   req.app.locals.userInfo = user;
+req.app.locals.userInfo = user;
+```
+
+Views📁=>admin📁=>common📁=> header.art
+
+```html
+ {{userInfo.username}}
 ```
 
 
-
-用戶名要顯示在user page 的右上角, 可以考慮在views -> admin->common-> header.js
 
 ### 11. Login in all code
 
