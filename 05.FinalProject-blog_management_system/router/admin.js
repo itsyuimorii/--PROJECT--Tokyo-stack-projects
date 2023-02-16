@@ -6,9 +6,8 @@ const session = require("express-session");
 //create routes for blog administration
 const admin = express.Router();
 
-admin.get("/login", (req, res) => {
-  res.render("admin/login");
-});
+//渲染登錄頁面
+admin.get("/login", require("./admin/loginPage"));
 
 // Create a user list route, this route will be based on the "Level 1 route" -admin "Level 2 route"
 admin.get("/user", (req, res) => {

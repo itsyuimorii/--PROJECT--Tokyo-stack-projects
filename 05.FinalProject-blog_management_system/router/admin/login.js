@@ -3,7 +3,7 @@
 const { User } = require("../../model/user");
 const bcrypt = require("bcrypt");
 
-const login = async (req, res) => {
+module.exports = async (req, res) => {
   //Receive request parameters (password and user name entered by the user)
   //res.send(req.body); //Receive request parameters from the client
 
@@ -48,5 +48,3 @@ const login = async (req, res) => {
       .render("admin/error", { msg: "Incorrect email address or password" });
   }
 };
-
-module.exports = login;
