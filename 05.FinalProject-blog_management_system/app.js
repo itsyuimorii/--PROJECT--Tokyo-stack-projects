@@ -1,21 +1,21 @@
-// 引用expess框架
+// reference express framework
 const express = require("express");
-// 处理路径
+// handle paths
 const path = require("path");
-// 引入body-parser模块 用来处理post请求参数
+// introduce the body-parser module to handle post request parameters
 const bodyPaser = require("body-parser");
-// 导入express-session模块
+// Import the express-session module
 const session = require("express-session");
-//create web server instance
-const app = express();
 
-//database connection
+// Create the web server
+const app = express();
+// Database connection
 require("./model/connect");
 
-//Create initial user
-require("./model/user");
+//Configure the post request parameter, body-parser parsing file
+app.use(bodyPaser.urlencoded({ extended: false }));
 
-// 配置session
+// Configure session
 app.use(
   session({
     secret: "secret key",
@@ -24,9 +24,6 @@ app.use(
   })
 );
 
-//Configure the post request parameter, body-parser parsing file
-app.use(bodyParser.urlencoded({ extended: false }));
-
 // Tell the express framework where the template is located
 app.set("views", path.join(__dirname, "views"));
 // Tell the express framework template what the default suffix is
@@ -34,12 +31,12 @@ app.set("view engine", "art");
 // What template engine is used when rendering templates with the art suffix
 app.engine("art", require("express-art-template"));
 
+//Open Static Source File
+app.use(express.static(path.join(__dirname, "public")));
+
 //import routes from router file
 const homeRouter = require("./router/home");
 const adminRouter = require("./router/admin");
-
-//Open Static Source File
-app.use(express.static(path.join(__dirname, "public")));
 
 //import routing module
 //Match the first level request path to the routing object,

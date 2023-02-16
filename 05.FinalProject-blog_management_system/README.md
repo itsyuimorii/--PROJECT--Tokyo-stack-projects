@@ -703,7 +703,21 @@ Views📁=>admin📁=>common📁=> header.art
  {{userInfo.username}}
 ```
 
+### 11. Landing Interception
 
+> When the user is not logged in, the administration page of the blog is not visible to the user
+
+
+
+在 Views📁=>admin📁=>common📁=> header.art 下, 改為👇
+
+>先判斷有沒有`userinfo`, 如果有再看`username`
+
+```
+{{userInfo && userInfo.username}}
+```
+
+if not `/admin`, intercept request
 
 ### 11. Login in all code
 
