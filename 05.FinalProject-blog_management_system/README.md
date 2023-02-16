@@ -649,16 +649,16 @@ testing code
 
 ![session](/Users/yuimorii/Documents/GitHub/Tokyo-stack-projects/images/session.png)
 
-\> middleware function, app.use intercepts all requests and passes them to the session method, 
+> middleware function, app.use intercepts all requests and passes them to the session method, 
 
 How the method works internally: 
 
-\1. add an attribute to the request, wait for the user to log in, save the user information and generate the session id
+1. add an attribute to the request, wait for the user to log in, save the user information and generate the session id
 
-\2. store the session id in the client's cookie, and when the client accesses the server again, the attribute is a key value to store the information, 
+2. store the session id in the client's cookie, and when the client accesses the server again, the attribute is a key value to store the information, 
 
 
-[Translated with DeepL](https://www.deepl.com/translator?utm_source=macos&utm_medium=app&utm_campaign=macos-share)
+
 
 ### 11. Login in all code
 
