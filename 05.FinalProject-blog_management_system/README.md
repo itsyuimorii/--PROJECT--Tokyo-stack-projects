@@ -938,7 +938,7 @@ const schema = {
     birthyear: Joi.number().integer().min(1900).max(2013),
     email: Joi.string().email() 
 };
-//param 1: validate object 2: validate rule
+//param 1: validate object 2: validate rule(also an object)
 Joi.validate({ username: 'abc', birthyear: 1994 }, schema);
 ```
 
