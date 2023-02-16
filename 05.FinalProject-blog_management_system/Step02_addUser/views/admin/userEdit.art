@@ -16,7 +16,7 @@
           <p class="tips">Error message</p>
         </div>
         <!-- /Category Title -->
-        <form class="form-container" action="/admin/user-edit" method="post">
+        <form class="form-container" action="/admin/userEdit" method="post">
           <div class="form-group">
             <label>User Name</label>
             <input

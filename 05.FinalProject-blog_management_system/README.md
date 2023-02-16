@@ -879,7 +879,7 @@ LOCATION : [Step01_login](https://github.com/itsyuimorii/Tokyo-stack-projects/tr
 
   ```js
   //edit page routes
-  admin.get("/user-edit", require("./admin/user-edit"));
+  admin.get("/userEdit", require("./admin/userEdit"));
   ```
 > router📁-> admin📁-> userEdit.js
 
@@ -894,7 +894,7 @@ LOCATION : [Step01_login](https://github.com/itsyuimorii/Tokyo-stack-projects/tr
 > Views📁=>admin📁=>common📁=> userEdit.art
 
 ```html
-<form class="form-container" action="/admin/user-edit" method="post">
+<form class="form-container" action="/admin/userEdit" method="post">
   
 name="username"
 name="email"
@@ -912,14 +912,15 @@ module.exports = (req, res) => {
 };
 ```
 
-
-
 4. 接收到客户端传递过来的请求参数
-5. 对请求参数的格式进行验证
-6. 验证当前要注册的邮箱地址是否已经注册过
-7. 对密码进行加密处理
-8. 将用户信息添加到数据库中
-9. 重定向页面到用户列表页面
+
+
+
+4. 对请求参数的格式进行验证
+5. 验证当前要注册的邮箱地址是否已经注册过
+6. 对密码进行加密处理
+7. 将用户信息添加到数据库中
+8. 重定向页面到用户列表页面
 
 
 
