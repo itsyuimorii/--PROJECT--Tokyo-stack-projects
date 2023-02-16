@@ -38,6 +38,9 @@ app.use(express.static(path.join(__dirname, "public")));
 const homeRouter = require("./router/home");
 const adminRouter = require("./router/admin");
 
+// Intercept requests to determine user login status
+app.use("/admin", require("./middleware/loginGuard"));
+
 //import routing module
 //Match the first level request path to the routing object,
 app.use("/home", homeRouter);

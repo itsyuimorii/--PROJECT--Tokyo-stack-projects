@@ -731,7 +731,6 @@ if not `/admin`, intercept request
 ```js
 // Intercept requests to determine user login status
 app.use('/admin', (req, res)=>{
-  const guard = (req, res, next) => {
 	if (req.url != '/login' && !req.session.username) {
 		res.redirect('/admin/login');
 	} else {
@@ -746,6 +745,33 @@ module.exports = guard;
 //Match the first level request path to the routing object,
 app.use("/home", homeRouter);
 app.use("/admin", adminRouter);
+```
+
+### 12. Optimized middleware code
+
+middleware📁 => loginGuard
+
+```js
+const guard = (req, res, next) => {
+  /* 
+1. Determining whether the user is visiting a login page
+2. Determine the user's login status
+   1. If the user is logged in, the request is released
+   2. If the user is not logged in, redirect the request to the login page */
+
+  if (req.url != "/login" && !req.session.username) {
+    res.redirect("/admin/login");
+  } else {
+    // User is logged in Release the request
+    next();
+  }
+};
+module.exports = guard;
+```
+
+```js
+// Intercept requests to determine user login status
+app.use("/admin", require("./middleware/loginGuard"));
 ```
 
 
