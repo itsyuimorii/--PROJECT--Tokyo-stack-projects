@@ -847,25 +847,27 @@ LOCATION : [Step01_login](https://github.com/itsyuimorii/Tokyo-stack-projects/tr
 
 > Adding a user is an action that  insert to database, so use `post`
 
-1. 1 Create a link to the Add User button on the user list page
+1. Create a link to the Add User button on the user list page
 
-   2 Create a link to the corresponding route and render the new user template in the route handler function
-   3 Specify the request address and request method for the new user form, and add the name attribute to the form item
+2. Create a link to the corresponding route and render the new user template in the route handler function
 
-   4 Create a route that implements the function of adding users (點擊submit後的post 操作)
+3. Specify the request address and request method for the new user form, and add the name attribute to the form item
 
-   5 Receive the request parameters from the client
-   6 Validate the format of the request parameters
+4. Create a route that implements the function of adding users (點擊submit後的post 操作)
 
-   7 Verify whether the current email address to be registered has already been registered
+5. Receive the request parameters from the client
 
-   8 Encrypt the password
+6. Validate the format of the request parameters
 
-   9 Add user information to the database
+7. Verify whether the current email address to be registered has already been registered
 
-   10 Redirect the page to the user list page
+8. Encrypt the password
 
-1. 为用户列表页面的新增用户按钮添加链接
+9. Add user information to the database
+
+10. Redirect the page to the user list page
+
+### 1. 为用户列表页面的新增用户按钮添加链接
 
 - Views📁=>admin📁=>common📁=> user.art
 
@@ -873,7 +875,7 @@ LOCATION : [Step01_login](https://github.com/itsyuimorii/Tokyo-stack-projects/tr
    <a href="/admin/user-edit" class="btn btn-primary new">New Users</a> 
   ```
 
-2. 添加一个连接对应的路由，在路由处理函数中渲染新增用户模板
+### 2. 添加一个连接对应的路由，在路由处理函数中渲染新增用户模板
 
 > router📁 ->`admin.js`
 
@@ -889,7 +891,7 @@ LOCATION : [Step01_login](https://github.com/itsyuimorii/Tokyo-stack-projects/tr
    };
  ```
 
-3. 为新增用户表单指定请求地址、请求方式、为表单项添加name属性
+### 3. 为新增用户表单指定请求地址、请求方式、为表单项添加name属性
 
 > Views📁=>admin📁=>common📁=> userEdit.art
 
@@ -901,7 +903,7 @@ name="email"
 ...
 ```
 
-4. 創建实现添加用户的功能路由(點擊submit後的post 操作)
+### 4. 創建实现添加用户的功能路由(點擊submit後的post 操作)
 
 > Router📁=>admin📁=> userEdit-fn.js
 
@@ -912,7 +914,34 @@ module.exports = (req, res) => {
 };
 ```
 
-4. 接收到客户端传递过来的请求参数
+### 5. 接收到客户端传递过来的请求参数
+
+### Joi module 💥
+
+```js
+// 引入joi模块
+const Joi = require('joi');
+
+// 定义对象的验证规则
+const schema = {
+	username: Joi.string().min(2).max(5).required().error(new Error('username属性没有通过验证')),
+	birth: Joi.number().min(1900).max(2020).error(new Error('birth没有通过验证'))
+};
+
+async function run () {
+	try {
+		// 实施验证
+		await Joi.validate({username: 'ab', birth: 1800}, schema);
+	}catch (ex) {
+		console.log(ex.message);
+		return;
+	}
+	console.log('验证通过')
+	
+}
+
+run();
+```
 
 
 
