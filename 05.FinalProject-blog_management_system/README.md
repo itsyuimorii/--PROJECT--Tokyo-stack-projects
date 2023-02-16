@@ -649,17 +649,16 @@ testing code
 
 ![session](/Users/yuimorii/Documents/GitHub/Tokyo-stack-projects/images/session.png)
 
-> 中間件函數, app.use 攔截所有請求,並將請求交給session方法, 
+\> middleware function, app.use intercepts all requests and passes them to the session method, 
 
-方法內部: 
+How the method works internally: 
 
-1. 為請求 增加一個屬性,等用戶登錄後, 保存用戶信息,生成Session id
+\1. add an attribute to the request, wait for the user to log in, save the user information and generate the session id
 
-2. 將session id 存儲在客戶端的cookie中, 等客戶再次訪問服務器的時候, 屬性是一個密鑰的值為了儲存信息, 
-
-
+\2. store the session id in the client's cookie, and when the client accesses the server again, the attribute is a key value to store the information, 
 
 
+[Translated with DeepL](https://www.deepl.com/translator?utm_source=macos&utm_medium=app&utm_campaign=macos-share)
 
 ### 11. Login in all code
 
