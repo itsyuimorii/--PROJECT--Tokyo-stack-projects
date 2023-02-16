@@ -666,7 +666,6 @@ admin.post("/login", async (req, res) => {
       // Store the username in the request object
       req.session.username = user.username;
       // res.send('Login successful');
-      req.app.locals.userInfo = user;
       // redirect to user list page
       res.redirect("/admin/user");
     } else {
@@ -676,6 +675,12 @@ admin.post("/login", async (req, res) => {
         .render("admin/error", { msg: "Incorrect email address or password" });
     }
   ...
+```
+
+
+
+```js
+   req.app.locals.userInfo = user;
 ```
 
 

@@ -47,7 +47,7 @@ async function createUser() {
 // createUser();
 /* User.create({
   username: "admin",
-  email: "admin@example.com",
+  email: "admin2@example.com",
   password: "000000",
   role: "admin",
   state: 0,
