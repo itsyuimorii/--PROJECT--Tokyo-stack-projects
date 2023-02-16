@@ -1,6 +1,7 @@
 // Blog administration page routing
 const express = require("express");
 const bcrypt = require("bcrypt");
+const session = require("express-session");
 //導入用戶集合構造函數
 const { User } = require("../model/user");
 
@@ -31,33 +32,35 @@ admin.post("/login", async (req, res) => {
       .status(400)
       .render("admin/error", { msg: "Incorrect email address or password" });
   //-------Search user information by email address-------
-  // 如果查询到了用户 user变量的值是对象类型 对象中存储的是用户信息
-  // 如果没有查询到用户 user变量为空
+  // If the user is queried, the value of the user variable is an object type, and the object stores the user's information.
+  // If the user is not queried, the user variable is empty.
   let user = await User.findOne({ email });
-  // 查询到了用户
+  // The user is queried
   if (user) {
-    // 将客户端传递过来的密码和用户信息中的密码进行比对
-    // Search user information by email address
-    // return boolean true or false
+    // Match the password passed by the client with the password in the user information // Search user information by email address
+    // true The comparison is successful
+    // false Failed to match
     let isValid = await bcrypt.compare(password, user.password);
-    // If the password match is successful
+    // if the password match is successful
     if (isValid) {
-      // Login successful
+      // login was successful
       // Store the username in the request object
-      req.username = user.username;
-      res.send("Login successful");
-
-      // Redirects to the user list page
+      req.session.username = user.username;
+      // res.send('Login successful');
+      req.app.locals.userInfo = user;
+      // redirect to user list page
       res.redirect("/admin/user");
     } else {
       // No users were queried
-      res.status(400).render("admin/error", { msg: "Incorrect password" });
+      res
+        .status(400)
+        .render("admin/error", { msg: "Incorrect email address or password" });
     }
   } else {
     // No user is queried
     res
       .status(400)
-      .render("admin/error", { msg: "Incorrect email address or password???" });
+      .render("admin/error", { msg: "Incorrect email address or password" });
   }
 });
 

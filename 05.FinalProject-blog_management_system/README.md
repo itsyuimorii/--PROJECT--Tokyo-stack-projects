@@ -657,6 +657,28 @@ How the method works internally:
 
 2. store the session id in the client's cookie, and when the client accesses the server again, the attribute is a key value to store the information, 
 
+```js
+const session = require("express-session");
+admin.post("/login", async (req, res) => {
+  ...
+     if (isValid) {
+      // login was successful
+      // Store the username in the request object
+      req.session.username = user.username;
+      // res.send('Login successful');
+      req.app.locals.userInfo = user;
+      // redirect to user list page
+      res.redirect("/admin/user");
+    } else {
+      // No users were queried
+      res
+        .status(400)
+        .render("admin/error", { msg: "Incorrect email address or password" });
+    }
+  ...
+  
+
+```
 
 
 
