@@ -1,3 +1,3 @@
 module.exports = (req, res) => {
-  res.render(".admin/user-edit");
+  res.render("admin/userEdit");
 };

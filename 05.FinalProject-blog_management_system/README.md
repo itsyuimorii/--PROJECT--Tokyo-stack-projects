@@ -847,12 +847,12 @@ LOCATION : [Step01_login](https://github.com/itsyuimorii/Tokyo-stack-projects/tr
 
 > Adding a user is an action that  insert to database, so use `post`
 
-1. 1 Add a link to the Add User button on the user list page
+1. 1 Create a link to the Add User button on the user list page
 
-   2 Add a link to the corresponding route and render the new user template in the route handler function
+   2 Create a link to the corresponding route and render the new user template in the route handler function
    3 Specify the request address and request method for the new user form, and add the name attribute to the form item
 
-   4 Add a route that implements the function of adding users
+   4 Create a route that implements the function of adding users (點擊submit後的post 操作)
 
    5 Receive the request parameters from the client
    6 Validate the format of the request parameters
@@ -865,45 +865,61 @@ LOCATION : [Step01_login](https://github.com/itsyuimorii/Tokyo-stack-projects/tr
 
    10 Redirect the page to the user list page
 
-- 为用户列表页面的新增用户按钮添加链接
+1. 为用户列表页面的新增用户按钮添加链接
 
-  - Views📁=>admin📁=>common📁=> user.art
+- Views📁=>admin📁=>common📁=> user.art
 
-    ```js
-     <a href="/admin/user-edit" class="btn btn-primary new">New Users</a> 
-    ```
-
-  - Create edit page for User router
-
-    ```js
-    //edit page routes
-    admin.get("/user-edit", require("./admin/user-edit"));
-    ```
+  ```js
+   <a href="/admin/user-edit" class="btn btn-primary new">New Users</a> 
+  ```
 
 2. 添加一个连接对应的路由，在路由处理函数中渲染新增用户模板
 
-   ```js
-   module.exports = (req, res) => {
-     res.render(".admin/user-edit");
-   };
-   ```
+> router📁 ->`admin.js`
 
-   
+  ```js
+  //edit page routes
+  admin.get("/user-edit", require("./admin/user-edit"));
+  ```
+> router📁-> admin📁-> userEdit.js
+
+ ```js
+   module.exports = (req, res) => {
+     res.render("admin/user-edit");
+   };
+ ```
 
 3. 为新增用户表单指定请求地址、请求方式、为表单项添加name属性
 
-4. 增加实现添加用户的功能路由
+> Views📁=>admin📁=>common📁=> userEdit.art
 
-5. 接收到客户端传递过来的请求参数
-6. 对请求参数的格式进行验证
+```html
+<form class="form-container" action="/admin/user-edit" method="post">
+  
+name="username"
+name="email"
+...
+```
 
-7. 验证当前要注册的邮箱地址是否已经注册过
+4. 創建实现添加用户的功能路由(點擊submit後的post 操作)
 
-8. 对密码进行加密处理
+> Router📁=>admin📁=> userEdit-fn.js
 
-9. 将用户信息添加到数据库中
+```js
+module.exports = (req, res) => {
+  //這裡實現用戶添加功能
+  res.send("ok");
+};
+```
 
-10. 重定向页面到用户列表页面
+
+
+4. 接收到客户端传递过来的请求参数
+5. 对请求参数的格式进行验证
+6. 验证当前要注册的邮箱地址是否已经注册过
+7. 对密码进行加密处理
+8. 将用户信息添加到数据库中
+9. 重定向页面到用户列表页面
 
 
 
