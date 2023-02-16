@@ -3,7 +3,7 @@ const express = require("express");
 // handle paths
 const path = require("path");
 // introduce the body-parser module to handle post request parameters
-const bodyPaser = require("body-parser");
+const bodyParser = require("body-parser");
 // Import the express-session module
 const session = require("express-session");
 
@@ -13,7 +13,7 @@ const app = express();
 require("./model/connect");
 
 //Configure the post request parameter, body-parser parsing file
-app.use(bodyPaser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: false }));
 
 // Configure session
 app.use(
