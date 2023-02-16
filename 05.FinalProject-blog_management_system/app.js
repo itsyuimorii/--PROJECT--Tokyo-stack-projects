@@ -1,6 +1,10 @@
+// 引用expess框架
 const express = require("express");
+// 处理路径
 const path = require("path");
-const bodyParser = require("body-parser");
+// 引入body-parser模块 用来处理post请求参数
+const bodyPaser = require("body-parser");
+// 导入express-session模块
 const session = require("express-session");
 //create web server instance
 const app = express();
@@ -11,6 +15,7 @@ require("./model/connect");
 //Create initial user
 require("./model/user");
 
+// 配置session
 app.use(
   session({
     secret: "secret key",
