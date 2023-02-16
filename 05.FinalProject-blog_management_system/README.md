@@ -677,13 +677,21 @@ admin.post("/login", async (req, res) => {
   ...
 ```
 
+### 10. How to expose the public data to the template? 
 
+把數據放在locals對象中, 就可以暴露給模板, 就不用`res.render`渲染給模板了
+
+
+
+**app.locals** 
 
 ```js
    req.app.locals.userInfo = user;
 ```
 
 
+
+用戶名要顯示在user page 的右上角, 可以考慮在views -> admin->common-> header.js
 
 ### 11. Login in all code
 
