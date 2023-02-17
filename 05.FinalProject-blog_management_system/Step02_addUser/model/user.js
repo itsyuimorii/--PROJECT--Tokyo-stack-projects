@@ -31,9 +31,9 @@ const userSchema = new mongoose.Schema({
     default: 0,
   },
 });
+
 /*-----testing code here------*/
 //set collection
-
 const User = mongoose.model("User", userSchema);
 
 async function createUser() {

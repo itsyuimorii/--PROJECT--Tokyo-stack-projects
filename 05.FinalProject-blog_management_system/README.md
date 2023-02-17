@@ -981,7 +981,7 @@ module.exports = async (req, res) => {
     //验证没有通过
     //e.message
     //重定向回用户添加页面
-    res.redirect(`/admin/userEdit?${e.message}`);
+    res.redirect(`/admin/userEdit?message = ${e.message}`);
   }
 
   // res.send(req.body);
@@ -990,7 +990,7 @@ module.exports = async (req, res) => {
 
 Note: 👆上面try...catch 的思路是: 
 
-💡當用戶點擊提交的按鈕, 頁面就會跳轉, 實際上是跳轉到`/admin/userEdit`頁面, 
+💡當用戶點擊提交的按鈕, 頁面就會跳轉, 實際上是跳轉到`/admin/userEdit`頁面, 所以在user.Edit中渲染`res.render`, 就可以在art文件中出現這個message 了 
 
 Route📁=>admin📁=>userEdit.js 👇
 
@@ -1006,7 +1006,7 @@ module.exports = (req, res) => {
 Views📁=>admin📁=>common📁=> userEdit.art 👇
 
 ```js
-    <p class="tips">{{message}}</p>
+<p class="tips">{{message}}</p>
 ```
 
 ### 7. 验证当前要注册的邮箱地址是否已经注册过

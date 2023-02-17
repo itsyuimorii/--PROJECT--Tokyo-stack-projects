@@ -12,7 +12,7 @@
             <span class="caret"></span>
           </span>
           <ul class="dropdown-menu">
-            <li><a href="user-edit.html">Personal Information</a></li>
+            <li><a href="userEdit.html">Personal Information</a></li>
             <li><a href="#">Logout</a></li>
           </ul>
         </div>
