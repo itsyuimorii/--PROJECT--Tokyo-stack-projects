@@ -9,8 +9,9 @@
         <div class="main">
             <!-- 分类标题 -->
             <div class="title">
+            <h4>user</h4>
                <!--   <h4 style="display: {{button == '修改' ? 'block' : 'none'}}">{{@user && user._id}}</h4> -->
-                <p class="tips">message</p>
+                <p class="tips">{{message}}</p>
             </div>
             <!-- /分类标题 -->
             <form class="form-container" action="{{link}}" method="post">

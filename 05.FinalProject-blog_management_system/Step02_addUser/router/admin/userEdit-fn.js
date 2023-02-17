@@ -38,6 +38,5 @@ module.exports = async (req, res) => {
     //重定向回用户添加页面
     res.redirect(`/admin/userEdit?${e.message}`);
   }
-
   //res.send(req.body);
 };

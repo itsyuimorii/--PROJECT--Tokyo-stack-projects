@@ -925,7 +925,7 @@ module.exports = (req, res) => {
 //{"username":"matthew","email":"matthew@gmail.com","password":"000000","state":"0"}
 ```
 
-### 6. 对请求参数的格式进行验证
+### 6. 对请求参数的格式进行验证(😤)
 
 ### Joi module 💥
 
@@ -942,7 +942,7 @@ const schema = {
 Joi.validate({ username: 'abc', birthyear: 1994 }, schema);
 ```
 
-> Views📁=>admin📁=>common📁=> userEdit-fn.art 👇
+> Route📁=>admin📁=>userEdit-fn.js 👇
 
 ```js
 const Joi = require("joi");
@@ -992,7 +992,7 @@ Note: 👆上面try...catch 的思路是:
 
 💡當用戶點擊提交的按鈕, 頁面就會跳轉, 實際上是跳轉到`/admin/userEdit`頁面, 
 
-Views📁=>admin📁=>common📁=> userEdit.art 👇
+Route📁=>admin📁=>userEdit.js 👇
 
 ```js
 module.exports = (req, res) => {
@@ -1003,15 +1003,19 @@ module.exports = (req, res) => {
 };
 ```
 
+Views📁=>admin📁=>common📁=> userEdit.art 👇
 
-
-
+```js
+    <p class="tips">{{message}}</p>
+```
 
 ### 7. 验证当前要注册的邮箱地址是否已经注册过
 
-4. 对密码进行加密处理
-5. 将用户信息添加到数据库中
-6. 重定向页面到用户列表页面
+### 对密码进行加密处理
+
+### 将用户信息添加到数据库中
+
+### 重定向页面到用户列表页面
 
 
 

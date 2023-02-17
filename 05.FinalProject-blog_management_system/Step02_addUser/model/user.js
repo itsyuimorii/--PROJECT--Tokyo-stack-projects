@@ -1,5 +1,8 @@
 const mongoose = require("mongoose");
+// 导入bcrypt
 const bcrypt = require("bcrypt");
+// 引入joi模块
+const Joi = require("joi");
 //set collection rules
 const userSchema = new mongoose.Schema({
   username: {
@@ -28,11 +31,11 @@ const userSchema = new mongoose.Schema({
     default: 0,
   },
 });
+/*-----testing code here------*/
+//set collection
 
 const User = mongoose.model("User", userSchema);
 
-/*-----testing code here------*/
-//set collection
 async function createUser() {
   const salt = await bcrypt.genSalt(10);
   const pass = await bcrypt.hash("000000", salt);
