@@ -1178,6 +1178,10 @@ app.use((err, req, res, next) => {
 });
 ```
 
+## 8. Display user infomation 
+
+When accessing the `user list` page, you need to first query all the `user information` from the `database` in the `route` processing function corresponding to the `user list` page, then use the `res.redner` method to render it, and pass the queried user data to the `template` to display it
+
 
 
 
