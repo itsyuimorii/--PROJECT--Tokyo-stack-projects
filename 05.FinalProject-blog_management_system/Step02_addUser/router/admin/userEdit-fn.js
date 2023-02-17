@@ -3,12 +3,11 @@ const Joi = require("joi");
 module.exports = async (req, res) => {
   //這裡實現用戶添加功能
   // res.send("ok");
-  //res.send(req.body);
   //{"username":"matthew","email":"matthew@gmail.com","password":"000000","state":"0"}
 
   //定義對象的驗證規則
 
-  const schema = {
+  const schema = Joi.object({
     username: Joi.string()
       .min(2)
       .max(12)
@@ -27,15 +26,17 @@ module.exports = async (req, res) => {
       .valid(0, 1)
       .required()
       .error(new Error("Invalid status")),
-  };
+  });
+  //用try{}catch(){}语句来捕获异步函数的异常
   try {
-    // Validation passed
-    await Joi.validate(req.body, schema);
-  } catch (error) {
-    //Certification not passed"
-    //error.message = "Invalid certificate";
-    // Redirect back to the user-edit page
-    res.redirect(`/admin/userEdit?message="${error.message}`);
+    //实施验证
+    await schema.validateAsync(req.body);
+  } catch (e) {
+    //验证没有通过
+    //e.message
+    //重定向回用户添加页面
+    res.redirect(`/admin/userEdit?${e.message}`);
   }
+
   res.send(req.body);
 };

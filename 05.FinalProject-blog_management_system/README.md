@@ -950,10 +950,9 @@ const Joi = require("joi");
 module.exports = async (req, res) => {
   //這裡實現用戶添加功能
   // res.send("ok");
-  res.send(req.body);
   //{"username":"matthew","email":"matthew@gmail.com","password":"000000","state":"0"}
 
-  //Define the validation rules for the object
+  //定義對象的驗證規則
 
   const schema = {
     username: Joi.string()
@@ -975,22 +974,28 @@ module.exports = async (req, res) => {
       .required()
       .error(new Error("Invalid status")),
   };
-  
-  
+  //用try{}catch(){}语句来捕获异步函数的异常
   try {
-    //驗證通過
-  } catch (error) {
-    //驗證未通過
+    //实施验证
+    await schema.validateAsync(req.body);
+  } catch (e) {
+    //验证没有通过
+    //e.message
+    //重定向回用户添加页面
+    res.redirect(`/admin/user-edit?${e.message}`);
   }
-  // 实施验证
-  await Joi.validate(req.body, schema);
-};
 
+  res.send(req.body);
+};
 ```
 
 Note: 👆上面try...catch 的思路是: 
 
 💡當用戶點擊提交的按鈕, 頁面就會跳轉, 實際上是跳轉到`/admin/userEdit`頁面, 
+
+
+
+
 
 4. 验证当前要注册的邮箱地址是否已经注册过
 5. 对密码进行加密处理
