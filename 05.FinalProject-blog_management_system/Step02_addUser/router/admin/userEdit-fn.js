@@ -28,6 +28,9 @@ module.exports = async (req, res) => {
       `/admin/userEdit?message=The email address is already occupied`
     );
     //return next(JSON.stringify({path: '/admin/user-edit', message: 'The email address is already occupied'}))
+
+    const salt = await bcrypt.genSalt(10);
+    const password = bcrypt.hash(req.body.password, salt);
   }
-  res.send(user);
+  // res.send(user);
 };
