@@ -3,7 +3,7 @@ const { User, validateUser } = require("../../model/user");
 // 引入加密模块
 const bcrypt = require("bcrypt");
 //這裡實現用戶添加功能
-module.exports = async (req, res) => {
+module.exports = async (req, res, next) => {
   // res.send("ok");
   //{"username":"matthew","email":"matthew@gmail.com","password":"000000","state":"0"}
 
@@ -14,8 +14,12 @@ module.exports = async (req, res) => {
   } catch (e) {
     //Verification failure
     //e.message
-    //Redirect back to the user add page
-    return res.redirect(`/admin/userEdit?message=${e.message}`);
+    // 重定向回用户添加页面
+    // return res.redirect(`/admin/userEdit?message=${e.message}`);
+    // JSON.stringify() 将对象数据类型转换为字符串数据类型
+    return next(
+      JSON.stringify({ path: "/admin/userEdit", message: e.message })
+    );
   }
 
   // Check if the user exists by email address
@@ -23,13 +27,17 @@ module.exports = async (req, res) => {
   // If the user already exists and the email address is already occupied by someone else
   if (user) {
     // Redirects back to the user add page
-    return res.redirect(
-      `/admin/userEdit?message=The email address is already occupied`
+    //  return res.redirect(
+    //     `/admin/userEdit?message=The email address is already occupied`
+    //   );
+    return next(
+      JSON.stringify({
+        path: "/admin/user-edit",
+        message: "The email address is already occupied",
+      })
     );
-    //return next(JSON.stringify({path: '/admin/user-edit', message: 'The email address is already occupied'}))
   }
   //對密碼進行加密處理
-
   // 生成随机字符串
   const salt = await bcrypt.genSalt(10);
   // 加密

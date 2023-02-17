@@ -1115,7 +1115,72 @@ const schema = {
 };
 ```
 
-### 錯誤處理
+### 12. error handling `res.redirect `middleware
+
+> app.js
+
+```js
+//錯誤處理中間件
+app.use((err, req, res, next) => {
+  res.redirect(`/admin/userEdit?message=${e.message}`);
+});
+```
+
+Route📁=>admin📁=>userEdit-fn.js 👇
+
+**JSON.stringfy**
+
+```js
+  //用try{}catch(){}语句来捕获异步函数的异常
+  try {
+    await validateUser(req.body);
+  } catch (e) {
+    // 重定向回用户添加页面
+		// return res.redirect(`/admin/userEdit?message=${e.message}`);
+		// JSON.stringify() 将对象数据类型转换为字符串数据类型
+		return next(JSON.stringify({path: '/admin/userEdit', message: e.message}))
+  }
+
+  // Check if the user exists by email address
+  let user = await User.findOne({ email: req.body.email });
+  if (user) {
+   return next(
+      JSON.stringify({
+        path: "/admin/user-edit",
+        message: "The email address is already occupied",
+      })
+    );
+```
+
+ ·`next方法`·💥Only one parameter can be passed, and it is a string type, but now if you need to pass two parameters, the solution is 👇:
+
+1. pass an `argument`, the parameters should be written as `object`. 2, 
+2. you need to convert `object` to `string` and put it in the `next()` method
+
+3. Here we use `JSON.stringify()` to convert the object data type to `string` data type
+
+```js
+return next(JSON.stringify({path: '/admin/userEdit', message: e.message}))
+```
+
+app.js
+
+```js
+//錯誤處理中間件
+app.use((err, req, res, next) => {
+  //JSON.parse()將字符串轉換為對象
+  const result = JSON.parse(err)
+  
+  將原🈶️的
+  res.redirect(`/admin/userEdit?message=${e.message}`);
+  改為:
+  res.redirect(`${result.path}?message=${result.message}`); 
+});
+```
+
+
+
+
 
 ## Takeaway key points
 

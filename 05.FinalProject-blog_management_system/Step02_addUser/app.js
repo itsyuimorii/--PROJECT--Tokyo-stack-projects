@@ -46,6 +46,13 @@ app.use("/admin", require("./middleware/loginGuard"));
 app.use("/home", homeRouter);
 app.use("/admin", adminRouter);
 
+//錯誤處理中間件
+app.use((err, req, res, next) => {
+  // res.redirect(`/admin/userEdit?message=${e.message}`);
+  const result = JSON.parse(err);
+  res.redirect(`${result.path}?message=${result.message}`);
+});
+
 app.listen(3000, () => {
   console.log("api server running at http://127.0.0.1:3000");
 });
