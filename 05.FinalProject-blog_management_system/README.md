@@ -1079,9 +1079,43 @@ Views📁=>admin📁=>common📁=> userEdit.art 👇
 
 ### 11. 優化代碼
 
-把validate 移動到 
+在model 📁下`user.js`中 
 
+```js
+const validateUser = (user) => {}
+```
 
+```js
+const Joi = require("joi");
+
+// 定义对象的验证规则
+const schema = {
+    username: Joi.string()
+      .min(2)
+      .max(12)
+      .required()
+      .error(new Error("Invalid username")),
+    email: Joi.string().email().required().error(new Error("Invalid email")),
+    password: Joi.string()
+      .regex(/^[a-zA-Z0-9]{3,30}$/)
+      .required()
+      .error(new Error("Invalid Password ")),
+    role: Joi.string()
+      .valid("normal", "admin")
+      .required()
+      .error(new Error("Invalid role")),
+    state: Joi.number()
+      .valid(0, 1)
+      .required()
+      .error(new Error("Invalid status")),
+  };
+
+  // 实施验证
+  return Joi.validate(user, schema);
+};
+```
+
+### 錯誤處理
 
 ## Takeaway key points
 

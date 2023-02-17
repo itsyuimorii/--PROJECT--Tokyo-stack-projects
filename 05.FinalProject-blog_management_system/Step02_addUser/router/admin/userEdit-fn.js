@@ -2,9 +2,8 @@
 const { User, validateUser } = require("../../model/user");
 // 引入加密模块
 const bcrypt = require("bcrypt");
-
+//這裡實現用戶添加功能
 module.exports = async (req, res) => {
-  //這裡實現用戶添加功能
   // res.send("ok");
   //{"username":"matthew","email":"matthew@gmail.com","password":"000000","state":"0"}
 

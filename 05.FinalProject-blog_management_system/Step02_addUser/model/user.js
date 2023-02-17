@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 // 引入joi模块
 const Joi = require("joi");
+
 //set collection rules
 const userSchema = new mongoose.Schema({
   username: {
@@ -62,7 +63,7 @@ async function createUser() {
     console.log("error creating user");
   }); */
 
-// 验证用户信息
+// Verify user information
 const validateUser = (user) => {
   // 定义对象的验证规则
   const schema = {
