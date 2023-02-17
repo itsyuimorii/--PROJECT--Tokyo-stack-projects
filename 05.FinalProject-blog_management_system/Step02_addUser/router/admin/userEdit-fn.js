@@ -15,19 +15,19 @@ module.exports = async (req, res) => {
   } catch (e) {
     //Verification failure
     //e.message
-    //重定向回用户添加页面
+    //Redirect back to the user add page
     return res.redirect(`/admin/userEdit?message=${e.message}`);
   }
 
-  // 根据邮箱地址查询用户是否存在
+  // Check if the user exists by email address
   let user = await User.findOne({ email: req.body.email });
-  // 如果用户已经存在 邮箱地址已经被别人占用
+  // If the user already exists and the email address is already occupied by someone else
   if (user) {
-    // 重定向回用户添加页面
+    // Redirects back to the user add page
     return res.redirect(
       `/admin/userEdit?message=The email address is already occupied`
     );
-    //return next(JSON.stringify({path: '/admin/user-edit', message: '邮箱地址已经被占用'}))
+    //return next(JSON.stringify({path: '/admin/user-edit', message: 'The email address is already occupied'}))
   }
   res.send(user);
 };

@@ -1009,7 +1009,22 @@ Views📁=>admin📁=>common📁=> userEdit.art 👇
 <p class="tips">{{message}}</p>
 ```
 
-### 7. 验证当前要注册的邮箱地址是否已经注册过
+### 7. Verify that the current email address to be registered has already been registered
+
+```js
+  // Check if the user exists by email address
+  let user = await User.findOne({ email: req.body.email });
+  // If the user already exists and the email address is already occupied by someone else
+  if (user) {
+    // Redirects back to the user add page
+    return res.redirect(
+      `/admin/userEdit?message=The email address is already occupied`
+    );
+    //return next(JSON.stringify({path: '/admin/user-edit', message: 'The email address is already occupied'}))
+  }
+```
+
+
 
 ### 对密码进行加密处理
 
