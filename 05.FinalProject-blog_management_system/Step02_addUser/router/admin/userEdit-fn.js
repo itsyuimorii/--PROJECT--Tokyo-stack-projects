@@ -1,6 +1,6 @@
 const Joi = require("joi");
 
-module.exports = (req, res) => {
+module.exports = async (req, res) => {
   //這裡實現用戶添加功能
   // res.send("ok");
   res.send(req.body);
@@ -28,7 +28,11 @@ module.exports = (req, res) => {
       .required()
       .error(new Error("Invalid status")),
   };
-
+  try {
+    //驗證通過
+  } catch (error) {
+    //驗證未通過
+  }
   // 实施验证
-  Joi.validate(req.body, schema);
+  await Joi.validate(req.body, schema);
 };
