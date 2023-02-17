@@ -33,5 +33,6 @@ module.exports = async (req, res) => {
     await Joi.validate(req.body, schema);
   } catch (error) {
     //Certification not passed
+    error.message = "Invalid certificate
   }
 };

@@ -975,6 +975,8 @@ module.exports = async (req, res) => {
       .required()
       .error(new Error("Invalid status")),
   };
+  
+  
   try {
     //驗證通過
   } catch (error) {
@@ -986,9 +988,9 @@ module.exports = async (req, res) => {
 
 ```
 
+Note: 👆上面try...catch 的思路是: 
 
-
-
+💡當用戶點擊提交的按鈕, 頁面就會跳轉, 實際上是跳轉到`/admin/userEdit`頁面, 
 
 4. 验证当前要注册的邮箱地址是否已经注册过
 5. 对密码进行加密处理
