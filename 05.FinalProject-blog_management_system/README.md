@@ -1077,7 +1077,9 @@ Views📁=>admin📁=>common📁=> userEdit.art 👇
   res.redirect("/admin/user");
 ```
 
+### 11. 優化代碼
 
+把validate 移動到 
 
 
 
