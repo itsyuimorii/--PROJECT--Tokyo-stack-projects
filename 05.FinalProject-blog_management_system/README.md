@@ -927,20 +927,48 @@ module.exports = (req, res) => {
 
 ### 6. 对请求参数的格式进行验证(😤)
 
-### Joi module 💥
+### Joi module 💥 @14.3.1 
 
-```js
-const Joi = require('joi'  );
-const schema = {
-    username: Joi.string().alphanum().min(3).max(30).required().error(new Error(‘错误信息’)),
-    password: Joi.string().regex(/^[a-zA-Z0-9]{3,30}$/),
-    access_token: [Joi.string(), Joi.number()],
-    birthyear: Joi.number().integer().min(1900).max(2013),
-    email: Joi.string().email() 
-};
-//param 1: validate object 2: validate rule(also an object)
-Joi.validate({ username: 'abc', birthyear: 1994 }, schema);
-```
+> ❌**Error**❌:` Joi.validate is not a function` is that this method has been deprecated by joi, and there are two ways to solve it
+>
+> ```js
+> npm uninstall joi
+> npm install joi@14.3.1
+> ```
+>
+> way2 : 
+>
+> ```js
+> //引入joi模块
+> const Joi=require('joi')
+> 
+> module.exports=async(req,res)=>{
+> 
+>   //定義對象的驗證規則
+>   const schema = Joi.object({
+>     username: Joi.string()
+>       .min(2)
+>       .max(12)
+>       .required()
+>       .error(new Error("Invalid username")),
+>     email: Joi.string().email().required().error(new Error("Invalid email")),
+>     password: Joi.string()
+>       .regex(/^[a-zA-Z0-9]{3,30}$/)
+>       .required()
+>       .error(new Error("Invalid password")),
+>     role: Joi.string()
+>       .valid("normal", "admin")
+>       .required()
+>       .error(new Error("Invalid Value")),
+>     state: Joi.number()
+>       .valid(0, 1)
+>       .required()
+>       .error(new Error("Invalid status")),
+>   });
+> })
+> ```
+
+
 
 > Route📁=>admin📁=>userEdit-fn.js 👇
 
@@ -952,7 +980,7 @@ module.exports = async (req, res) => {
   // res.send("ok");
   //{"username":"matthew","email":"matthew@gmail.com","password":"000000","state":"0"}
 
-  //定義對象的驗證規則
+  //Define the validation rules for the object
   const schema = Joi.object({
     username: Joi.string()
       .min(2)
@@ -979,18 +1007,18 @@ module.exports = async (req, res) => {
     await schema.validateAsync(req.body);
   } catch (e) {
     //验证没有通过
-    //e.message
+    console.log(e.message)
     //重定向回用户添加页面
-    res.redirect(`/admin/userEdit?message = ${e.message}`);
+    return res.redirect(`/admin/userEdit?message = ${e.message}`);
   }
-
+  //這裡如果在最後寫了res.send(req.body) 會報錯, 可以在res.direct 前➕return 讓下面代碼不執行
   // res.send(req.body);
 };
 ```
 
-Note: 👆上面try...catch 的思路是: 
+> Note: 👆上面try...catch 的思路是: 
 
-💡當用戶點擊提交的按鈕, 頁面就會跳轉, 實際上是跳轉到`/admin/userEdit`頁面, 所以在user.Edit中渲染`res.render`, 就可以在art文件中出現這個message 了 
+💡在/admin/userEdit-fn中, 當用戶點擊提交的按鈕, 頁面就會跳轉, 實際上是跳轉到`/admin/userEdit`頁面, 所以在user.Edit中渲染`res.render`, 就可以在art文件中出現這個message 了 
 
 Route📁=>admin📁=>userEdit.js 👇
 
@@ -1020,13 +1048,12 @@ Views📁=>admin📁=>common📁=> userEdit.art 👇
     return res.redirect(
       `/admin/userEdit?message=The email address is already occupied`
     );
-    //return next(JSON.stringify({path: '/admin/user-edit', message: 'The email address is already occupied'}))
   }
 ```
 
+### 8. Encryption of passwords, 在驗證用戶輸入無誤後
 
 
-### 对密码进行加密处理
 
 ### 将用户信息添加到数据库中
 
