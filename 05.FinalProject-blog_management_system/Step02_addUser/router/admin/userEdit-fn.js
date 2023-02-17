@@ -3,7 +3,7 @@ const Joi = require("joi");
 module.exports = async (req, res) => {
   //這裡實現用戶添加功能
   // res.send("ok");
-  res.send(req.body);
+  //res.send(req.body);
   //{"username":"matthew","email":"matthew@gmail.com","password":"000000","state":"0"}
 
   //定義對象的驗證規則
@@ -33,9 +33,9 @@ module.exports = async (req, res) => {
     await Joi.validate(req.body, schema);
   } catch (error) {
     //Certification not passed"
-    error.message = "Invalid certificate";
+    //error.message = "Invalid certificate";
     // Redirect back to the user-edit page
-    res.redirect(`/admin/user-edit?message="${error.message}`);
+    res.redirect(`/admin/userEdit?message="${error.message}`);
   }
   res.send(req.body);
 };
