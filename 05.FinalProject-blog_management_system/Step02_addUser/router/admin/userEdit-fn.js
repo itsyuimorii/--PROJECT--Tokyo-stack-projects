@@ -32,7 +32,10 @@ module.exports = async (req, res) => {
     // Validation passed
     await Joi.validate(req.body, schema);
   } catch (error) {
-    //Certification not passed
-    error.message = "Invalid certificate
+    //Certification not passed"
+    error.message = "Invalid certificate";
+    // Redirect back to the user-edit page
+    res.redirect(`/admin/user-edit?message="${error.message}`);
   }
+  res.send(req.body);
 };
