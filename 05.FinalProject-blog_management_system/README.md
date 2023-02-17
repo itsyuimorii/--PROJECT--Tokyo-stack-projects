@@ -1210,7 +1210,32 @@ module.exports = async (req, res) => {
 
 > Views📁-> user.art
 
-
+```html
+  <thead>
+    <tr>
+        <th>ID</th>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Role</th>
+        <th>Status</th>
+        <th>Operation</th>
+    </tr>
+  </thead>
+  <tbody>
+   <! -- 對應JSON數據 -->
+           <tr>
+                <td>{{@$value._id}}</td>
+                <td>{{$value.username}}</td>
+                <td>{{$value.email}}</td>
+                <td>{{$value.role == 'admin' ? 'admin': 'normal'}}</td>
+                <td>{{$value.state == 0 ? 'active': 'disabled'}}</td>
+                <td>
+                    <a href="/admin/user-edit?id={{@$value._id}}" class="glyphicon glyphicon-edit"></a>
+                    <i class="glyphicon glyphicon-remove" data-toggle="modal" data-target=".confirm-modal"></i>
+                </td>
+            </tr>
+  </tbody>
+```
 
 ## Takeaway key points
 
