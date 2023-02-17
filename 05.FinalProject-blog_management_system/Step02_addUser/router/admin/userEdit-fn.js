@@ -10,10 +10,10 @@ module.exports = async (req, res) => {
 
   //用try{}catch(){}语句来捕获异步函数的异常
   try {
-    //实施验证
+    // Implementation Validation
     await validateUser(req.body);
   } catch (e) {
-    //验证没有通过
+    //Verification failure
     //e.message
     //重定向回用户添加页面
     return res.redirect(`/admin/userEdit?message=${e.message}`);
@@ -24,7 +24,9 @@ module.exports = async (req, res) => {
   // 如果用户已经存在 邮箱地址已经被别人占用
   if (user) {
     // 重定向回用户添加页面
-    return res.redirect(`/admin/userEdit?message=邮箱地址已经被占用`);
+    return res.redirect(
+      `/admin/userEdit?message=The email address is already occupied`
+    );
     //return next(JSON.stringify({path: '/admin/user-edit', message: '邮箱地址已经被占用'}))
   }
   res.send(user);
