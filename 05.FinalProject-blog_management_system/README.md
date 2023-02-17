@@ -479,7 +479,7 @@ admin.post("/login", (req, res) => {
       const { User } = require("../model/user");
       ```
 
-   - 獲取用戶輸入的參數
+   - Get the parameters entered by the user
 
       ```js
       admin.post("/login", async (req, res) => {
@@ -953,7 +953,7 @@ module.exports = async (req, res) => {
   res.send(req.body);
   //{"username":"matthew","email":"matthew@gmail.com","password":"000000","state":"0"}
 
-  //定義對象的驗證規則
+  //Define the validation rules for the object
 
   const schema = {
     username: Joi.string()
