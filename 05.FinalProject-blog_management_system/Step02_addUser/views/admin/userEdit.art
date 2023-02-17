@@ -13,7 +13,7 @@
         <!-- Category Title -->
         <div class="title">
           <h4>5b9a716cb2d2bf17706bcc0a</h4>
-           <p class="tips">{{message}}</p>
+           <p class="tips">Error{{message}}</p>
         </div>
         <!-- /Category Title -->
         <form class="form-container" action="/admin/userEdit" method="post">
