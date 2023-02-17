@@ -1053,11 +1053,29 @@ Views📁=>admin📁=>common📁=> userEdit.art 👇
 
 ### 8. Encryption of passwords, 在驗證用戶輸入無誤後
 
+```js
+  // 生成随机字符串
+  const salt = await bcrypt.genSalt(10);
+  // 加密
+  const password = await bcrypt.hash(req.body.password, salt);
+  // 替换密码
+  req.body.password = password;
+  //res.send(req.body);
+```
 
+### 9. Adding user information to the database
 
-### 将用户信息添加到数据库中
+```js
+  // 将用户信息添加到数据库中
+  await User.create(req.body);
+```
 
 ### 重定向页面到用户列表页面
+
+```js
+  // 将页面重定向到用户列表页面
+  res.redirect("/admin/user");
+```
 
 
 

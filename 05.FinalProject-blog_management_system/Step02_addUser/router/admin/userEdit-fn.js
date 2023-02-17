@@ -28,9 +28,18 @@ module.exports = async (req, res) => {
       `/admin/userEdit?message=The email address is already occupied`
     );
     //return next(JSON.stringify({path: '/admin/user-edit', message: 'The email address is already occupied'}))
-
-    const salt = await bcrypt.genSalt(10);
-    const password = bcrypt.hash(req.body.password, salt);
   }
-  // res.send(user);
+  //對密碼進行加密處理
+
+  // 生成随机字符串
+  const salt = await bcrypt.genSalt(10);
+  // 加密
+  const password = await bcrypt.hash(req.body.password, salt);
+  // 替换密码
+  req.body.password = password;
+  //res.send(req.body);
+  // 将用户信息添加到数据库中
+  await User.create(req.body);
+  // 将页面重定向到用户列表页面
+  res.redirect("/admin/user");
 };
