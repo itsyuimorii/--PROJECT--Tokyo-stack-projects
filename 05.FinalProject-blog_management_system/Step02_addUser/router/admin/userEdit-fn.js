@@ -29,10 +29,9 @@ module.exports = async (req, res) => {
       .error(new Error("Invalid status")),
   };
   try {
-    //驗證通過
+    // Validation passed
+    await Joi.validate(req.body, schema);
   } catch (error) {
-    //驗證未通過
+    //Certification not passed
   }
-  // 实施验证
-  await Joi.validate(req.body, schema);
 };
