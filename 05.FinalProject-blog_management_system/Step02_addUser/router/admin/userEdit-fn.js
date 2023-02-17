@@ -27,6 +27,7 @@ module.exports = async (req, res) => {
       .required()
       .error(new Error("Invalid status")),
   });
+
   //用try{}catch(){}语句来捕获异步函数的异常
   try {
     //实施验证
@@ -37,6 +38,5 @@ module.exports = async (req, res) => {
     //重定向回用户添加页面
     res.redirect(`/admin/userEdit?${e.message}`);
   }
-
-  res.send(req.body);
+  //res.send(req.body);
 };

@@ -942,7 +942,7 @@ const schema = {
 Joi.validate({ username: 'abc', birthyear: 1994 }, schema);
 ```
 
-> Views📁=>admin📁=>common📁=> userEdit-fn.art
+> Views📁=>admin📁=>common📁=> userEdit-fn.art 👇
 
 ```js
 const Joi = require("joi");
@@ -953,8 +953,7 @@ module.exports = async (req, res) => {
   //{"username":"matthew","email":"matthew@gmail.com","password":"000000","state":"0"}
 
   //定義對象的驗證規則
-
-  const schema = {
+  const schema = Joi.object({
     username: Joi.string()
       .min(2)
       .max(12)
@@ -973,7 +972,7 @@ module.exports = async (req, res) => {
       .valid(0, 1)
       .required()
       .error(new Error("Invalid status")),
-  };
+  });
   //用try{}catch(){}语句来捕获异步函数的异常
   try {
     //实施验证
@@ -982,10 +981,10 @@ module.exports = async (req, res) => {
     //验证没有通过
     //e.message
     //重定向回用户添加页面
-    res.redirect(`/admin/user-edit?${e.message}`);
+    res.redirect(`/admin/userEdit?${e.message}`);
   }
 
-  res.send(req.body);
+  // res.send(req.body);
 };
 ```
 
@@ -993,14 +992,26 @@ Note: 👆上面try...catch 的思路是:
 
 💡當用戶點擊提交的按鈕, 頁面就會跳轉, 實際上是跳轉到`/admin/userEdit`頁面, 
 
+Views📁=>admin📁=>common📁=> userEdit.art 👇
+
+```js
+module.exports = (req, res) => {
+  const { message } = req.query;
+  res.render("admin/userEdit", {
+    message: message,
+  });
+};
+```
 
 
 
 
-4. 验证当前要注册的邮箱地址是否已经注册过
-5. 对密码进行加密处理
-6. 将用户信息添加到数据库中
-7. 重定向页面到用户列表页面
+
+### 7. 验证当前要注册的邮箱地址是否已经注册过
+
+4. 对密码进行加密处理
+5. 将用户信息添加到数据库中
+6. 重定向页面到用户列表页面
 
 
 
