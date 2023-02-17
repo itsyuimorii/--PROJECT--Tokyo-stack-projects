@@ -32,7 +32,7 @@ module.exports = async (req, res, next) => {
     //   );
     return next(
       JSON.stringify({
-        path: "/admin/user-edit",
+        path: "/admin/userdit",
         message: "The email address is already occupied",
       })
     );
