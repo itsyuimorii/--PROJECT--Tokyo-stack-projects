@@ -30,9 +30,9 @@
             </tr>
           </thead>
           <tbody>
-           <! -- 對應JSON數據 -->
+          
                    <tr>
-                        <td>{{@$value._id}}</td>
+                        <td>{{$value._id}}</td>
                         <td>{{$value.username}}</td>
                         <td>{{$value.email}}</td>
                         <td>{{$value.role == 'admin' ? 'admin': 'normal'}}</td>
