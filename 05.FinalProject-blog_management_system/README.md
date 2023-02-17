@@ -1070,7 +1070,7 @@ Views📁=>admin📁=>common📁=> userEdit.art 👇
   await User.create(req.body);
 ```
 
-### 重定向页面到用户列表页面
+### 10. Redirect page to user list page
 
 ```js
   // 将页面重定向到用户列表页面
