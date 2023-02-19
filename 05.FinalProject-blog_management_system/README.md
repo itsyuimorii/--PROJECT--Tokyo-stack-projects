@@ -1447,7 +1447,7 @@ module.exports = async (req, res) => {
 
 ![id](https://github.com/itsyuimorii/Tokyo-stack-projects/blob/main/images/id.png)
 
-### 3. 接收客户端表单传递过来的请求参数
+### 
 
 > router📁-> admin📁-> userEdit.js
 
@@ -1486,7 +1486,101 @@ module.exports = async (req, res) => {
 
 ![edituseridcompare](https://github.com/itsyuimorii/Tokyo-stack-projects/blob/main/images/edituseridcompare.png)
 
+```js
+ <form class="form-container" action="{{link}}" method="post">
+                <div class="form-group">
+                    <label>username</label>
+                    <input name="username" type="text" class="form-control" placeholder="Please enter your username" value="{{user && user.username}}">
+                </div>
+                <div class="form-group">
+                    <label>email</label>
+                    <input type="email" class="form-control" placeholder="Please enter your email" name="email" value="{{user && user.email}}">
+                </div>
+                <div class="form-group">
+                    <label>password</label>
+                    <input type="password" class="form-control" placeholder="Please enter your password" name="password">
+                </div>
+                <div class="form-group">
+                    <label>role</label>
+                    <select class="form-control" name="role">
+                        <option value="normal" {{user && user.role == 'normal' ? 'selected' : ''}}>noraml</option>
+                        <option value="admin" {{user && user.role == 'admin' ? 'selected' : ''}}>admin</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>state</label>
+                    <select class="form-control" name="state">
+                        <option value="0" {{user && user.state == '0' ? 'selected' : ''}}>active</option>
+                        <option value="1" {{user && user.state == '1' ? 'selected' : ''}}>disabled</option>
+                    </select>
+                </div>
+                <div class="buttons">
+                    <input type="submit" class="btn btn-primary" value="submit">
+                </div>
+            </form>
+```
 
+#### 1. 用戶和修改用戶是兩個提交地址, 所以`render`裡添加`link`屬性
+
+```js
+    //渲染用戶編輯頁面(修改)
+    res.render("admin/userEdit", {
+      message: message,
+      user: user,
+      link:"/admin/user-add"
+ 
+    });
+  } else {
+    //添加操作
+    res.render("admin/userEdit", {
+      message: message,
+      link:"/admin/userEdit"
+    
+    });
+```
+
+Views📁->  admin📁->userEdit.art
+
+```js
+<form class="form-container" action="{{link}}" method="post">
+```
+
+#### 2. 添加Button屬性 : `edit` or `add`
+
+```js
+    //渲染用戶編輯頁面(修改)
+    res.render("admin/userEdit", {
+      message: message,
+      user: user,
+      link:"/admin/user-add"
+      button: "add"
+    });
+  } else {
+    //添加操作
+    res.render("admin/userEdit", {
+      message: message,
+      link:"/admin/userEdit"
+      button: "edit"
+    });
+```
+
+```js
+<div class="buttons">
+<input type="submit" class="btn btn-primary" value="{{button}}">
+</div>
+```
+
+#### 3. show id when modifying user page, do not show id when adding user page
+
+Views📁->  admin📁->userEdit.art
+
+```js
+<h4 style="display: {{button == '修改' ? 'block' : 'none'}}">{{@user && user._id}}</h4>  
+```
+
+
+
+### 3. 接收客户端表单传递过来的请求参数
 
 ### 4. 根据id查询用户信息，并将客户端传递过来的密码和数据库中的密码进行比对,
 

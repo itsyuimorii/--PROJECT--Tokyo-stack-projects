@@ -17,11 +17,13 @@ module.exports = async (req, res) => {
     res.render("admin/userEdit", {
       message: message,
       user: user,
+      link: "/admin/user-add",
     });
   } else {
     //添加操作
     res.render("admin/userEdit", {
       message: message,
+      link: "/admin/userEdit",
     });
   }
 };
