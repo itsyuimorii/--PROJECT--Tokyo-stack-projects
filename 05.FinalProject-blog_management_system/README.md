@@ -1322,24 +1322,40 @@ When rendering the user list template, you need to pass in the paging informatio
 > Views📁-> user.art
 
 ```html
-  <ul class="pagination">
+<ul class="pagination">
           <li>
-            <a href="#">
+              <a href="/admin/user?page=<%=page-0-1%>">
               <span>&laquo;</span>
             </a>
           </li>
           <%for(var i = 1; i <= total; i++ ){ %>
-          <li><a href="#">{{i}}</a></li>
-       <% } %>
+          <li><a href="/admin/user?page=<%=i %>">{{i}}</a></li>
+          <% } %>
           <li>
-            <a href="#">
+            <a href="/admin/user?page=<%=page-0+1%>">
               <span>&raquo;</span>
             </a>
           </li>
- </ul>
+</ul>
 ```
 
+ add a 🔗 link to the pagination button
 
+```js
+<li><a href="/admin/user?page=<%=i %>">{{i}}</a></li>
+```
+
+這裡的運算需要將page從`string`轉換為`number` "-0"有隱式轉換功能
+
+```js
+<a href="/admin/user?page=<%=page-0+1%>">
+```
+
+```js
+<a href="/admin/user?page=<%=page-0-1%>">           
+```
+
+ 
 
 ## Takeaway key points
 

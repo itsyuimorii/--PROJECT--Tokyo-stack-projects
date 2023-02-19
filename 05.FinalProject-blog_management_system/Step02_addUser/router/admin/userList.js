@@ -5,7 +5,7 @@ module.exports = async (req, res) => {
   // 1. Receive the current page parameters from the client
   let page = req.query.page;
   //2. Number of data items displayed per page
-  let pagesize = 10;
+  let pagesize = 2;
   //3. Query the total number of user data
   let count = await User.countDocuments({});
   // res.send("用戶的總數是: " + count);
