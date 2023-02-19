@@ -1321,6 +1321,24 @@ When rendering the user list template, you need to pass in the paging informatio
 
 > Views📁-> user.art
 
+```html
+  <ul class="pagination">
+          <li>
+            <a href="#">
+              <span>&laquo;</span>
+            </a>
+          </li>
+          <%for(var i = 1; i <= total; i++ ){ %>
+          <li><a href="#">{{i}}</a></li>
+       <% } %>
+          <li>
+            <a href="#">
+              <span>&raquo;</span>
+            </a>
+          </li>
+ </ul>
+```
+
 
 
 ## Takeaway key points
