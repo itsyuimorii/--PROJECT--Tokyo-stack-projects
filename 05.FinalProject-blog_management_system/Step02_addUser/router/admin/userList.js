@@ -21,5 +21,7 @@ module.exports = async (req, res) => {
   //Render the user list template, and pass the received result users into the template, users is an array
   res.render("admin/user", {
     users: users,
+    page: page,
+    total: total,
   });
 };

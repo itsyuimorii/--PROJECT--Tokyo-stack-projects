@@ -989,7 +989,7 @@ module.exports = (req, res) => {
 > })
 > ```
 
-![submit add user](/Users/yuimorii/Documents/GitHub/Tokyo-stack-projects/images/submit add user.png)
+![submit add user](https://github.com/itsyuimorii/Tokyo-stack-projects/blob/main/images/user-edit-fomr.png)
 
 > Route📁=>admin📁=>userEdit-fn.js 👇
 
@@ -1272,7 +1272,9 @@ Paging function core elements.
 
 > Total number of pages: Math.ceil (total number of data / number of data displayed per page)
 
-Router 📁-> userList.js
+### 1. add pagination function
+
+> Router 📁-> admin 📁--> userList.js
 
 ```js
  // 1. Receive the current page parameters from the client
@@ -1300,11 +1302,24 @@ skip(1) // skip 跳过多少条数据  传入显示数据的开始位置
   let users = await User.find({}).limit(pagesize).skip(start);
 ```
 
-![pageination](/Users/yuimorii/Documents/GitHub/Tokyo-stack-projects/images/pageination.png)
+![pageination](https://github.com/itsyuimorii/Tokyo-stack-projects/blob/main/images/pageination.png)
 
+### 2. 生成分頁器, add a 🔗 link to the pagination button
 
+When rendering the user list template, you need to pass in the paging information as well
 
+> Router 📁-> admin 📁--> userList.js
 
+```js
+ res.render("admin/user", {
+    users: users,
+    page: page,
+    total: total,
+  });
+};
+```
+
+> Views📁-> user.art
 
 
 
