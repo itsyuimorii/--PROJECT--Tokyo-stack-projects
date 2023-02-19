@@ -1345,7 +1345,9 @@ When rendering the user list template, you need to pass in the paging informatio
 <li><a href="/admin/user?page=<%=i %>">{{i}}</a></li>
 ```
 
-這裡的運算需要將page從`string`轉換為`number` "-0"有隱式轉換功能
+➡️ button
+
+> 這裡的運算需要將page從`string`轉換為`number` "-0"有隱式轉換功能
 
 ```js
 <a href="/admin/user?page=<%=page-0+1%>">
@@ -1355,7 +1357,13 @@ When rendering the user list template, you need to pass in the paging informatio
 <a href="/admin/user?page=<%=page-0-1%>">           
 ```
 
- 
+判斷是否到達最後一頁
+
+```js
+<li style="display:<% page-0+1 > total ? "none" :" block"  %>"
+```
+
+
 
 ## Takeaway key points
 
