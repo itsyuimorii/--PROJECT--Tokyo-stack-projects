@@ -898,11 +898,23 @@ LOCATION : [Step01_login](https://github.com/itsyuimorii/Tokyo-stack-projects/tr
 > Views📁=>admin📁=>common📁=> userEdit.art
 
 ```html
-<form class="form-container" action="/admin/userEdit" method="post">
-  
-name="username"
-name="email"
-...
+<form class="form-container" method="post" action="/admin/userEdit">
+ 
+<input name="username" type="text" class="form-control" placeholder="Please enter your username">
+ 
+<input name="email" type="email" class="form-control" placeholder="Please enter your email address">
+ 
+<input name="password" type="password" class="form-control" placeholder="Please enter your password">
+ 
+<select name="role" class="form-control">
+         <option value="normal">普通用户</option>
+         <option value="admin">超级管理员</option>
+</select>
+ 
+<select name="state" class="form-control">
+         <option value="0">启用</option>
+         <option value="1">禁用</option>
+</select>
 ```
 
 ### 4. 創建实现添加用户的功能路由(點擊submit後的post 操作)
@@ -910,11 +922,16 @@ name="email"
 > Router📁=>admin📁=> userEdit-fn.js
 
 ```js
+// 创建实现添加用户功能
+admin.post('/user-Edit', require('./admin/userEdit-fn'));
+
 module.exports = (req, res) => {
   //這裡實現用戶添加功能
   res.send("ok");
 };
 ```
+
+Go back to the browser to refresh the form page, click the submit button, you can see: the browser page shows ok, indicating that the route was created successfully.
 
 ### 5. 接收到客户端传递过来的请求参数
 
