@@ -1484,11 +1484,13 @@ module.exports = async (req, res) => {
 
 > Views📁->  admin📁->userEdit.art
 
-![edituseridcompare](/Users/yuimorii/Documents/GitHub/Tokyo-stack-projects/images/edituseridcompare.png)
+![edituseridcompare](https://github.com/itsyuimorii/Tokyo-stack-projects/blob/main/images/edituseridcompare.png)
 
 
 
-### 4. 根据id查询用户信息，并将客户端传递过来的密码和数据库中的密码进行比对, 
+### 4. 根据id查询用户信息，并将客户端传递过来的密码和数据库中的密码进行比对,
+
+
 
 ### 5. 如果比对失败，对客户端做出响应
 
