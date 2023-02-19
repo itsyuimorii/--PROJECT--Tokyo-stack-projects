@@ -1360,7 +1360,31 @@ When rendering the user list template, you need to pass in the paging informatio
 判斷是否到達最後一頁
 
 ```js
-<li style="display:<% page-0+1 > total ? "none" :" block"  %>"
+<li style="display: <%=page-1 < 1 ? 'none' : 'inline' %>">
+```
+
+```js
+<li style="display: <%= page-0+1 > total ? 'none' : 'inline' %>">
+```
+
+all code
+
+```js
+ <ul class="pagination">
+                <li style="display: <%=page-1 < 1 ? 'none' : 'inline' %>">
+                    <a href="/admin/user?page=<%=page-1%>">
+    		        <span>&laquo;</span>
+    		      </a>
+                </li>
+                <% for (var i = 1; i <= total; i++) { %>
+                <li><a href="/admin/user?page=<%=i %>">{{i}}</a></li>
+                <% } %>
+                <li style="display: <%= page-0+1 > total ? 'none' : 'inline' %>">
+                    <a href="/admin/user?page=<%=page-0+1%>">
+    		        <span>&raquo;</span>
+    		      </a>
+                </li>
+            </ul>
 ```
 
 
