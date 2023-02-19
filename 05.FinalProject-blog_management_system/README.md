@@ -1443,7 +1443,7 @@ module.exports = async (req, res) => {
 };
 ```
 
-点击修改按钮 能看到用户信息
+> Click the Modify button to see the user information
 
 ![id](/Users/yuimorii/Documents/GitHub/Tokyo-stack-projects/images/id.png)
 
