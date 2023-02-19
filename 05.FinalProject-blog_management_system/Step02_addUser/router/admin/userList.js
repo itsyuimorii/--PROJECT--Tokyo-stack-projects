@@ -5,7 +5,6 @@ module.exports = async (req, res) => {
   let page = req.query.page;
 
   // Query the user information from the database
-
   let users = await User.find({});
 
   //res.send(users);
