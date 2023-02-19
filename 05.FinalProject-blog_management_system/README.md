@@ -887,9 +887,11 @@ LOCATION : [Step01_login](https://github.com/itsyuimorii/Tokyo-stack-projects/tr
 
  ```js
    module.exports = (req, res) => {
-     res.render("admin/user-edit");
+     res.render("admin/userEdit");
    };
  ```
+
+打开浏览器刷新，点击新增用户，发现：可以跳转到表单页了。
 
 ### 3. 为新增用户表单指定请求地址、请求方式、为表单项添加name属性
 

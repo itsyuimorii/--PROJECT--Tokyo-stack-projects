@@ -1,6 +1,7 @@
 //導入用戶結合構造函數
 const { User } = require("../../model/user");
 module.exports = async (req, res) => {
+  //Pagination
   // 1. Receive the current page parameters from the client
   let page = req.query.page;
   //2. Number of data items displayed per page
@@ -16,7 +17,7 @@ module.exports = async (req, res) => {
   let users = await User.find({});
 
   //res.send(users);
-  //渲染用戶列表模板, 將接收到的結果users傳入模板中, users是數組
+  //Render the user list template, and pass the received result users into the template, users is an array
   res.render("admin/user", {
     users: users,
   });
