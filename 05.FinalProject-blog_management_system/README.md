@@ -931,16 +931,18 @@ module.exports = (req, res) => {
 };
 ```
 
-Go back to the browser to refresh the form page, click the submit button, you can see: the browser page shows ok, indicating that the route was created successfully.
+回到浏览器刷新表单页面，点击提交按钮，可以看到：瀏覽器頁面顯示ok,说明路由创建成功了。
 
 ### 5. 接收到客户端传递过来的请求参数
+
+继续编辑 user-edit-fn.js 文件：
 
 ```js
 module.exports = (req, res) => {
   //這裡實現用戶添加功能
   res.send(req.body);
 };
-
+//刷新浏览器，随便输入一些信息，点击提交。可以看到：接收到的请求参数
 //{"username":"matthew","email":"matthew@gmail.com","password":"000000","state":"0"}
 ```
 
