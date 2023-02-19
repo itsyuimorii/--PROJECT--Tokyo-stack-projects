@@ -1,8 +1,12 @@
 //導入用戶結合構造函數
 const { User } = require("../../model/user");
 module.exports = async (req, res) => {
-  //接收客戶端傳遞過來的當前頁參數
+  //1. 接收客戶端傳遞過來的當前頁參數
   let page = req.query.page;
+  //2. 每一頁顯示的數據條數
+  let pagesize = 10;
+  //查詢用戶數據的總數
+  let count = await User.countDocuments({});
 
   // Query the user information from the database
   let users = await User.find({});
