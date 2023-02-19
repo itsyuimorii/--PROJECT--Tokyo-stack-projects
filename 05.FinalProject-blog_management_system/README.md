@@ -1401,7 +1401,7 @@ all code
 
 6. 如果密码对比成功，将用户信息更新到数据库中
 
-### 1. 将要修改的用户ID传递到服务器端（作用：区分添加用户功能还是修改用户功能）
+### 1. pass the user ID to be modified to the server side (role: distinguish between adding user functions or modifying user functions)
 
 > 在用戶列表頁面裡 Views📁=>admin📁=>common📁=> user.art
 
@@ -1419,7 +1419,7 @@ all code
 
   ![editsuer](https://github.com/itsyuimorii/Tokyo-stack-projects/blob/main/images/Screen%20Shot%202023-02-19%20at%2011.01.58%20AM.png)
 
-### 2. 建立用户信息修改功能对应的路由
+### 2. Create the route corresponding to the user information modification function
 
 ```js
 // 引入用户集合的构造函数
@@ -1446,8 +1446,6 @@ module.exports = async (req, res) => {
 > Click the Modify button to see the user information
 
 ![id](https://github.com/itsyuimorii/Tokyo-stack-projects/blob/main/images/id.png)
-
-### 
 
 > router📁-> admin📁-> userEdit.js
 
@@ -1570,7 +1568,7 @@ Views📁->  admin📁->userEdit.art
 </div>
 ```
 
-#### 3. show id when modifying user page, do not show id when adding user page
+#### 3. show` id` when modifying user page, do not show id when adding user page
 
 Views📁->  admin📁->userEdit.art
 
@@ -1580,9 +1578,9 @@ Views📁->  admin📁->userEdit.art
 
 💥 Can't let users change password (set separate function elsewhere if you need to change password) Password is used to verify whether users can modify information, password input correctly can modify information, password input wrong, can't modify information
 
-### 3. 接收客户端表单传递过来的请求参数
+### 3. receive the request parameters passed by the client form
 
-### 4. 根据id查询用户信息，并将客户端传递过来的密码和数据库中的密码进行比对,
+### 4. Query the user information according to the `id` and compare the password passed by the client with the password in the database,
 
 
 
