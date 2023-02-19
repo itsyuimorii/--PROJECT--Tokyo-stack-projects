@@ -9,6 +9,8 @@ module.exports = async (req, res) => {
   let count = await User.countDocuments({});
   // res.send("用戶的總數是: " + count);
   // return;
+  //總頁數
+  let total = Math.ceil(count / pagesize);
   // Query the user information from the database
   let users = await User.find({});
 
