@@ -1520,7 +1520,7 @@ module.exports = async (req, res) => {
             </form>
 ```
 
-#### 1. 用戶和修改用戶是兩個提交地址, 所以`render`裡添加`link`屬性
+#### 1. user and modify user are two submit addresses, so add `link` attribute in `render`.
 
 ```js
     //渲染用戶編輯頁面(修改)
@@ -1545,7 +1545,7 @@ Views📁->  admin📁->userEdit.art
 <form class="form-container" action="{{link}}" method="post">
 ```
 
-#### 2. 添加Button屬性 : `edit` or `add`
+#### 2. Add `Button` property : Edit or add
 
 ```js
     //渲染用戶編輯頁面(修改)
@@ -1578,7 +1578,7 @@ Views📁->  admin📁->userEdit.art
 <h4 style="display: {{button == '修改' ? 'block' : 'none'}}">{{@user && user._id}}</h4>  
 ```
 
-
+💥 Can't let users change password (set separate function elsewhere if you need to change password) Password is used to verify whether users can modify information, password input correctly can modify information, password input wrong, can't modify information
 
 ### 3. 接收客户端表单传递过来的请求参数
 
