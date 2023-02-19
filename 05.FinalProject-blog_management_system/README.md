@@ -891,7 +891,7 @@ LOCATION : [Step01_login](https://github.com/itsyuimorii/Tokyo-stack-projects/tr
    };
  ```
 
-打开浏览器刷新，点击新增用户，发现：可以跳转到表单页了。
+打开浏览器刷新，点击新增用户，发现：可以跳转到表单页了。![Screen Shot 2023-02-19 at 9.18.08 AM](/Users/yuimorii/Documents/GitHub/Tokyo-stack-projects/images/user-edit-fomr.png)
 
 ### 3. 为新增用户表单指定请求地址、请求方式、为表单项添加name属性
 
