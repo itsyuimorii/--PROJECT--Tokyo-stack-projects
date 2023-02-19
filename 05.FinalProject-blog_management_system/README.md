@@ -1238,16 +1238,16 @@ module.exports = async (req, res) => {
 </table>
 ```
 
-## 9. 數據分頁
+## 9. Data Paging
 
-当数据库中的数据非常多是，数据需要分批次显示，这时就需要用到数据分页功能。
+When the data in the database is very much, the data needs to be displayed in batches, then you need to use the data paging function.
 
-分页功能核心要素：
+Paging function core elements.
 
-1. 当前页，用户通过点击上一页或者下一页或者页码产生，客户端通过get参数方式传递到服务器端
-2. 总页数，根据总页数判断当前页是否为最后一页，根据判断结果做响应操作
+1. the current page, the user by clicking on the previous page or the next page or page number generated, the client passed to the server through the get parameter way
+2. the total number of pages, according to the total number of pages to determine whether the current page is the last page, according to the judgment results to do response operations
 
-> 总页数：Math.ceil（总数据条数 / 每页显示数据条数）
+> Total number of pages: Math.ceil (total number of data / number of data displayed per page)
 
 ## Takeaway key points
 
