@@ -6,16 +6,22 @@ module.exports = async (req, res) => {
 
   const { message, id } = req.query;
   // 添加操作
-  res.render("admin/userEdit", {
-    message: message,
-  });
 
   //如果當前傳遞了id參數,
   if (id) {
     //修改操作
     let user = await User.findOne({ _id: id });
-    return res.send(user);
+    //return res.send(user);
+
+    //渲染用戶編輯頁面(修改)
+    res.render("admin/userEdit", {
+      message: message,
+      user: user,
+    });
   } else {
     //添加操作
+    res.render("admin/userEdit", {
+      message: message,
+    });
   }
 };
