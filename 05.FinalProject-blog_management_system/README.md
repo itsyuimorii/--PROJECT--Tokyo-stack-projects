@@ -1249,5 +1249,29 @@ Paging function core elements.
 
 > Total number of pages: Math.ceil (total number of data / number of data displayed per page)
 
+Router 📁-> userList.js
+
+```js
+ // 1. Receive the current page parameters from the client
+  let page = req.query.page;
+  //2. Number of data items displayed per page
+  let pagesize = 10;
+  //3. Query the total number of user data
+  let count = await User.countDocuments({});
+  // res.send("用戶的總數是: " + count);
+  // return;
+  //4. Total number of pages
+  let total = Math.ceil(count / pagesize);
+```
+
+数据开始查询位置=（当前页-1）* 每页显示的数据条数
+
+```js
+limit(2) // limit 限制查询数量  传入每页显示的数据数量
+skip(1) // skip 跳过多少条数据  传入显示数据的开始位置
+```
+
+
+
 ## Takeaway key points
 
