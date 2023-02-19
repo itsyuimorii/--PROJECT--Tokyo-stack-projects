@@ -1415,9 +1415,9 @@ all code
 
   If there is a function to modify the user information
 
-  ![editsuer](/Users/yuimorii/Documents/GitHub/Tokyo-stack-projects/images/editsuer.png)
+  ![editsuer](https://github.com/itsyuimorii/Tokyo-stack-projects/blob/main/images/editsuer.png)
 
-  ![editsuer](/Users/yuimorii/Documents/GitHub/Tokyo-stack-projects/images/Screen Shot 2023-02-19 at 11.01.58 AM.png)
+  ![editsuer](https://github.com/itsyuimorii/Tokyo-stack-projects/blob/main/images/Screen%20Shot%202023-02-19%20at%2011.01.58%20AM.png)
 
 ### 2. 建立用户信息修改功能对应的路由
 
@@ -1445,7 +1445,7 @@ module.exports = async (req, res) => {
 
 > Click the Modify button to see the user information
 
-![id](/Users/yuimorii/Documents/GitHub/Tokyo-stack-projects/images/id.png)
+![id](https://github.com/itsyuimorii/Tokyo-stack-projects/blob/main/images/id.png)
 
 ### 3. 接收客户端表单传递过来的请求参数
 
