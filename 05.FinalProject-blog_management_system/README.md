@@ -989,7 +989,7 @@ module.exports = (req, res) => {
 > })
 > ```
 
-
+![submit add user](/Users/yuimorii/Documents/GitHub/Tokyo-stack-projects/images/submit add user.png)
 
 > Route📁=>admin📁=>userEdit-fn.js 👇
 
@@ -1041,6 +1041,8 @@ module.exports = async (req, res) => {
 
 💡在/admin/userEdit-fn中, 當用戶點擊提交的按鈕, 頁面就會跳轉, 實際上是跳轉到`/admin/userEdit`頁面, 所以在user.Edit中渲染`res.render`, 就可以在art文件中出現這個message 了 
 
+
+
 Route📁=>admin📁=>userEdit.js 👇
 
 ```js
@@ -1058,7 +1060,7 @@ Views📁=>admin📁=>common📁=> userEdit.art 👇
 <p class="tips">{{message}}</p>
 ```
 
-### 7. Verify that the current email address to be registered has already been registered
+### 7. Verify that the current email address to be registered has already been registered·
 
 ```js
   // Check if the user exists by email address
@@ -1285,12 +1287,24 @@ Router 📁-> userList.js
   let total = Math.ceil(count / pagesize);
 ```
 
-数据开始查询位置=（当前页-1）* 每页显示的数据条数
+> 数据开始查询位置=（当前页-1）* 每页显示的数据条数
 
 ```js
 limit(2) // limit 限制查询数量  传入每页显示的数据数量
 skip(1) // skip 跳过多少条数据  传入显示数据的开始位置
 ```
+
+```js
+  let start = (page - 1) * pagesize;
+  // Query the user information from the database
+  let users = await User.find({}).limit(pagesize).skip(start);
+```
+
+![pageination](/Users/yuimorii/Documents/GitHub/Tokyo-stack-projects/images/pageination.png)
+
+
+
+
 
 
 

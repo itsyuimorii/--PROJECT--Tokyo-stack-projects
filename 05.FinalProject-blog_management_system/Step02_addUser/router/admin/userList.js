@@ -13,8 +13,9 @@ module.exports = async (req, res) => {
   //4. Total number of pages
   let total = Math.ceil(count / pagesize);
 
+  let start = (page - 1) * pagesize;
   // Query the user information from the database
-  let users = await User.find({});
+  let users = await User.find({}).limit(pagesize).skip(start);
 
   //res.send(users);
   //Render the user list template, and pass the received result users into the template, users is an array
