@@ -1387,7 +1387,7 @@ all code
             </ul>
 ```
 
-## 10. Userinfo edit
+## 10.  Edit Userinfo
 
 1. 将要修改的用户ID传递到服务器端（作用：区分添加用户功能还是修改用户功能）
 
