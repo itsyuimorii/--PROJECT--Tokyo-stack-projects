@@ -5,7 +5,6 @@ module.exports = async (req, res) => {
   //獲取到地址欄中的id參數
 
   const { message, id } = req.query;
-  // 添加操作
 
   //如果當前傳遞了id參數,
   if (id) {
