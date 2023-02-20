@@ -1712,7 +1712,7 @@ app.use((err, req, res, next) => {
 });
 ```
 
-
+![passworddoesntmatch](https://github.com/itsyuimorii/Tokyo-stack-projects/blob/main/images/passworddoesntmatch.png)
 
 ### 6. 如果密码对比成功，将用户信息更新到数据库中
 
