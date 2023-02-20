@@ -47,13 +47,13 @@
             var result = serializeToJson($(this))
             // 如果用户没有输入邮件地址的话
             if (result.email.trim().length == 0) {
-                alert('请输入邮件地址');
+                alert('Please enter your email address');
                 // 阻止程序向下执行
                 return false;
             }
             // 如果用户没有输入密码
             if (result.password.trim().length == 0) {
-                alert('请输入密码')
+                alert('Please enter your password')
                 // 阻止程序向下执行
                 return false;
             }
