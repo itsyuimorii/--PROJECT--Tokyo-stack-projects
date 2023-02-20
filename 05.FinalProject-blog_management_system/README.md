@@ -1673,7 +1673,7 @@ Use the `compare` method under `bcrypt`, this method returns a **boolean** value
   }
 ```
 
-### 4. if密碼比對失敗，对客户端做出响应
+### 4. if 密碼比對失敗，对客户端做出响应-“不能進行用戶信息的修改”
 
 觸發app.js 錯誤 中間件,
 
@@ -1714,7 +1714,15 @@ app.use((err, req, res, next) => {
 
 ![passworddoesntmatch](https://github.com/itsyuimorii/Tokyo-stack-projects/blob/main/images/passworddoesntmatch.png)
 
-### 6. 如果密码对比成功，将用户信息更新到数据库中
+### 6. if 密码对比成功，将用户信息更新到数据库中
+
+
+
+
+
+
+
+
 
 ## Takeaway key points
 
