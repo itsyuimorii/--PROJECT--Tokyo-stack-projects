@@ -9,7 +9,7 @@
         <div class="main">
             <!-- 分类标题 -->
             <div class="title">
-          <h4 style="display: {{button == '修改' ? 'block' : 'none'}}">{{@user && user._id}}</h4>  
+          <h4 style="display: {{button == 'Edit' ? 'block' : 'none'}}">{{@user && user._id}}</h4>  
                 <p class="tips">{{message}}</p>
             </div>
             <!-- /分类标题 -->
