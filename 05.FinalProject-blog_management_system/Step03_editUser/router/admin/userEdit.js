@@ -6,9 +6,8 @@ module.exports = async (req, res) => {
 
   const { message, id } = req.query;
 
-  //如果當前傳遞了id參數,
+  //如果當前傳遞了id參數, then, it is edit user info
   if (id) {
-    //修改操作
     let user = await User.findOne({ _id: id });
     //return res.send(user);
 
