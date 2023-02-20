@@ -15,7 +15,7 @@ module.exports = async (req, res) => {
     res.render("admin/userEdit", {
       message: message,
       user: user,
-      link: "/admin/user-add?id=" + id,
+      link: "/admin/user-modify?id=" + id,
       button: "Edit",
     });
   } else {
