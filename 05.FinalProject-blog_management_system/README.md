@@ -1660,7 +1660,7 @@ module.exports = async (req, res) => {
 };
 ```
 
-
+![usermodify](/Users/yuimorii/Documents/GitHub/Tokyo-stack-projects/images/usermodify.png)
 
 ### 5. 如果比对失败，对客户端做出响应
 
