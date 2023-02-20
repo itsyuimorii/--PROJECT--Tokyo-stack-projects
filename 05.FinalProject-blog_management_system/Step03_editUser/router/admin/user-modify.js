@@ -18,7 +18,7 @@ module.exports = async (req, res, next) => {
   //返回boolean, 第一個參數為明文密碼, 第二個參數為數據庫中的密文
   const isValid = await bcrypt.compare(req.body.password, user.password);
   if (isValid) {
-    res.send("Password Matching Success");
+    //res.send("Password Matching Success");
   } else {
     // res.send("Password Matching Failure");
     //密碼比對失敗

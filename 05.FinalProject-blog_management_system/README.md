@@ -1673,9 +1673,46 @@ Use the `compare` method under `bcrypt`, this method returns a **boolean** value
   }
 ```
 
-### 4. if比对失败，对客户端做出响应
+### 4. if密碼比對失敗，对客户端做出响应
 
-觸發app.js 錯誤 中間件, 錯誤
+觸發app.js 錯誤 中間件,
+
+> router/admin/user-modify.js
+
+```js
+module.exports = async (req, res, next) => {
+  
+....
+
+//密碼比對失敗 
+    let obj = {
+      path: "/admin/userEdit",
+      message: "password does not match",
+      id: id,
+    };
+    next(JSON.stringify(obj));
+  }
+```
+
+> app.js
+
+```js
+//錯誤處理中間件
+app.use((err, req, res, next) => {
+  // res.redirect(`/admin/userEdit?message=${e.message}`);
+  const result = JSON.parse(err);
+  let params = [];
+  for (let attr in result) {
+    if (attr != "path") {
+      params.push(attr + "=" + result[attr]);
+      message = result[attr];
+    }
+  }
+  res.redirect(`${result.path}?${params.join("&")}`);
+});
+```
+
+
 
 ### 6. 如果密码对比成功，将用户信息更新到数据库中
 
