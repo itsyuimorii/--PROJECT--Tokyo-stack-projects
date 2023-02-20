@@ -1,7 +1,8 @@
 //需要把用戶集合的構造函數,導入
 const { User } = require("../../model/user");
+const bcrypt = require("bcrypt");
 
-module.exports = async (req, res) => {
+module.exports = async (req, res, next) => {
   //res.send("ok");
   //接受客戶端傳遞過來的請求參數
   const body = req.body;
@@ -12,5 +13,21 @@ module.exports = async (req, res) => {
 
   //調用user集合構造函數下的findOne方法獲取id
   let user = await User.findOne({ _id: id });
-  res.send(user);
+  //res.send(user);
+
+  //返回boolean, 第一個參數為明文密碼, 第二個參數為數據庫中的密文
+  const isValid = await bcrypt.compare(req.body.password, user.password);
+  if (isValid) {
+    res.send("Password Matching Success");
+  } else {
+    // res.send("Password Matching Failure");
+    //密碼比對失敗
+
+    let obj = {
+      path: "/admin/userEdit",
+      message: "password does not match",
+      id: id,
+    };
+    next(JSON.stringify(obj));
+  }
 };
