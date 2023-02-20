@@ -25,5 +25,6 @@ admin.get("/userEdit", require("./admin/userEdit"));
 //創建实现添加用户的功能路由(點擊submit後的post 操作)
 admin.post("/userEdit", require("./admin/userEdit-fn"));
 
+admin.post("/user-modify", require("./admin/user-modify.js"));
 // Export the routing object as a member of the routing module
 module.exports = admin;

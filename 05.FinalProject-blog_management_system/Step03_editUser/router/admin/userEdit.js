@@ -15,7 +15,7 @@ module.exports = async (req, res) => {
     res.render("admin/userEdit", {
       message: message,
       user: user,
-      link: "/admin/userAdd",
+      link: "/admin/user-add",
     });
   } else {
     //添加操作
