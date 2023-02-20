@@ -43,7 +43,6 @@ app.use("/admin", require("./middleware/loginGuard"));
 
 //import routing module
 //Match the first level request path to the routing object,
-app.use("/home", homeRouter);
 app.use("/admin", adminRouter);
 
 //錯誤處理中間件
