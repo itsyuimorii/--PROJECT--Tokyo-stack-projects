@@ -1792,12 +1792,13 @@ const {username, email, role, state, password } = req.body;
 
 ```js
 <td>
-    <a href="/admin/userEdit?id={{@$value._id}}" class="glyphicon glyphicon-edit"></a>
+    <a href="/admin/userEdit?id={{@$value._id}}" class="glyphicon glyphicon-edit delete"></a>
     <i class="glyphicon glyphicon-remove" data-toggle="modal" data-target=".confirm-modal" data-id="{{@$value._id}}"></i>
 </td>
 ```
 
+![delete](/Users/yuimorii/Documents/GitHub/Tokyo-stack-projects/images/delete.png)
 
+![deleteid](/Users/yuimorii/Documents/GitHub/Tokyo-stack-projects/images/deleteid.png)
 
-## Takeaway key points
-
+3. 为删除按钮添加点击事件，在点击事件处理函数中**获取自定义属性中存储的ID 值**并将ID值存储在表单的隐藏域中
