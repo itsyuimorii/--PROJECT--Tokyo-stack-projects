@@ -1751,11 +1751,13 @@ const {username, email, role, state, password } = req.body;
         state: state,
       }
     );
+
+```
+
+```js
     //將頁面重定向到用戶列表頁面
     res.redirect("/admin/user");
 ```
-
-
 
 
 
