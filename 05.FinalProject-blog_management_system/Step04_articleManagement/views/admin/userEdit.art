@@ -1,0 +1,49 @@
+{{extend './common/layout.art'}}
+
+{{block 'main'}}
+    {{include './common/header.art'}}
+    <!-- /头部 -->
+    <!-- 主体内容 -->
+    <div class="content">
+        {{include './common/aside.art'}}
+        <div class="main">
+            <!-- 分类标题 -->
+            <div class="title">
+          <h4 style="display: {{button == 'Edit' ? 'block' : 'none'}}">{{@user && user._id}}</h4>  
+                <p class="tips">{{message}}</p>
+            </div>
+            <!-- /分类标题 -->
+            <form class="form-container" action="{{link}}" method="post">
+                <div class="form-group">
+                    <label>username</label>
+                    <input name="username" type="text" class="form-control" placeholder="Please enter your username" value="{{user && user.username}}">
+                </div>
+                <div class="form-group">
+                    <label>email</label>
+                    <input type="email" class="form-control" placeholder="Please enter your email" name="email" value="{{user && user.email}}">
+                </div>
+                <div class="form-group">
+                    <label>password</label>
+                    <input type="password" class="form-control" placeholder="Please enter your password" name="password">
+                </div>
+                <div class="form-group">
+                    <label>role</label>
+                    <select class="form-control" name="role">
+                        <option value="normal" {{user && user.role == 'normal' ? 'selected' : ''}}>noraml</option>
+                        <option value="admin" {{user && user.role == 'admin' ? 'selected' : ''}}>admin</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>state</label>
+                    <select class="form-control" name="state">
+                        <option value="0" {{user && user.state == '0' ? 'selected' : ''}}>active</option>
+                        <option value="1" {{user && user.state == '1' ? 'selected' : ''}}>disabled</option>
+                    </select>
+                </div>
+                <div class="buttons">
+                    <input type="submit" class="btn btn-primary" value="{{button}}">
+                </div>
+            </form>
+        </div>
+    </div>
+{{/block}} 
