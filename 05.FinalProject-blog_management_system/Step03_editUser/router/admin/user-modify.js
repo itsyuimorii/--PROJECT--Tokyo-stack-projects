@@ -31,6 +31,8 @@ module.exports = async (req, res, next) => {
         state: state,
       }
     );
+    //將頁面重定向到用戶列表頁面
+    res.redirect("/admin/user");
   } else {
     // res.send("Password Matching Failure");
 

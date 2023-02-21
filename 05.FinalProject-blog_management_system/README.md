@@ -1738,7 +1738,8 @@ const {username, email, role, state, password } = req.body;
 
 ....
 
-  if (isValid) {
+ //密碼比對成功
+    if (isValid) {
     //res.send("Password Matching Success");
     //將用戶信息更新到數據庫中
     await User.updateOne(
@@ -1750,9 +1751,11 @@ const {username, email, role, state, password } = req.body;
         state: state,
       }
     );
+    //將頁面重定向到用戶列表頁面
+    res.redirect("/admin/user");
 ```
 
-### 6.2. Redirect userlist page
+
 
 
 
