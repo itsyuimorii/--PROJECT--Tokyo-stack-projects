@@ -96,8 +96,10 @@
 {{block 'script'}}
     <script type="text/javascript">
         $('.delete').on('click', function () {
-            // Get the user id
+            // Get the user id 
             var id = $(this).attr('data-id');
+
+            //alert(id);
             // Store the user id to be deleted in the hidden field
             $('#deleteUserId').val(id);
         })
