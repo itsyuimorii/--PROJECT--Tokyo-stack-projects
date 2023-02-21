@@ -32,4 +32,4 @@ Develop user information list management system, which can be used to add, delet
 
 ## 💥05. Final project: [Blog Management System (frontend&backend))](https://github.com/itsyuimorii/Tokyo-stack-projects/tree/main/05.FinalProject-blog_system)
 
-### 📝[learning notes](https://github.com/itsyuimorii/Tokyo-stack-projects/blob/main/05.FinalProject-blog_system/README.md) & 🤖[code](https://github.com/itsyuimorii/Tokyo-stack-projects/tree/main/05.FinalProject-blog_system)
+### 📝[learning notes](https://github.com/itsyuimorii/Tokyo-stack-projects/blob/main/05.FinalProject-blog_management_system/README.md) & 🤖[code](https://github.com/itsyuimorii/Tokyo-stack-projects/tree/main/05.FinalProject-blog_system)
