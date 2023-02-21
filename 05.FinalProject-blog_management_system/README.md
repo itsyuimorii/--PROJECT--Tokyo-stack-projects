@@ -1777,7 +1777,7 @@ const {username, email, role, state, password } = req.body;
 
 7. 根据id删除用户
 
-### 1. 在确认删除框中添加**隐藏域**用以存储要删除用户的ID值
+### 1. In the Confirm deletion box `Add Hidden field` to *store the ID value* of the user to be deleted
 
 > views/admin/user.art
 
@@ -1803,7 +1803,7 @@ const {username, email, role, state, password } = req.body;
 
 ![deleteid](/Users/yuimorii/Documents/GitHub/Tokyo-stack-projects/images/deleteid.png)
 
-3. 为删除按钮添加点击事件，在点击事件处理函数中**获取自定义属性中存储的ID 值**并将ID值存储在表单的隐藏域中
+3. Add a `click event` for the delete button, and in the click `event handler` **get the ID value stored in the custom property** and store the ID value in the `hidden field of the form
 
 > views/admin/user.art
 
@@ -1818,5 +1818,11 @@ const {username, email, role, state, password } = req.body;
         })
     </script>
 {{/block}}
+  
+  
+...
+
+<input type="hidden" name="id" id="deleteUserId">  
 ```
 
+![delete hidden](/Users/yuimorii/Documents/GitHub/Tokyo-stack-projects/images/delete hidden.png)
