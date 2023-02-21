@@ -1925,5 +1925,40 @@ admin.get("/article-edit" , require("/admin/article-edit"))
   req.app.locals.currentLink = "user";
 ```
 
+> router/admin/article.js && router/admin/article-edit.js
+
+```js
+ //添加標識: 標識當前訪問的是用戶管理頁面
+  // locals方法是可以顯示在模板裡的
+  req.app.locals.currentLink = "article";
+```
+
+⬆️的“”name 是自定義的
+
+```js
+ <a class="item {{currentLink =="user" ? "active" : ""}}" href="/admin/user">
+```
+
+```js
+    <a class="item{{currentLink == "article" ? "active" : ""}}" href="/admin/article" >
+```
+
+```js
+    <ul class="menu list-unstyled">
+      <li>
+        <a class="item {{currentLink =="user" ? "active" : ""}}" href="/admin/user">
+          <span class="glyphicon glyphicon-user"></span>
+          User Management
+        </a>
+      </li>
+          <li>
+            <a class="item{{currentLink == "article" ? "active" : ""}}" href="/admin/article" >
+              <span class="glyphicon glyphicon-th-list"></span>
+              Article Management
+            </a>
+      </li>
+</ul>
+```
+
 
 
