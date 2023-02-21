@@ -1771,6 +1771,15 @@ const {username, email, role, state, password } = req.body;
 
 4. 为删除表单添加**提交地址**以及**提交方式**
 
+> views/admin/user.art
+
+```js
+<form class="modal-content" action="/admin/delete" method="get">
+
+```
+
+
+
 5. 在服务器端建立“請求地址”*對應*的**删除功能路由**
 
 6. 接收客户端传递过来的**id参数**
@@ -1803,7 +1812,7 @@ const {username, email, role, state, password } = req.body;
 
 ![deleteid](/Users/yuimorii/Documents/GitHub/Tokyo-stack-projects/images/deleteid.png)
 
-3. Add a `click event` for the delete button, and in the click `event handler` **get the ID value stored in the custom property** and store the ID value in the `hidden field of the form
+3. Add a `click event` for the delete button, and in the click `event handler` **get the ID value stored in the custom property** and store the ID value in the `hidden field of the form 添加點擊事件
 
 > views/admin/user.art
 
@@ -1826,3 +1835,27 @@ const {username, email, role, state, password } = req.body;
 ```
 
 ![delete hidden](/Users/yuimorii/Documents/GitHub/Tokyo-stack-projects/images/delete hidden.png)
+
+### 4. 为删除表单添加**提交地址**以及**提交方式**
+
+> views/admin/user.art
+
+```js
+<form class="modal-content" action="/admin/delete" method="get">
+```
+
+> Router/admin.js
+
+```js
+//delete user routes
+admin.get("/delete", require("./admin/user-delete"));
+```
+
+> Router/admin/user-delete.js
+
+```js
+module.exports = (req, res) => {
+  res.send("ok");
+};
+```
+

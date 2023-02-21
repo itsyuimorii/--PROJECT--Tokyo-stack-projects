@@ -27,5 +27,8 @@ admin.post("/userEdit", require("./admin/userEdit-fn"));
 
 // Implement user information modification function
 admin.post("/user-modify", require("./admin/user-modify.js"));
+
+//delete user routes
+admin.get("/delete", require("./admin/user-delete"));
 // Export the routing object as a member of the routing module
 module.exports = admin;
