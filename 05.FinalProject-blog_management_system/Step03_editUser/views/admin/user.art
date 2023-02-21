@@ -96,9 +96,9 @@
 {{block 'script'}}
     <script type="text/javascript">
         $('.delete').on('click', function () {
-            // 获取用户id
+            // Get the user id
             var id = $(this).attr('data-id');
-            // 将要删除的用户id存储在隐藏域中
+            // Store the user id to be deleted in the hidden field
             $('#deleteUserId').val(id);
         })
     </script>
