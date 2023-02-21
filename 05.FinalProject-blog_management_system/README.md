@@ -1808,15 +1808,20 @@ const {username, email, role, state, password } = req.body;
 </td>
 ```
 
-![delete](/Users/yuimorii/Documents/GitHub/Tokyo-stack-projects/images/delete.png)
+![delete click](/Users/yuimorii/Documents/GitHub/Tokyo-stack-projects/images/delete click.png)
 
 ![deleteid](/Users/yuimorii/Documents/GitHub/Tokyo-stack-projects/images/deleteid.png)
 
-3. Add a `click event` for the delete button, and in the click `event handler` **get the ID value stored in the custom property** and store the ID value in the `hidden field of the form 添加點擊事件
+3. Add a `click event` for the delete button, and in the click `event handler` **get the ID value stored in the custom property** and store the ID value in the `hidden field of the form  
 
 > views/admin/user.art
 
 ```js
+//為class 添加delete
+<a href="/admin/userEdit?id={{@$value._id}}" class="glyphicon glyphicon-edit delete">
+
+...  
+//delete 點擊事件  
 {{block 'script'}}
     <script type="text/javascript">
         $('.delete').on('click', function () {
@@ -1828,13 +1833,10 @@ const {username, email, role, state, password } = req.body;
     </script>
 {{/block}}
   
-  
 ...
-
+// 将要删除的用户id存储在隐藏域中
 <input type="hidden" name="id" id="deleteUserId">  
 ```
-
-![delete hidden](/Users/yuimorii/Documents/GitHub/Tokyo-stack-projects/images/delete hidden.png)
 
 ### 4. 为删除表单添加**提交地址**以及**提交方式**
 
