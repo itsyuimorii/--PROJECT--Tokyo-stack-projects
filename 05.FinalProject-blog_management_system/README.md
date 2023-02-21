@@ -1759,7 +1759,13 @@ const {username, email, role, state, password } = req.body;
     res.redirect("/admin/user");
 ```
 
+## 11. delete userInfo
 
+提交刪除, 向服務器提交, 並將用戶 id 傳遞到服務器端口
+
+用表單傳遞
+
+表單中, 增加隱藏域
 
 
 
