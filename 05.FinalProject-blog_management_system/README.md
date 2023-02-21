@@ -1790,6 +1790,8 @@ const {username, email, role, state, password } = req.body;
 
 ### 2. Find the delete button, need to put the `current user's id` as a custom property on the delete button
 
+> views/admin/user.art
+
 ```js
 <td>
     <a href="/admin/userEdit?id={{@$value._id}}" class="glyphicon glyphicon-edit delete"></a>
@@ -1802,3 +1804,19 @@ const {username, email, role, state, password } = req.body;
 ![deleteid](/Users/yuimorii/Documents/GitHub/Tokyo-stack-projects/images/deleteid.png)
 
 3. 为删除按钮添加点击事件，在点击事件处理函数中**获取自定义属性中存储的ID 值**并将ID值存储在表单的隐藏域中
+
+> views/admin/user.art
+
+```js
+{{block 'script'}}
+    <script type="text/javascript">
+        $('.delete').on('click', function () {
+            // 获取用户id
+            var id = $(this).attr('data-id');
+            // 将要删除的用户id存储在隐藏域中
+            $('#deleteUserId').val(id);
+        })
+    </script>
+{{/block}}
+```
+
