@@ -1935,6 +1935,8 @@ admin.get("/article-edit" , require("/admin/article-edit"))
 
 ⬆️的“”name 是自定義的
 
+> views/admin/common/aside.art
+
 ```js
  <a class="item {{currentLink =="user" ? "active" : ""}}" href="/admin/user">
 ```
@@ -1960,5 +1962,6 @@ admin.get("/article-edit" , require("/admin/article-edit"))
 </ul>
 ```
 
+## 13. article collection
 
-
+> 需要在數據庫擁有集合,才可能向集合中添加新的文章
