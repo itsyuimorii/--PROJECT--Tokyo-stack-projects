@@ -1965,3 +1965,5 @@ admin.get("/article-edit" , require("/admin/article-edit"))
 ## 13. article collection
 
 > 需要在數據庫擁有集合,才可能向集合中添加新的文章
+
+ ![article-edit](/Users/yuimorii/Documents/GitHub/Tokyo-stack-projects/images/article-edit.png)
