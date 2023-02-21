@@ -1826,6 +1826,7 @@ const {username, email, role, state, password } = req.body;
     <script type="text/javascript">
         $('.delete').on('click', function () {
             // 获取用户id
+      			alert(id);
             var id = $(this).attr('data-id');
             // 将要删除的用户id存储在隐藏域中
             $('#deleteUserId').val(id);
@@ -1838,7 +1839,11 @@ const {username, email, role, state, password } = req.body;
 <input type="hidden" name="id" id="deleteUserId">  
 ```
 
-### 4. 为删除表单添加**提交地址**以及**提交方式**
+### ![delete hidden input](/Users/yuimorii/Documents/GitHub/Tokyo-stack-projects/images/delete hidden input.png)
+
+💥此時可以看到console中已經在隱藏域中獲得了要刪除用戶的id
+
+### 4. add the submit `address` and `method` for the delete form
 
 > views/admin/user.art
 
