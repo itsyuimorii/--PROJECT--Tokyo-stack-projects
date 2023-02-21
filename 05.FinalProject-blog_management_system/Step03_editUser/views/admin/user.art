@@ -99,7 +99,7 @@
             // Get the user id 
             var id = $(this).attr('data-id');
 
-            //alert(id);
+             //alert(id);
             // Store the user id to be deleted in the hidden field
             $('#deleteUserId').val(id);
         })
