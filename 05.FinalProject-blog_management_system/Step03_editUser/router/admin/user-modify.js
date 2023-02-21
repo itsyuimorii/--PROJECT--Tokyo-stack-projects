@@ -5,7 +5,7 @@ const bcrypt = require("bcrypt");
 module.exports = async (req, res, next) => {
   //res.send("ok");
   //接受客戶端傳遞過來的請求參數
-  const body = req.body;
+  const { username, email, role, state, password } = req.body;
   //req.query拿到id, id是即將要修改的用戶的id
   const id = req.query.id;
   //拿到密碼後,需要進行密碼比對
@@ -16,12 +16,23 @@ module.exports = async (req, res, next) => {
   //res.send(user);
 
   //返回boolean, 第一個參數為明文密碼, 第二個參數為數據庫中的密文
-  const isValid = await bcrypt.compare(req.body.password, user.password);
+  const isValid = await bcrypt.compare(password, user.password);
+
+  //密碼比對成功
   if (isValid) {
     //res.send("Password Matching Success");
+    //將用戶信息更新到數據庫中
+    await User.updateOne(
+      { _id: id },
+      {
+        username: username,
+        email: email,
+        role: role,
+        state: state,
+      }
+    );
   } else {
     // res.send("Password Matching Failure");
-    //密碼比對失敗
 
     let obj = {
       path: "/admin/userEdit",

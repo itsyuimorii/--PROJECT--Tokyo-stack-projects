@@ -1714,9 +1714,45 @@ app.use((err, req, res, next) => {
 
 ![passworddoesntmatch](https://github.com/itsyuimorii/Tokyo-stack-projects/blob/main/images/passworddoesntmatch.png)
 
-### 6. if 密码对比成功，将用户信息更新到数据库中
+### 6.1 if the password comparison is successful, update the user information to the database
 
+```js
+   if (isValid) {
+    //res.send("Password Matching Success");
+    //將用戶信息更新到數據庫中
+    await User.updateOne(
+      { _id: id },
+      {
+        username: req.body.username,
+        email: req.body.email,
+        role: req.body.role,
+        state: req.body.state,
+      }
+    );
+```
 
+Simplify the above code
+
+```js
+const {username, email, role, state, password } = req.body;
+
+....
+
+  if (isValid) {
+    //res.send("Password Matching Success");
+    //將用戶信息更新到數據庫中
+    await User.updateOne(
+      { _id: id },
+      {
+        username: username,
+        email: email,
+        role: role,
+        state: state,
+      }
+    );
+```
+
+### 6.2. Redirect userlist page
 
 
 
