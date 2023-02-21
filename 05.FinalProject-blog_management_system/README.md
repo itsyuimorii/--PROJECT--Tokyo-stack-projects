@@ -1777,6 +1777,15 @@ const {username, email, role, state, password } = req.body;
 
 7. 根据id删除用户
 
+> views/admin/user.art
+
+```js
+<div class="modal-body">
+  <p>Are you sure you want to delete this user??</p>
+  <input type="hidden" name="id">
+</div>
+```
+
 
 
 
