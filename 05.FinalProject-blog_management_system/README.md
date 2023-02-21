@@ -1812,7 +1812,7 @@ const {username, email, role, state, password } = req.body;
 
 ![deleteid](/Users/yuimorii/Documents/GitHub/Tokyo-stack-projects/images/deleteid.png)
 
-3. Add a `click event` for the delete button, and in the click `event handler` **get the ID value stored in the custom property** and store the ID value in the `hidden field of the form  
+3. Add a `click event` for the delete button, and in the click `event handler` **get the ID value stored in the custom property** and store the ID value in the `hidden field of the form  ![deltes](/Users/yuimorii/Documents/GitHub/Tokyo-stack-projects/images/deltes.png)
 
 > views/admin/user.art
 
