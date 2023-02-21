@@ -1712,7 +1712,7 @@ app.use((err, req, res, next) => {
 });
 ```
 
-![passworddoesntmatch](https://github.com/itsyuimorii/Tokyo-stack-projects/blob/main/images/passworddoesntmatch.png)
+[passworddoesntmatch.png](https://github.com/itsyuimorii/Tokyo-stack-projects/blob/main/images/passworddoesntmatch.png)
 
 ### 6.1 if the password comparison is successful, update the user information to the database
 
