@@ -38,8 +38,8 @@
                     <td>{{$value.role == 'admin' ? 'admin': 'normal'}}</td>
                     <td>{{$value.state == 0 ? 'active': 'disabled'}}</td>
                  <td>
-                            <a href="/admin/userEdit?id={{@$value._id}}" class="glyphicon glyphicon-edit delete"></a>
-                            <i class="glyphicon glyphicon-remove" data-toggle="modal" data-target=".confirm-modal" data-id="{{@$value._id}}"></i>
+                            <a href="/admin/userEdit?id={{@$value._id}}" class="glyphicon glyphicon-edit "></a>
+                            <i class="glyphicon glyphicon-remove delete" data-toggle="modal" data-target=".confirm-modal" data-id="{{@$value._id}}"></i>
                         </td>
                 </tr>
           </tbody>
@@ -99,7 +99,7 @@
             // Get the user id 
             var id = $(this).attr('data-id');
 
-             //alert(id);
+             alert(id);
             // Store the user id to be deleted in the hidden field
             $('#deleteUserId').val(id);
         })

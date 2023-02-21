@@ -1793,7 +1793,7 @@ const {username, email, role, state, password } = req.body;
 ```js
 <div class="modal-body">
   <p>Are you sure you want to delete this user??</p>
-//在服務器端需要用id接受這個參數
+// This parameter needs to be accepted by id on the server side
   <input type="hidden" name="id">
 ```
 
@@ -1817,8 +1817,8 @@ const {username, email, role, state, password } = req.body;
 > views/admin/user.art
 
 ```js
-//為class 添加delete
-<a href="/admin/userEdit?id={{@$value._id}}" class="glyphicon glyphicon-edit delete">
+//為i 標籤 的class 添加delete
+<i class="glyphicon glyphicon-remove delete" data-toggle="modal" data-target=".confirm-modal" data-id="{{@$value._id}}"></i>
 
 ...  
 //delete 點擊事件  
