@@ -1771,20 +1771,11 @@ const {username, email, role, state, password } = req.body;
 
 4. 为删除表单添加**提交地址**以及**提交方式**
 
-> views/admin/user.art
-
-```js
-<form class="modal-content" action="/admin/delete" method="get">
-
-```
-
-
-
 5. 在服务器端建立“請求地址”*對應*的**删除功能路由**
 
-6. 接收客户端传递过来的**id参数**
+6. 接收客户端传递过来的**id参数,根据id删除用户**
 
-7. 根据id删除用户
+
 
 ### 1. In the Confirm deletion box `Add Hidden field` to *store the ID value* of the user to be deleted
 
@@ -1851,7 +1842,7 @@ const {username, email, role, state, password } = req.body;
 <form class="modal-content" action="/admin/delete" method="get">
 ```
 
-### 5. 在服务器端建立“請求地址”*對應*的**删除功能路由**
+### 5. Create the delete function route corresponding to the "request address" on the server side
 
 > Router/admin.js
 
@@ -1868,8 +1859,59 @@ module.exports = (req, res) => {
 };
 ```
 
-### 接收客户端传递过来的**id参数**
+### 6. receive the **id parameter** passed by the client, and delete user based on id
+
+```js
+const { User } = require("../../model/user");
+
+module.exports = async (req, res) => {
+  // res.send("ok");
+  //獲取要刪除的用戶id
+  //res.send(req.query.id); //63f43b554ae2fffe66627db4
+
+  //console.log(id);
+  await User.findOneAndDelete({ _id: req.query.id });
+  //將用戶重定向到用戶列表頁面
+  res.redirect("/admin/user");
+};
+```
+
+## 12. Article management
+
+articleList router
+
+```js
+admin.get("/article", require("/admin/article"));
+```
+
+articleEditrouter
+
+```js
+admin.get("/article-edit" , require("/admin/article-edit"))
+```
+
+ 
+
+為sidebar的選項添加href🔗
+
+> views/admin/common/aside.art
+
+```html
+   <ul class="menu list-unstyled">
+      <li>
+        <a class="item active" href="/admin/user">
+          <span class="glyphicon glyphicon-user"></span>
+          User Management
+        </a>
+      </li>
+          <li>
+            <a class="item" href="/admin/article">
+              <span class="glyphicon glyphicon-th-list"></span>
+              Article Management
+            </a>
+      </li>
+   </ul>
+```
 
 
 
-### 根据id删除用户
