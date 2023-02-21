@@ -1851,6 +1851,8 @@ const {username, email, role, state, password } = req.body;
 <form class="modal-content" action="/admin/delete" method="get">
 ```
 
+### 5. 在服务器端建立“請求地址”*對應*的**删除功能路由**
+
 > Router/admin.js
 
 ```js
@@ -1866,3 +1868,8 @@ module.exports = (req, res) => {
 };
 ```
 
+### 接收客户端传递过来的**id参数**
+
+
+
+### 根据id删除用户
