@@ -1808,11 +1808,11 @@ const {username, email, role, state, password } = req.body;
 </td>
 ```
 
-![delete click](/Users/yuimorii/Documents/GitHub/Tokyo-stack-projects/images/delete click.png)
+![delete click](https://github.com/itsyuimorii/Tokyo-stack-projects/blob/main/images/delete%20click.png)
 
-![deleteid](/Users/yuimorii/Documents/GitHub/Tokyo-stack-projects/images/deleteid.png)
+![deleteid](https://github.com/itsyuimorii/Tokyo-stack-projects/blob/main/images/deleteid.png)
 
-3. Add a `click event` for the delete button, and in the click `event handler` **get the ID value stored in the custom property** and store the ID value in the `hidden field of the form  ![deltes](/Users/yuimorii/Documents/GitHub/Tokyo-stack-projects/images/deltes.png)
+3. Add a `click event` for the delete button, and in the click `event handler` **get the ID value stored in the custom property** and store the ID value in the `hidden field of the form  ![deltes](https://github.com/itsyuimorii/Tokyo-stack-projects/blob/main/images/deltes.png)
 
 > views/admin/user.art
 
@@ -1839,7 +1839,7 @@ const {username, email, role, state, password } = req.body;
 <input type="hidden" name="id" id="deleteUserId">  
 ```
 
-### ![delete hidden input](/Users/yuimorii/Documents/GitHub/Tokyo-stack-projects/images/delete hidden input.png)
+![delete hidden input](https://github.com/itsyuimorii/Tokyo-stack-projects/blob/main/images/delete%20hidden%20input.png)
 
 💥此時可以看到console中已經在隱藏域中獲得了要刪除用戶的id
 
