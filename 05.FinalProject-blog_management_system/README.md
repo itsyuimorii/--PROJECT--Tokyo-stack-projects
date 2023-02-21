@@ -1777,16 +1777,25 @@ const {username, email, role, state, password } = req.body;
 
 7. 根据id删除用户
 
+### 1. 在确认删除框中添加**隐藏域**用以存储要删除用户的ID值
+
 > views/admin/user.art
 
 ```js
 <div class="modal-body">
   <p>Are you sure you want to delete this user??</p>
+//在服務器端需要用id接受這個參數
   <input type="hidden" name="id">
-</div>
 ```
 
+### 2. Find the delete button, need to put the `current user's id` as a custom property on the delete button
 
+```js
+<td>
+    <a href="/admin/userEdit?id={{@$value._id}}" class="glyphicon glyphicon-edit"></a>
+    <i class="glyphicon glyphicon-remove" data-toggle="modal" data-target=".confirm-modal" data-id="{{@$value._id}}"></i>
+</td>
+```
 
 
 
