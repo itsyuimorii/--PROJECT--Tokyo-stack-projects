@@ -1,9 +1,13 @@
 //導入用戶結合構造函數
 const { User } = require("../../model/user");
 module.exports = async (req, res) => {
+  //添加標識: 表示當前訪問的是用戶管理頁面
+  // locals方法是可以顯示在模板裡的
+  req.app.locals.currentLink = "user";
+
   //Pagination
   // 1. Receive the current page parameters from the client
-  let page = req.query.page;
+  let page = req.query.page || 1;
   //2. Number of data items displayed per page
   let pagesize = 10;
   //3. Query the total number of user data

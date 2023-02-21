@@ -1278,7 +1278,7 @@ Paging function core elements.
 
 ```js
  // 1. Receive the current page parameters from the client
-  let page = req.query.page;
+  let page = req.query.page || 1 ;
   //2. Number of data items displayed per page
   let pagesize = 10;
   //3. Query the total number of user data
@@ -1878,6 +1878,8 @@ module.exports = async (req, res) => {
 
 ## 12. Article management
 
+### 添加路由
+
 articleList router
 
 ```js
@@ -1892,7 +1894,7 @@ admin.get("/article-edit" , require("/admin/article-edit"))
 
  
 
-為sidebar的選項添加href🔗
+### 為sidebar的選項添加href🔗
 
 > views/admin/common/aside.art
 
@@ -1911,6 +1913,16 @@ admin.get("/article-edit" , require("/admin/article-edit"))
             </a>
       </li>
    </ul>
+```
+
+### 為sidebar 的選項切換選中狀態
+
+> router/admin/userEdit.js && router/admin/usrePage.js
+
+```js
+ //添加標識: 標識當前訪問的是用戶管理頁面
+  // locals方法是可以顯示在模板裡的
+  req.app.locals.currentLink = "user";
 ```
 
 
