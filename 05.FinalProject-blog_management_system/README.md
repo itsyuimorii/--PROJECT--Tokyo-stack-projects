@@ -2279,5 +2279,5 @@ When the form parse is completed, the callback function **returns 3 parameters.*
 <input type="file" name="cover" id="file" multiple>
 ```
 
-### 
+### 15. 把
 
