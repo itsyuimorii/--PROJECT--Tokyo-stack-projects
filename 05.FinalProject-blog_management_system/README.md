@@ -2034,3 +2034,40 @@ module.exports = {
 可以看到`model/article.js`中, 有title, author, pulishdate, cover, content屬性, 
 
 ![artical database](/Users/yuimorii/Documents/GitHub/Tokyo-stack-projects/images/artical database.png)
+
+所以要向文件`article-edit.art `裡,每一個表單項添加一樣的名字,對應數據庫裏
+
+```js
+    <div class="form-group">
+            <label>title</label>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Please enter the article title"
+              name="title"
+            />
+          </div>
+          <div class="form-group">
+            <label>author</label>
+            <input type="text" class="form-control" readonly
+            name="author" />
+          </div>
+          <div class="form-group">
+            <label>Release Time</label>
+            <input type="date" class="form-control" name="publishDate"/>
+          </div>
+
+          <div class="form-group">
+            <label for="exampleInputFile">Article Cover</label>
+            <input type="file" name="cover" />
+            <div class="thumbnail-waper">
+              <img class="img-thumbnail" src="" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Content</label>
+        
+            <textarea name="content" class="form-control" id="editor"></textarea>
+          </div>
+```
+
