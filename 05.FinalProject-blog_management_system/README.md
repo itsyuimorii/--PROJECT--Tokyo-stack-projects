@@ -2291,6 +2291,8 @@ reader.onload = function () {
 
 ![onload](/Users/yuimorii/Documents/GitHub/Tokyo-stack-projects/images/onload.png)
 
+console中已經可以顯示圖片的src了 
+
 ### 16. image preview 
 
 ```js
