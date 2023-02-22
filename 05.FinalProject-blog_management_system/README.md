@@ -2195,16 +2195,11 @@ When the form parse is completed, the callback function **returns 3 parameters.*
 
 ```js
    form.parse(req, async (err, fields, files) => {
-  
-    // res.send(files.cover.path.split('public')[1])
-    await Article.create({
-      title: fields.title,
-      author: fields.author,
-      publishDate: fields.publishDate,
-      cover: files.cover.path.split("public")[1],
-      content: fields.content,
+       res.send(field)
     });
 ```
+
+5. ![form parse](/Users/yuimorii/Desktop/Screen Shot 2023-02-22 at 1.51.49 PM.png)
 
 5.  将页面重定向到文章列表页面
 
