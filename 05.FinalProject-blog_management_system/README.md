@@ -2286,7 +2286,23 @@ When the form parse is completed, the callback function **returns 3 parameters.*
 ```js
 reader.onload = function () {
     console.log(reader.result)
-    // 将文件读取的结果显示在页面中
+}
+```
+
+![onload](/Users/yuimorii/Documents/GitHub/Tokyo-stack-projects/images/onload.png)
+
+### 16. image preview 
+
+```js
+  <div class="thumbnail-waper">
+     <img class="img-thumbnail" src="" id="preview">
+  </div>       
+```
+
+```js
+reader.onload = function () {
+    console.log(reader.result)
+    // 将文件读取的结果显示在页面
     preview.src = reader.result;
 }
 ```
