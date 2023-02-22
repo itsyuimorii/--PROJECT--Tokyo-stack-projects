@@ -2187,13 +2187,15 @@ form.keepExtension = true;
 
 4.  parse the form
 
+When the form parse is completed, the callback function **returns 3 parameters.**
+
+- `err` 错误对象 如果表单解析失败, err里面存储错误信息; 如果表单解析成功 ,err将会是null
+- `fields` 对象类型 保存普通表单数据
+- `files` 对象类型 保存了和上传文件相关的数据
+
 ```js
    form.parse(req, async (err, fields, files) => {
-    //當表單parse完成後, 回調函數返回3個參數.
-
-    // 1.err错误对象 如果表单解析失败 err里面存储错误信息 如果表单解析成功 err将会是null
-    // 2.fields 对象类型 保存普通表单数据
-    // 3.files 对象类型 保存了和上传文件相关的数据
+  
     // res.send(files.cover.path.split('public')[1])
     await Article.create({
       title: fields.title,
