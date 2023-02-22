@@ -2014,9 +2014,11 @@ module.exports = {
 > views/admin/article.art
 
 ```js
-<a href="article-edit.html" class="btn btn-primary new">Post a new article</a>
+  <a href="/admin/article-edit" class="btn btn-primary new">Post a new article</a
 ```
 
+此時點擊`Post a new article` button 後, 會跳到 文章編輯頁面 (http://127.0.0.1:3000/admin/article-edit) 
 
+### 6. 給表單
 
-1. 
+> article-edit

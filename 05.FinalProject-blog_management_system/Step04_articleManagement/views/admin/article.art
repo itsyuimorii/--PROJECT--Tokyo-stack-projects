@@ -11,7 +11,7 @@
         <div class="title">
           <h4>Article</h4>
           <span>Found 1 article</span>
-          <a href="article-edit.html" class="btn btn-primary new"
+          <a href="/admin/article-edit" class="btn btn-primary new"
             >Post a new article</a
           >
         </div>
