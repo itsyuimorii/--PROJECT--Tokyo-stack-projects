@@ -2031,3 +2031,6 @@ module.exports = {
 
 💥並且要給每一個**表單項**添加`name`屬性 , 這是因為**方便服務器接收客戶端傳遞過來的請求參數**, `name`的**屬性的值**最好跟**數據庫中字段**保持一致
 
+可以看到`model/article.js`中, 有title, author, pulishdate, cover, content屬性, 
+
+![artical database](/Users/yuimorii/Documents/GitHub/Tokyo-stack-projects/images/artical database.png)
