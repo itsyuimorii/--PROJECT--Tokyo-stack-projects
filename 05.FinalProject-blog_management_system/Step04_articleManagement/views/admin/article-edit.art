@@ -88,7 +88,7 @@
                 console.log(reader.result)
                 // 将文件读取的结果显示在页面中
                 preview.src = reader.result;
-            // }
+              }
         }
 
     </script>
