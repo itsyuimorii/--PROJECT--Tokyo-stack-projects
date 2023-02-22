@@ -2146,5 +2146,26 @@ app.use(bodyParser.urlencoded({ extended: false }));
  });
 ```
 
+```js
+npm i formidable 
+```
 
+> router/admin/article-add.js
 
+```js
+const formidable = require("formidable");
+
+module.exports = (req, res) => {
+  res.send("ok");
+};
+```
+
+### 11. Using `formidable` to parse the` request param` passed from the client
+
+1. 創建表單解析對象
+
+```js
+ const form = new formidable.IncomingForm();
+```
+
+2. 
