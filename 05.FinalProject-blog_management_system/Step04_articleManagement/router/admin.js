@@ -37,5 +37,8 @@ admin.get("/article", require("./admin/article"));
 //Article Editing Page Routing
 admin.get("/article-edit", require("./admin/article-edit"));
 
+//Implement the route to add articles on the server side
+admin.post("/article-add", require("./admin/article-add"));
+
 // Export the routing object as a member of the routing module
 module.exports = admin;

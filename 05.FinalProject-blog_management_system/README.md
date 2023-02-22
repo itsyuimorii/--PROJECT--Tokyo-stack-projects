@@ -2090,5 +2090,20 @@ name=admin&age=20
 multipart/form-data 
 ```
 
+```js
+ <form class="form-container" action="/admin/article-add" method="post" enctype="multipart/form-data">
+```
 
+![documentupload](/Users/yuimorii/Documents/GitHub/Tokyo-stack-projects/images/documentupload.png)
+
+### 8. 在服務器端實現添加文章的路由
+
+> /router/admin.js
+
+```js
+//Implement the route to add articles on the server side
+admin.post("/article-add", require("./admin/article-add"));
+```
+
+> admin/article-add.js
 
