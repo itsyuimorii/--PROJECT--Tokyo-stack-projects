@@ -19,6 +19,7 @@ module.exports = (req, res) => {
     res.send(files);
     res.send(fields);
   }); */
+
   form.parse(req, async (err, fields, files) => {
     await Article.create({
       title: fields.title,

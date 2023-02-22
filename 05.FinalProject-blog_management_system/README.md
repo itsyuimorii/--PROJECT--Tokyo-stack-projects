@@ -2219,4 +2219,22 @@ When the form parse is completed, the callback function **returns 3 parameters.*
 
 ![user disable editing](/Users/yuimorii/Documents/GitHub/Tokyo-stack-projects/images/user disable editing.png)
 
-💡:
+> 💡: The author here should be the currently registered user
+>
+> In the **article.js** file, the author is the User id stored in the user collection `{User}` , so we need to display this id in this text box. 
+
+在用戶登錄成功以後,我們將用戶信息存儲在`app.locals`對象中, 這個對象是可以在模板當中拿到的, 進入`login.js` , 
+
+ ```js
+ req.app.locals.userInfo = user;
+ ```
+
+ 這裡我們需要拿到的就是 `userInfo`裡面的信息模板 `views/admin/article-edit.art`
+
+ ```js
+ <label>author</label>
+ <input name="author" type="text" class="form-control" readonly value="{{@userInfo._id}}">
+ ```
+
+ 
+
