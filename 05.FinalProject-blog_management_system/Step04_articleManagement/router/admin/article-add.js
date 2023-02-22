@@ -13,10 +13,11 @@ module.exports = (req, res) => {
   //3. Keep the suffixes of the uploaded files
   form.keepExtensions = true;
 
-  form.parse(req, (err, fields, files) => {
-    res.send(fields);
-  });
   //4. parse the form
+
+  form.parse(req, (err, fields, files) => {
+    res.send(files);
+  });
   /*  form.parse(req, async (err, fields, files) => {
     //res.send(fields);
     await Article.create({

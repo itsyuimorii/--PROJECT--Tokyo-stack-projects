@@ -2195,13 +2195,21 @@ When the form parse is completed, the callback function **returns 3 parameters.*
 
 ```js
    form.parse(req, async (err, fields, files) => {
-       res.send(field)
+       res.send(fields)
     });
 ```
 
-5. ![form parse](/Users/yuimorii/Desktop/Screen Shot 2023-02-22 at 1.51.49 PM.png)
+![form parse](/Users/yuimorii/Documents/GitHub/Tokyo-stack-projects/images/form parse.png)
 
-5.  将页面重定向到文章列表页面
+`res.send(field)`
+
+![form parse](/Users/yuimorii/Desktop/Screen Shot 2023-02-22 at 1.51.49 PM.png)
+
+`res.send(files)`
+
+![files](/Users/yuimorii/Documents/GitHub/Tokyo-stack-projects/images/files.png)
+
+5. 将页面重定向到文章列表页面
 
 ```js
  res.redirect("/admin/article");
