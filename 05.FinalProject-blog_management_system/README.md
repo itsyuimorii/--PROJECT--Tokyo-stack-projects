@@ -2114,3 +2114,12 @@ module.exports = (req, res) => {
 ```
 
 click submit new post -> http://localhost:3000/admin/article-add show ok
+
+### 9. 接收客戶傳遞過來的二進制表單
+
+```js
+//Configure the post request parameter, body-parser parsing file
+app.use(bodyParser.urlencoded({ extended: false }));
+```
+
+以上這個bodyParser是不夠的, 
