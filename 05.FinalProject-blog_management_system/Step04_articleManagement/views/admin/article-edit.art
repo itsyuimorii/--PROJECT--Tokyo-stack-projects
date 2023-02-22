@@ -84,10 +84,10 @@
             // 2 读取文件
             reader.readAsDataURL(this.files[0]);
             // 3 监听onload事件
-            // reader.onload = function () {
-            //     console.log(reader.result)
-            //     // 将文件读取的结果显示在页面中
-            //     preview.src = reader.result;
+            reader.onload = function () {
+                console.log(reader.result)
+                // 将文件读取的结果显示在页面中
+                preview.src = reader.result;
             // }
         }
 

@@ -2279,5 +2279,15 @@ When the form parse is completed, the callback function **returns 3 parameters.*
 <input type="file" name="cover" id="file" multiple>
 ```
 
-### 15. 把
+### 15. 把選擇的文件傳遞給        `readAsDataURL(this.files[0]) `這個方法
+
+> 由於這個文件不是async方法, 所以沒有返回值 
+
+```js
+reader.onload = function () {
+    console.log(reader.result)
+    // 将文件读取的结果显示在页面中
+    preview.src = reader.result;
+}
+```
 
