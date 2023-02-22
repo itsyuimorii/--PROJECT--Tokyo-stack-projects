@@ -2107,3 +2107,9 @@ admin.post("/article-add", require("./admin/article-add"));
 
 > admin/article-add.js
 
+```js
+module.exports = (req, res) => {
+  res.send("ok");
+};
+```
+
