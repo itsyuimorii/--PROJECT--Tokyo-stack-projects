@@ -1880,21 +1880,19 @@ module.exports = async (req, res) => {
 
 ### 添加路由
 
-articleList router
+> articleList router
 
 ```js
 admin.get("/article", require("/admin/article"));
 ```
 
-articleEditrouter
+> articleEditrouter
 
 ```js
-admin.get("/article-edit" , require("/admin/article-edit"))
+admin.get("/article-edit" , require("/admin/article-edit")) 
 ```
 
- 
-
-### 為sidebar的選項添加href🔗
+### 為sidebar的選項添加`href`🔗
 
 > views/admin/common/aside.art
 
@@ -1915,7 +1913,7 @@ admin.get("/article-edit" , require("/admin/article-edit"))
    </ul>
 ```
 
-### 為sidebar 的選項切換選中狀態
+### 為sidebar的選項切換選中狀態
 
 > router/admin/userEdit.js && router/admin/usrePage.js
 
@@ -1933,7 +1931,7 @@ admin.get("/article-edit" , require("/admin/article-edit"))
   req.app.locals.currentLink = "article";
 ```
 
-⬆️的“”name 是自定義的
+⬆️的 “” name 是自定義的
 
 > views/admin/common/aside.art
 
@@ -1966,7 +1964,7 @@ admin.get("/article-edit" , require("/admin/article-edit"))
 
 > 需要在數據庫擁有集合,才可能向集合中添加新的文章
 
- ![article-edit](/Users/yuimorii/Documents/GitHub/Tokyo-stack-projects/images/article-edit.png)
+![article-edit](/Users/yuimorii/Documents/GitHub/Tokyo-stack-projects/images/article-edit.png)
 
 > model/article.js
 
@@ -2006,7 +2004,9 @@ const Article = mongoose.model('Article', articleSchema);
 
 // 4. Export the collection as a module member
 module.exports = {
-	Article
+	//Article: Article 
+  Article
 }
 ```
 
+ 
