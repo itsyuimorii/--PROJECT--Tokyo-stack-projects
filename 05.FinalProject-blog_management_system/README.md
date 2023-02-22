@@ -2113,9 +2113,11 @@ module.exports = (req, res) => {
 };
 ```
 
-click submit new post -> http://localhost:3000/admin/article-add show ok
+click submit new post -> http://localhost:3000/admin/article-add show ok 表示請求已經進入到路由中了. 
 
-### 9. 接收客戶傳遞過來的二進制表單
+### 9. 如何接收接收客戶端傳遞過來的二進制表單?
+
+在上一步驟提交後, 請求進入到路由中了. 
 
 ```js
 //Configure the post request parameter, body-parser parsing file
