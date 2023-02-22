@@ -2019,6 +2019,14 @@ module.exports = {
 
 此時點擊`Post a new article` button 後, 會跳到 文章編輯頁面 (http://127.0.0.1:3000/admin/article-edit) 
 
-### 6. 給表單
+### 6. 給表單添加請求地址以及請求方式(action 屬性和method屬性)
 
-> article-edit
+> article-edit.art 
+
+💥Since we are currently **adding data to the database**, the request method is post, and the address is`/admin/article-add`
+
+```js
+ <form class="form-container" action="/admin/article-add" method="post">
+```
+
+並且要給每一個表單項添加name屬性 , 方便服務器接收 客戶端傳遞過來的信息
