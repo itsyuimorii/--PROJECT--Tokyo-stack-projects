@@ -10,8 +10,14 @@
         <div class="title">
           <h4>5b9a716cb2d2bf17706bcc0a</h4>
         </div>
+           <!--
+                enctype 指定表单数据的编码类型
+                    application/x-www-form-urlencoded
+                        name=zhangsan&age=20
+                    multipart/form-data 将表单数据编码成二进制类型
+            -->
         <! -- /category title -->
-        <form class="form-container" action="/admin/article-add" method="post">
+        <form class="form-container" action="/admin/article-add" method="post" enctype="multipart/form-data">
           <div class="form-group">
             <label>title</label>
             <input
@@ -19,23 +25,25 @@
               class="form-control"
               placeholder="Please enter the article title"
               name="title"
-            />
+            >
           </div>
           <div class="form-group">
             <label>author</label>
-            <input type="text" class="form-control" readonly
-            name="author" />
+            <input "author" type="text" class="form-control" readonly value="{{@userInfo._id}}">
           </div>
           <div class="form-group">
             <label>Release Time</label>
-            <input type="date" class="form-control" name="publishDate"/>
+            <input type="date" class="form-control" name="publishDate">
           </div>
 
           <div class="form-group">
             <label for="exampleInputFile">Article Cover</label>
-            <input type="file" name="cover" />
+              <!--
+                        multiple 允许用户一次性选择多个文件
+                   -->
+            <input type="file" name="cover" >
             <div class="thumbnail-waper">
-              <img class="img-thumbnail" src="" />
+              <img class="img-thumbnail" src="" >
             </div>
           </div>
           <div class="form-group">
