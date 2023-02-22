@@ -2253,6 +2253,10 @@ When the form parse is completed, the callback function **returns 3 parameters.*
 > views/admin/article-edit.art
 
 ```js
+<input type="file" name="cover"id = "file" >
+```
+
+```js
     // 选择文件上传控件
     var file = document.querySelector('#file');
     var preview = document.querySelector('#preview');
