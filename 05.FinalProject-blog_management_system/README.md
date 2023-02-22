@@ -2215,5 +2215,8 @@ When the form parse is completed, the callback function **returns 3 parameters.*
  res.redirect("/admin/article");
 ```
 
-### 12. author property 
+### 12. Prohibit editing `author` property 
 
+![user disable editing](/Users/yuimorii/Documents/GitHub/Tokyo-stack-projects/images/user disable editing.png)
+
+💡:
