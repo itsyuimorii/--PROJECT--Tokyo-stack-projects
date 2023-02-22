@@ -1878,7 +1878,7 @@ module.exports = async (req, res) => {
 
 ## 12. Article management
 
-### 添加`文章`路由
+### 1. 添加`文章`路由
 
 > articleList router
 
@@ -1892,7 +1892,7 @@ admin.get("/article", require("/admin/article"));
 admin.get("/article-edit" , require("/admin/article-edit")) 
 ```
 
-### 為sidebar的選項添加`href`🔗
+### 2. 為sidebar的選項添加`href`🔗
 
 > views/admin/common/aside.art
 
@@ -1913,7 +1913,7 @@ admin.get("/article-edit" , require("/admin/article-edit"))
    </ul>
 ```
 
-### 為sidebar的選項切換選中狀態
+### 3. sidebar的選項切換選中狀態
 
 > router/admin/userEdit.js && router/admin/usrePage.js
 
@@ -1960,7 +1960,7 @@ admin.get("/article-edit" , require("/admin/article-edit"))
 </ul>
 ```
 
-## 13. Article collection
+### 4. Create article collection
 
 > 需要在數據庫擁有集合,才可能向集合中添加新的文章
 
@@ -2009,3 +2009,14 @@ module.exports = {
 }
 ```
 
+### 5. Add link to **`Post a new article** 
+
+> views/admin/article.art
+
+```js
+<a href="article-edit.html" class="btn btn-primary new">Post a new article</a>
+```
+
+
+
+1. 
