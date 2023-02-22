@@ -2236,5 +2236,17 @@ When the form parse is completed, the callback function **returns 3 parameters.*
  <input name="author" type="text" class="form-control" readonly value="{{@userInfo._id}}">
  ```
 
- 
+![userifno](/Users/yuimorii/Documents/GitHub/Tokyo-stack-projects/images/userifno.png)
+
+### 13. Show image preview
+
+需要js來讀取圖片📃,  使用->**二進制文件读取** **FileReader**
+
+```js
+ var reader = new FileReader();
+ reader.readAsDataURL('文件');
+ reader.onload = function () {
+     console.log(reader.result); 
+ }
+```
 
