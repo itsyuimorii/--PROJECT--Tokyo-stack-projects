@@ -2029,4 +2029,5 @@ module.exports = {
  <form class="form-container" action="/admin/article-add" method="post">
 ```
 
-並且要給每一個表單項添加name屬性 , 方便服務器接收 客戶端傳遞過來的信息
+💥並且要給每一個**表單項**添加`name`屬性 , 這是因為**方便服務器接收客戶端傳遞過來的請求參數**, `name`的**屬性的值**最好跟**數據庫中字段**保持一致
+
