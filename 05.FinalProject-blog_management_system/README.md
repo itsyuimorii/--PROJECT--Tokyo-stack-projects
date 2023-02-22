@@ -2309,3 +2309,6 @@ reader.onload = function () {
 }
 ```
 
+> The preview image function was successful🚀  
+
+![imagepreview](/Users/yuimorii/Documents/GitHub/Tokyo-stack-projects/images/imagepreview.png)
