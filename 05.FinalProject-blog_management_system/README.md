@@ -2133,13 +2133,13 @@ app.use(bodyParser.urlencoded({ extended: false }));
 ```js
  // 引入formidable模块
  const formidable = require('formidable');
- // 创建表单解析对象
+ // 创建表单解析对象, 返回值是表單解析對象
  const form = new formidable.IncomingForm();
- // 设置文件上传路径
+ // 设置文件上传服務器上的對應目錄/路径
  form.uploadDir = "/my/dir";
- // 是否保留表单上传文件的扩展名
+ // 需要保留表单上传文件的扩展名
  form.keepExtensions = false;
- // 对表单进行解析
+ // 对表单进行解析 
  form.parse(req, (err, fields, files) => {
      // fields 存储普通请求参数
      // files 存储上传的文件信息
