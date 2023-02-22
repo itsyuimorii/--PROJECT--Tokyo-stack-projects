@@ -2238,7 +2238,7 @@ When the form parse is completed, the callback function **returns 3 parameters.*
 
 ![userifno](/Users/yuimorii/Documents/GitHub/Tokyo-stack-projects/images/userifno.png)
 
-### 13. Show image preview
+### 13. Upload image  
 
 需要js來讀取圖片📃,  使用->**二進制文件读取** **FileReader**
 
@@ -2270,4 +2270,14 @@ When the form parse is completed, the callback function **returns 3 parameters.*
         reader.readAsDataURL(this.files[0]);
      }
 ```
+
+![fileread](/Users/yuimorii/Documents/GitHub/Tokyo-stack-projects/images/fileread.png)
+
+###  14. upload multiple image
+
+```js
+<input type="file" name="cover" id="file" multiple>
+```
+
+### 
 
