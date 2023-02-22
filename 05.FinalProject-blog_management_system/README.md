@@ -2312,3 +2312,5 @@ reader.onload = function () {
 > The preview image function was successful🚀  
 
 ![imagepreview](/Users/yuimorii/Documents/GitHub/Tokyo-stack-projects/images/imagepreview.png)
+
+### 17. Place the `articles`( passed from the client to the server ) into `database`

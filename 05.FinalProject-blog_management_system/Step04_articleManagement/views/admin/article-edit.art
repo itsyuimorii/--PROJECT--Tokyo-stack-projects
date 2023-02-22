@@ -72,21 +72,21 @@
         // 获取数据
         // const editorData = editor.getData();
         
-        // 选择文件上传控件
+        // Select file upload control
         var file = document.querySelector('#file');
         var preview = document.querySelector('#preview');
-        // 当用户选择完文件以后
+        // After the user has selected the file
         file.onchange = function () {
-            // 1 创建文件读取对象
+            // 1 Create a file reader object
             var reader = new FileReader();
-            // 用户选择的文件列表
+            // The list of files selected by the user
             console.log(this.files[0])
-            // 2 读取文件
+            // 2 Read the file
             reader.readAsDataURL(this.files[0]);
-            // 3 监听onload事件
+            // 3 Listen to the onload event
             reader.onload = function () {
                 console.log(reader.result)
-                // 将文件读取的结果显示在页面中
+                // Display the result of the file reading in the page
                 preview.src = reader.result;
               }
         }
