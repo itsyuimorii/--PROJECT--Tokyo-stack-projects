@@ -2113,3 +2113,4 @@ module.exports = (req, res) => {
 };
 ```
 
+click submit new post -> http://localhost:3000/admin/article-add show ok
