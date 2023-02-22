@@ -2250,3 +2250,26 @@ When the form parse is completed, the callback function **returns 3 parameters.*
  }
 ```
 
+> views/admin/article-edit.art
+
+```js
+    // 选择文件上传控件
+    var file = document.querySelector('#file');
+    var preview = document.querySelector('#preview');
+    // 当用户选择完文件以后
+    file.onchange = function () {
+        // 1 创建文件读取对象
+        var reader = new FileReader();
+        // 用户选择的文件列表
+        // console.log(this.files[0])
+        // 2 读取文件
+        reader.readAsDataURL(this.files[0]);
+        // 3 监听onload事件
+        reader.onload = function () {
+            console.log(reader.result)
+            // 将文件读取的结果显示在页面中
+            preview.src = reader.result;
+        }
+    }
+```
+
