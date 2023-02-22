@@ -2162,10 +2162,51 @@ module.exports = (req, res) => {
 
 ### 11. Using `formidable` to parse the` request param` passed from the client
 
+> router/admin/article-add.js
+
 1. 創建表單解析對象
 
 ```js
  const form = new formidable.IncomingForm();
 ```
 
-2. 
+2. create public/uploads📁
+3.  配置上傳文件的存放位置, using absolute path
+
+```js
+const path = require("path");
+
+form.uploadDir = path.join(__dirname, "../","../","public" ,"uploads")
+```
+
+3. 保留上傳文件的**後綴**(默認是不保留)
+
+```js
+form.keepExtension = true;
+```
+
+4.  parse the form
+
+```js
+   form.parse(req, async (err, fields, files) => {
+    //當表單parse完成後, 回調函數返回3個參數.
+
+    // 1.err错误对象 如果表单解析失败 err里面存储错误信息 如果表单解析成功 err将会是null
+    // 2.fields 对象类型 保存普通表单数据
+    // 3.files 对象类型 保存了和上传文件相关的数据
+    // res.send(files.cover.path.split('public')[1])
+    await Article.create({
+      title: fields.title,
+      author: fields.author,
+      publishDate: fields.publishDate,
+      cover: files.cover.path.split("public")[1],
+      content: fields.content,
+    });
+```
+
+5.  将页面重定向到文章列表页面
+
+```js
+ res.redirect("/admin/article");
+```
+
