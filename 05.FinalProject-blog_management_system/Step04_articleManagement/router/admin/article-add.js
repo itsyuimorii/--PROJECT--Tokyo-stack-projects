@@ -1,19 +1,24 @@
 const formidable = require("formidable");
 const path = require("path");
+const { Article } = require("../../model/article");
 
 module.exports = (req, res) => {
   // res.send("ok");
   //1. create form parsing object
-  const form = new formidable();
+  const form = new formidable.IncomingForm();
   //2. Configure the location of the upload file
   //It is recommended to use the absolute path here
-  form.uploadDir = path.join(__dirname, "... /", "... /", "public", "uploads");
+  form.uploadDir = path.join(__dirname, "../", "../", "public", "uploads");
 
   //3. Keep the suffixes of the uploaded files
-  form.keepExtension = true;
+  form.keepExtensions = true;
 
+  form.parse(req, (err, fields, files) => {
+    res.send(fields);
+  });
   //4. parse the form
-  form.parse(req, async (err, fields, files) => {
+  /*  form.parse(req, async (err, fields, files) => {
+    //res.send(fields);
     await Article.create({
       title: fields.title,
       author: fields.author,
@@ -22,7 +27,7 @@ module.exports = (req, res) => {
       content: fields.content,
     });
     // Redirects the page to the article list page
-    res.redirect("/admin/article");
-  });
+    res.redirect("/admin/article"); 
+  });*/
   // res.send('ok');
 };
