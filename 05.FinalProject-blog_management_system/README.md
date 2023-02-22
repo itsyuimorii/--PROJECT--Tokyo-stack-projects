@@ -2281,7 +2281,7 @@ When the form parse is completed, the callback function **returns 3 parameters.*
 
 ### 15. Pass the selected file to the `readAsDataURL(this.files[0]) ` method
 
-> Since this file is not an async method, there is no return value 
+> Since this file is an async method, cant get result throught` return` method, so using `onload` method
 
 ```js
 reader.onload = function () {
