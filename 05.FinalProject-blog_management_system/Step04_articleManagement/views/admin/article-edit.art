@@ -10,12 +10,7 @@
         <div class="title">
           <h4>5b9a716cb2d2bf17706bcc0a</h4>
         </div>
-           <!--
-                enctype 指定表单数据的编码类型
-                    application/x-www-form-urlencoded
-                        name=zhangsan&age=20
-                    multipart/form-data 将表单数据编码成二进制类型
-            -->
+          
         <! -- /category title -->
         <form class="form-container" action="/admin/article-add" method="post" enctype="multipart/form-data">
           <div class="form-group">

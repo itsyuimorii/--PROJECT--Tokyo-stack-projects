@@ -2071,3 +2071,24 @@ module.exports = {
           </div>
 ```
 
+### 7. 文件上傳的表單vs普通表單
+
+> The **document upload** form must be in **binary format** 
+
+The enctype attribute serves to: **specify the encoding type of the form data**
+
+Dafault value is 👇: 
+
+```js
+application/x-www-form-urlencoded
+name=admin&age=20
+```
+
+ Encoding form data into binary👇
+
+```js
+multipart/form-data 
+```
+
+
+
