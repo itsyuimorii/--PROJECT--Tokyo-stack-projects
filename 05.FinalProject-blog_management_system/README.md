@@ -2124,4 +2124,27 @@ click submit new post -> http://localhost:3000/admin/article-add show ok 表示�
 app.use(bodyParser.urlencoded({ extended: false }));
 ```
 
-以上這個bodyParser是不夠的, 
+以上這個bodyParser是不夠的, 要用`formidable `
+
+### 10. Formidable 
+
+> 作用：解析表单，支持get请求参数，post请求参数、文件上传。
+
+```js
+ // 引入formidable模块
+ const formidable = require('formidable');
+ // 创建表单解析对象
+ const form = new formidable.IncomingForm();
+ // 设置文件上传路径
+ form.uploadDir = "/my/dir";
+ // 是否保留表单上传文件的扩展名
+ form.keepExtensions = false;
+ // 对表单进行解析
+ form.parse(req, (err, fields, files) => {
+     // fields 存储普通请求参数
+     // files 存储上传的文件信息
+ });
+```
+
+
+
