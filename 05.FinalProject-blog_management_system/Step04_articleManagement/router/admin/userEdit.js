@@ -7,10 +7,9 @@ module.exports = async (req, res) => {
   //添加標識: 表示當前訪問的是用戶管理頁面
   // locals方法是可以顯示在模板裡的
   req.app.locals.currentLink = "user";
-
   const { message, id } = req.query;
 
-  //如果當前傳遞了id參數, then, it is edit user info
+  // If the id parameter is currently passed, then it is editing the user information.
   if (id) {
     let user = await User.findOne({ _id: id });
     //return res.send(user);
