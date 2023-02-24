@@ -1289,7 +1289,7 @@ Paging function core elements.
   let total = Math.ceil(count / pagesize);
 ```
 
-> 数据开始查询位置=（当前页-1）* 每页显示的数据条数
+> Data start query position = (current page - 1) * number of data items displayed per page
 
 ```js
 limit(2) // limit 限制查询数量  传入每页显示的数据数量
@@ -1304,7 +1304,7 @@ skip(1) // skip 跳过多少条数据  传入显示数据的开始位置
 
 ![pageination](https://github.com/itsyuimorii/Tokyo-stack-projects/blob/main/images/pageination.png)
 
-### 2. 生成分頁器, add a 🔗 link to the pagination button
+### 2. Create Pagination, add a 🔗 link to the pagination button
 
 When rendering the user list template, you need to pass in the paging information as well
 
@@ -1389,21 +1389,21 @@ all code
 
 ## 10.  Edit Userinfo
 
-1. 将要修改的用户ID传递到服务器端（作用：区分添加用户功能还是修改用户功能, 如果id有重複, 就是修改用戶信息,而不是新增用戶）
+1. to modify the user ID passed to the server side (role: to distinguish between the function of adding users or modify the user function, if the id has duplicated, is to modify the user information, rather than adding new users)
 
-2. 建立用户信息修改功能对应的路由
+2. establish the route corresponding to the user information modification function
 
-3. 接收客户端表单传递过来的请求参数
+3. receive the request parameters passed from the client form
 
-4. 根据id查询用户信息，并将客户端传递过来的密码和数据库中的密码进行比对, 
+4. query the user information according to the id, and the password passed by the client and the password in the database for comparison. 5, 
 
-5. 如果比对失败，对客户端做出响应
+5. if the comparison fails, respond to the client
 
-6. 如果密码对比成功，将用户信息更新到数据库中
+6. if the password comparison is successful, update the user information to the database
 
 ### 1. pass the user ID to be modified to the server side (role: distinguish between adding user functions or modifying user functions)
 
-> 在用戶列表頁面裡 Views📁=>admin📁=>common📁=> user.art
+> Views📁=>admin📁=>common📁=> user.art
 
 ```js
 <a href="/admin/userEdit?id={{@$value._id}}" class="glyphicon glyphicon-edit"></a>
@@ -1422,23 +1422,23 @@ all code
 ### 2. Create the route corresponding to the user information modification function
 
 ```js
-// 引入用户集合的构造函数
+// Introduce a constructor for the user collection
 const { User } = require("../../model/user"); // 引入加密模块
 
 module.exports = async (req, res) => {
-  //獲取到地址欄中的id參數
+  //Get the id parameter in the address bar
 
   const { message, id } = req.query;
-  // 添加操作
+  // Add operation
   res.render("admin/userEdit", {
     message: message,
   });
 
-  //如果當前傳遞了id參數,
+  //If the id parameter is currently passed,
   if (id) {
-    //修改操作
+    //modify the operation
   } else {
-    //添加操作
+    //add operation
   }
 };
 ```
@@ -1450,11 +1450,12 @@ module.exports = async (req, res) => {
 > router📁-> admin📁-> userEdit.js
 
 ```js
-// 引入用户集合的构造函数
+// Introduce a constructor for the user collection
 const { User } = require("../../model/user"); //
 
 module.exports = async (req, res) => {
-  //獲取到地址欄中的id參數
+  //Get the id parameter in the address bar
+
 
   const { message, id } = req.query;
   // 添加操作
@@ -1521,7 +1522,7 @@ module.exports = async (req, res) => {
 #### 1. user and modify user are two submit addresses, so add `link` attribute in `render`.
 
 ```js
-    //渲染用戶編輯頁面(修改)
+    //Render user edit page 
     res.render("admin/userEdit", {
       message: message,
       user: user,
@@ -1529,7 +1530,7 @@ module.exports = async (req, res) => {
  
     });
   } else {
-    //添加操作
+    // Add operation
     res.render("admin/userEdit", {
       message: message,
       link:"/admin/userEdit"
@@ -1546,7 +1547,7 @@ Views📁->  admin📁->userEdit.art
 #### 2. Add `Button` property : Edit or add
 
 ```js
-    //渲染用戶編輯頁面(修改)
+    // Render user edit page (modified)
     res.render("admin/userEdit", {
       message: message,
       user: user,
@@ -1554,7 +1555,7 @@ Views📁->  admin📁->userEdit.art
       button: "add"
     });
   } else {
-    //添加操作
+ 
     res.render("admin/userEdit", {
       message: message,
       link:"/admin/userEdit"
@@ -1578,7 +1579,7 @@ Views📁->  admin📁->userEdit.art
 
 💥 Can't let users change password (set separate function elsewhere if you need to change password) Password is used to verify whether users can modify information, password input correctly can modify information, password input wrong, can't modify information
 
-`@`- 原文輸出,去掉引號
+`@`- Original output, minus quotation marks
 
 ### 3. receive the request parameters passed by the client form
 
@@ -1592,20 +1593,20 @@ admin.post("/user-modify", require("./admin/user-modify.js"));
 > router/admin/userEdit.js
 
 ```js
-// 引入用户集合的构造函数
+// Introduce a constructor for the user collection
 const { User } = require("../../model/user");
 
 module.exports = async (req, res) => {
-  //獲取到地址欄中的id參數
+  //Get the id parameter in the address bar
 
   const { message, id } = req.query;
 
-  //如果當前傳遞了id參數, then, it is edit user info
+  //If the id parameter is currently passed, then, it is edit user info
   if (id) {
     let user = await User.findOne({ _id: id });
     //return res.send(user);
 
-    //渲染用戶編輯頁面(修改)
+ 
     res.render("admin/userEdit", {
       message: message,
       user: user,
@@ -1613,7 +1614,7 @@ module.exports = async (req, res) => {
       button: "Edit",
     });
   } else {
-    //添加操作
+ 
     res.render("admin/userEdit", {
       message: message,
       link: "/admin/userEdit",
