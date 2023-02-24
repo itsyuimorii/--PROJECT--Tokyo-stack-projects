@@ -867,7 +867,7 @@ LOCATION : [Step01_login](https://github.com/itsyuimorii/Tokyo-stack-projects/tr
 
 10. Redirect the page to the user list page
 
-### 1. 为用户列表页面的新增用户按钮添加链接
+### 1. Add a link🔗 to the `Add User` button` on the user list page
 
 - Views📁=>admin📁=>common📁=> user.art
 
@@ -875,7 +875,7 @@ LOCATION : [Step01_login](https://github.com/itsyuimorii/Tokyo-stack-projects/tr
    <a href="/admin/user-edit" class="btn btn-primary new">New Users</a> 
   ```
 
-### 2. 添加一个连接对应的路由，在路由处理函数中渲染新增用户模板
+### 2. Add a connection corresponding to the `route` and render the `new user template` in the route handling function
 
 > router📁 ->`admin.js`
 
@@ -891,9 +891,11 @@ LOCATION : [Step01_login](https://github.com/itsyuimorii/Tokyo-stack-projects/tr
    };
  ```
 
-打开浏览器刷新，点击新增用户，发现：可以跳转到表单页了。![Screen Shot 2023-02-19 at 9.18.08 AM](/Users/yuimorii/Documents/GitHub/Tokyo-stack-projects/images/user-edit-fomr.png)
+> Open the browser to refresh, click Add User, and you will find: you can jump to the form page now.
+>
+> ![Screen Shot 2023-02-19 at 9.18.08 AM](/Users/yuimorii/Documents/GitHub/Tokyo-stack-projects/images/user-edit-fomr.png)
 
-### 3. 为新增用户表单指定请求地址、请求方式、为表单项添加name属性
+### 3. Specify request address and request method for new user forms, add `name` attribute to form items
 
 > Views📁=>admin📁=>common📁=> userEdit.art
 
@@ -917,7 +919,7 @@ LOCATION : [Step01_login](https://github.com/itsyuimorii/Tokyo-stack-projects/tr
 </select>
 ```
 
-### 4. 創建实现添加用户的功能路由(點擊submit後的post 操作)
+### 4. Create a route for adding users (click `post` after `submit`)
 
 > Router📁=>admin📁=> userEdit-fn.js
 
@@ -931,22 +933,23 @@ module.exports = (req, res) => {
 };
 ```
 
-回到浏览器刷新表单页面，点击提交按钮，可以看到：瀏覽器頁面顯示ok,说明路由创建成功了。
+> Go back to the browser to refresh the form page, click the submit button, you can see: the browser page shows ok, indicating that the route was created successfully.
 
-### 5. 接收到客户端传递过来的请求参数
+### 5. Receive the request parameters passed by the client
 
-继续编辑 user-edit-fn.js 文件：
+user-edit-fn.js ：
 
 ```js
 module.exports = (req, res) => {
-  //這裡實現用戶添加功能
+  // here to implement the user add function
   res.send(req.body);
 };
-//刷新浏览器，随便输入一些信息，点击提交。可以看到：接收到的请求参数
+//refresh the browser, enter some random information and click submit. You can see: the received request parameters
+
 //{"username":"matthew","email":"matthew@gmail.com","password":"000000","state":"0"}
 ```
 
-### 6. 对请求参数的格式进行验证(😤)
+### 6. Validate the format of the request parameters (😤)
 
 ### Joi module 💥 @14.3.1 
 
@@ -960,12 +963,12 @@ module.exports = (req, res) => {
 > way2 : 
 >
 > ```js
-> //引入joi模块
+> // Introduce joi module
 > const Joi=require('joi')
 > 
 > module.exports=async(req,res)=>{
 > 
->   //定義對象的驗證規則
+>   //Define the validation rules for the object
 >   const schema = Joi.object({
 >     username: Joi.string()
 >       .min(2)
@@ -997,7 +1000,7 @@ module.exports = (req, res) => {
 const Joi = require("joi");
 
 module.exports = async (req, res) => {
-  //這裡實現用戶添加功能
+  // here to implement the user add function
   // res.send("ok");
   //{"username":"matthew","email":"matthew@gmail.com","password":"000000","state":"0"}
 
@@ -1022,24 +1025,24 @@ module.exports = async (req, res) => {
       .required()
       .error(new Error("Invalid status")),
   });
-  //用try{}catch(){}语句来捕获异步函数的异常
+  // Use try{}catch(){} statements to catch exceptions for asynchronous functions
   try {
-    //实施验证
+    //implement validation
     await schema.validateAsync(req.body);
   } catch (e) {
-    //验证没有通过
+    //Validation did not pass
     console.log(e.message)
-    //重定向回用户添加页面
+    //redirect back to the user add page
     return res.redirect(`/admin/userEdit?message = ${e.message}`);
   }
-  //這裡如果在最後寫了res.send(req.body) 會報錯, 可以在res.direct 前➕return 讓下面代碼不執行
+  //If you write res.send(req.body) at the end, you can ➕return before res.direct so that the following code does not execute
   // res.send(req.body);
 };
 ```
 
-> Note: 👆上面try...catch 的思路是: 
-
-💡在/admin/userEdit-fn中, 當用戶點擊提交的按鈕, 頁面就會跳轉, 實際上是跳轉到`/admin/userEdit`頁面, 所以在user.Edit中渲染`res.render`, 就可以在art文件中出現這個message 了 
+> Note: 👆 above try. .catch idea above is: 
+>
+> 💡 In `/admin/userEdit-fn`, when the user clicks the submit button, the page will jump, actually to the `/admin/userEdit` page, so rendering `res.render` in `user.Edit` will result in this message in the art file message in the art file. 
 
 
 
@@ -1074,14 +1077,14 @@ Views📁=>admin📁=>common📁=> userEdit.art 👇
   }
 ```
 
-### 8. Encryption of passwords, 在驗證用戶輸入無誤後
+### 8. Encryption of passwords, After verifying that the user input is correct
 
 ```js
-  // 生成随机字符串
+  // Generate a random string
   const salt = await bcrypt.genSalt(10);
-  // 加密
+  // Encryption
   const password = await bcrypt.hash(req.body.password, salt);
-  // 替换密码
+  // Replace the password
   req.body.password = password;
   //res.send(req.body);
 ```
@@ -1089,20 +1092,20 @@ Views📁=>admin📁=>common📁=> userEdit.art 👇
 ### 9. Adding user information to the database
 
 ```js
-  // 将用户信息添加到数据库中
+  // Add user information to the database
   await User.create(req.body);
 ```
 
 ### 10. Redirect page to user list page
 
 ```js
-  // 将页面重定向到用户列表页面
+  // Redirects the page to the user list page
   res.redirect("/admin/user");
 ```
 
-### 11. 優化代碼
+### 11. Optimization Code
 
-在model 📁下`user.js`中 
+model 📁/`user.js`:
 
 ```js
 const validateUser = (user) => {}
@@ -1111,7 +1114,7 @@ const validateUser = (user) => {}
 ```js
 const Joi = require("joi");
 
-// 定义对象的验证规则
+// Define the validation rules for the object
 const schema = {
     username: Joi.string()
       .min(2)
@@ -1133,7 +1136,7 @@ const schema = {
       .error(new Error("Invalid status")),
   };
 
-  // 实施验证
+  // Implementation Validation
   return Joi.validate(user, schema);
 };
 ```
@@ -1143,7 +1146,7 @@ const schema = {
 > app.js
 
 ```js
-//錯誤處理中間件
+// Error handling middleware
 app.use((err, req, res, next) => {
   res.redirect(`/admin/userEdit?message=${e.message}`);
 });
@@ -1154,13 +1157,13 @@ Route📁=>admin📁=>userEdit-fn.js 👇
 **JSON.stringfy**
 
 ```js
-  //用try{}catch(){}语句来捕获异步函数的异常
+  //Use try{}catch(){} statements to catch exceptions for asynchronous functions
   try {
     await validateUser(req.body);
   } catch (e) {
-    // 重定向回用户添加页面
+    // Redirects back to the user add page
 		// return res.redirect(`/admin/userEdit?message=${e.message}`);
-		// JSON.stringify() 将对象数据类型转换为字符串数据类型
+		// JSON.stringify() Converting object data types to string data types
 		return next(JSON.stringify({path: '/admin/userEdit', message: e.message}))
   }
 
@@ -1175,7 +1178,7 @@ Route📁=>admin📁=>userEdit-fn.js 👇
     );
 ```
 
- ·`next方法`·💥Only one parameter can be passed, and it is a string type, but now if you need to pass two parameters, the solution is 👇:
+ ·`next()`·💥Only one parameter can be passed, and it is a string type, but now if you need to pass two parameters, the solution is 👇:
 
 1. pass an `argument`, the parameters should be written as `object`. 2, 
 2. you need to convert `object` to `string` and put it in the `next()` method
@@ -1189,14 +1192,13 @@ return next(JSON.stringify({path: '/admin/userEdit', message: e.message}))
 app.js
 
 ```js
-//錯誤處理中間件
+// Error handling middleware
 app.use((err, req, res, next) => {
-  //JSON.parse()將字符串轉換為對象
+  //JSON.parse()Convert a string to an object
   const result = JSON.parse(err)
   
-  將原🈶️的
   res.redirect(`/admin/userEdit?message=${e.message}`);
-  改為:
+  //Change to :
   res.redirect(`${result.path}?message=${result.message}`); 
 });
 ```
@@ -1216,15 +1218,15 @@ admin.get("/user", require("./admin/userList"));
 > router📁->admin📁->userList.js
 
 ```js
-//導入用戶結合構造函數
+// Importing user binding construct functions
 const { User } = require("../../model/user");
 module.exports = async (req, res) => {
   // Query the user information from the database
-  //users 接受返回的結果
+  //users Accept the returned results
   let users = await User.find({});
 
   //res.send(users);
-  //渲染用戶列表模板, 將接收到的結果users傳入模板中, users是數組
+  //Render the user list template, and pass the received result users into the template, users is an array
   res.render("admin/user", {
     users: users,
   });
@@ -1292,8 +1294,8 @@ Paging function core elements.
 > Data start query position = (current page - 1) * number of data items displayed per page
 
 ```js
-limit(2) // limit 限制查询数量  传入每页显示的数据数量
-skip(1) // skip 跳过多少条数据  传入显示数据的开始位置
+limit(2) // limit limit the number of queries pass in the number of data to be displayed per page
+skip(1) // skip how much data to skip Pass in the start position of the displayed data
 ```
 
 ```js
@@ -1347,7 +1349,7 @@ When rendering the user list template, you need to pass in the paging informatio
 
 ➡️ button
 
-> 這裡的運算需要將page從`string`轉換為`number` "-0"有隱式轉換功能
+> The operation in `string` needs to convert page to `number` from `string` "-0" has an implicit conversion function
 
 ```js
 <a href="/admin/user?page=<%=page-0+1%>">
@@ -1357,7 +1359,7 @@ When rendering the user list template, you need to pass in the paging informatio
 <a href="/admin/user?page=<%=page-0-1%>">           
 ```
 
-判斷是否到達最後一頁
+> Determine if the last page has been reached
 
 ```js
 <li style="display: <%=page-1 < 1 ? 'none' : 'inline' %>">
@@ -1367,7 +1369,7 @@ When rendering the user list template, you need to pass in the paging informatio
 <li style="display: <%= page-0+1 > total ? 'none' : 'inline' %>">
 ```
 
-all code
+> all code
 
 ```js
  <ul class="pagination">
@@ -1674,9 +1676,7 @@ Use the `compare` method under `bcrypt`, this method returns a **boolean** value
   }
 ```
 
-### 4. if 密碼比對失敗，对客户端做出响应-“不能進行用戶信息的修改”
-
-觸發app.js 錯誤 中間件,
+### 4. If password matching fails, respond to the client - "Cannot make changes to user information" - Trigger app.js error Middleware
 
 > router/admin/user-modify.js
 
@@ -1685,7 +1685,7 @@ module.exports = async (req, res, next) => {
   
 ....
 
-//密碼比對失敗 
+//Password Matching Failure 
     let obj = {
       path: "/admin/userEdit",
       message: "password does not match",
@@ -1698,7 +1698,7 @@ module.exports = async (req, res, next) => {
 > app.js
 
 ```js
-//錯誤處理中間件
+// Error handling middleware
 app.use((err, req, res, next) => {
   // res.redirect(`/admin/userEdit?message=${e.message}`);
   const result = JSON.parse(err);
@@ -1739,10 +1739,10 @@ const {username, email, role, state, password } = req.body;
 
 ....
 
- //密碼比對成功
+    //Password Matching Success
     if (isValid) {
     //res.send("Password Matching Success");
-    //將用戶信息更新到數據庫中
+    //Update the user information to the database
     await User.updateOne(
       { _id: id },
       {
@@ -1756,7 +1756,7 @@ const {username, email, role, state, password } = req.body;
 ```
 
 ```js
-    //將頁面重定向到用戶列表頁面
+    // Redirect the page to the user list page
     res.redirect("/admin/user");
 ```
 
@@ -2072,7 +2072,7 @@ module.exports = {
           </div>
 ```
 
-### 7. 文件上傳的表單vs普通表單
+### 7. File upload form vs. normal form
 
 > The **document upload** form must be in **binary format** 
 
@@ -2097,7 +2097,7 @@ multipart/form-data
 
 ![documentupload](/Users/yuimorii/Documents/GitHub/Tokyo-stack-projects/images/documentupload.png)
 
-### 8. 在服務器端實現添加文章的路由
+### 8. Implement the route to add articles on the server side
 
 > /router/admin.js
 
@@ -2114,36 +2114,36 @@ module.exports = (req, res) => {
 };
 ```
 
-click submit new post -> http://localhost:3000/admin/article-add show ok 表示請求已經進入到路由中了. 
+click submit new post -> http://localhost:3000/admin/article-add show ok **means** that the request has entered the route. 
 
-### 9. 如何接收接收客戶端傳遞過來的二進制表單?
+### 9. How do I receive **the binary forms** from the client?
 
-在上一步驟提交後, 請求進入到路由中了. 
+After the previous step is submitted, the request is now routed. 
 
 ```js
 //Configure the post request parameter, body-parser parsing file
 app.use(bodyParser.urlencoded({ extended: false }));
 ```
 
-以上這個bodyParser是不夠的, 要用`formidable `
+> This **bodyParser** above is not enough, to use `formidable`
 
 ### 10. Formidable 
 
-> 作用：解析表单，支持get请求参数，post请求参数、文件上传。
+> Function: Parse form, support `get` request parameter, `post` request parameter, file upload.
 
 ```js
- // 引入formidable模块
+ // Introduce the formidable module
  const formidable = require('formidable');
- // 创建表单解析对象, 返回值是表單解析對象
- const form = new formidable.IncomingForm();
- // 设置文件上传服務器上的對應目錄/路径
+ // Create a form parsing object, the return value is the form parsing object
+ const form = new formidable;
+ // Set the corresponding directory/path on the file upload server
  form.uploadDir = "/my/dir";
- // 需要保留表单上传文件的扩展名
+ // need to keep the extensions of the files uploaded by the form
  form.keepExtensions = false;
- // 对表单进行解析 
+ // Parse the form 
  form.parse(req, (err, fields, files) => {
-     // fields 存储普通请求参数
-     // files 存储上传的文件信息
+     // fields stores the general request parameters
+     // files stores the uploaded file information
  });
 ```
 
@@ -2165,14 +2165,14 @@ module.exports = (req, res) => {
 
 > router/admin/article-add.js
 
-1. 創建表單解析對象
+1. Create form resolution object
 
 ```js
  const form = new formidable.IncomingForm();
 ```
 
 2. create public/uploads📁
-3.  配置上傳文件的存放位置, using absolute path
+3.  Configure the location of the upload file, using absolute path
 
 ```js
 const path = require("path");
@@ -2180,7 +2180,7 @@ const path = require("path");
 form.uploadDir = path.join(__dirname, "../","../","public" ,"uploads")
 ```
 
-3. 保留上傳文件的**後綴**(默認是不保留)
+3. Keep the **suffix** of the uploaded file (the default is not to keep it)
 
 ```js
 form.keepExtension = true;
@@ -2190,9 +2190,9 @@ form.keepExtension = true;
 
 When the form parse is completed, the callback function **returns 3 parameters.**
 
-- `err` 错误对象 如果表单解析失败, err里面存储错误信息; 如果表单解析成功 ,err将会是null
-- `fields` 对象类型 保存普通表单数据
-- `files` 对象类型 保存了和上传文件相关的数据
+- `err` error object If the form fails to be parsed, err stores the error message; if the form is parsed successfully, err will be null
+- `fields` object type stores common form data
+- `files` object type stores data related to uploaded files
 
 ```js
    form.parse(req, async (err, fields, files) => {
@@ -2210,7 +2210,7 @@ When the form parse is completed, the callback function **returns 3 parameters.*
 
 ![files](/Users/yuimorii/Documents/GitHub/Tokyo-stack-projects/images/files.png)
 
-5. 将页面重定向到文章列表页面
+5. Redirects the page to the article list page
 
 ```js
  res.redirect("/admin/article");
@@ -2224,13 +2224,13 @@ When the form parse is completed, the callback function **returns 3 parameters.*
 >
 > In the **article.js** file, the author is the User id stored in the user collection `{User}` , so we need to display this id in this text box. 
 
-在用戶登錄成功以後,我們將用戶信息存儲在`app.locals`對象中, 這個對象是可以在模板當中拿到的, 進入`login.js` , 
+After the user has logged in successfully, we store the user information in the `app.locals` object, which is available in the template, by entering `login.js` , 
 
  ```js
  req.app.locals.userInfo = user;
  ```
 
- 這裡我們需要拿到的就是 `userInfo`裡面的信息模板 `views/admin/article-edit.art`
+ Here we need to get is `userInfo` inside the information template `views/admin/article-edit.art`
 
  ```js
  <label>author</label>
@@ -2240,6 +2240,8 @@ When the form parse is completed, the callback function **returns 3 parameters.*
 ![userifno](/Users/yuimorii/Documents/GitHub/Tokyo-stack-projects/images/userifno.png)
 
 ### 13. Upload image  
+
+![image](/Users/yuimorii/Documents/GitHub/Tokyo-stack-projects/images/image.png)
 
 Need js to read images 📃, use -> binary file read method -  **FileReader**
 
@@ -2254,20 +2256,20 @@ Need js to read images 📃, use -> binary file read method -  **FileReader**
 > views/admin/article-edit.art
 
 ```js
-<input type="file" name="cover"id = "file" >
+<input type = "file" name = "cover" id = "file" >
 ```
 
 ```js
-    // 选择文件上传控件
+    // Select the file upload control
     var file = document.querySelector('#file');
   
-      // 当用户选择完文件以后
+    // After the user has selected the file
     file.onchange = function () {
-        // 1 创建文件读取对象
+        // 1.  Create a file reader object
         var reader = new FileReader();
-        // 用户选择的文件列表 
+        // List of files selected by the user 
         console.log(this.files[0])
-        // 2 读取文件 this.file代表用戶選擇的文件列表
+        // 2.  Read files this.file represents the list of files selected by the user
         reader.readAsDataURL(this.files[0]);
      }
 ```
@@ -2292,7 +2294,7 @@ reader.onload = function () {
 
 ![onload](/Users/yuimorii/Documents/GitHub/Tokyo-stack-projects/images/onload.png)
 
-console中已經可以顯示圖片的src了 
+The src of the image can be displayed in the console now 
 
 ### 16. image preview 
 
@@ -2305,7 +2307,7 @@ console中已經可以顯示圖片的src了
 ```js
 reader.onload = function () {
     console.log(reader.result)
-    // 将文件读取的结果显示在页面
+    // Display the result of the file reading on the page
     preview.src = reader.result;
 }
 ```
@@ -2315,3 +2317,6 @@ reader.onload = function () {
 ![imagepreview](/Users/yuimorii/Documents/GitHub/Tokyo-stack-projects/images/imagepreview.png)
 
 ### 17. Place the `articles`( passed from the client to the server ) into `database`
+
+
+
