@@ -1,14 +1,14 @@
   <!-- Sidebar -->
   <div class="aside fl">
     <ul class="menu list-unstyled">
-      <li>
-        <a class="item {{currentLink =="user" ? "active" : ""}}" href="/admin/user">
-          <span class="glyphicon glyphicon-user"></span>
-          User Management
-        </a>
-      </li>
+        <li>
+          <a class="item {{currentLink =="user" ? "active" : ""}}" href="/admin/user">
+            <span class="glyphicon glyphicon-user"></span>
+            User Management
+          </a>
+        </li>
           <li>
-            <a class="item{{currentLink == "article" ? "active" : ""}}" href="/admin/article" >
+            <a class="item {{currentLink == "article" ? "active" : ""}}" href="/admin/article" >
               <span class="glyphicon glyphicon-th-list"></span>
               Article Management
             </a>

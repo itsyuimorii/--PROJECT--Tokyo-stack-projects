@@ -2318,5 +2318,36 @@ reader.onload = function () {
 
 ### 17. Place the `articles`( passed from the client to the server ) into `database`
 
+Click choose file, click submit, 
 
+```js
+   //4. parse the form
+  form.parse(req, (err, fields, files) => {
+    res.send(files);
+    // res.send(fields);
+  });
+```
+
+we can get an obejct 
+
+```json
+{
+"cover": {
+"size": 20603,
+"filepath": "/Users/yuimorii/Documents/GitHub/Tokyo-stack-projects/05.FinalProject-blog_management_system/Step04_articleManagement/public/uploads/e2e20b6d32b341ab9c605e300",
+"newFilename": "e2e20b6d32b341ab9c605e300",
+"mimetype": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+"mtime": "2023-02-24T20:01:31.422Z",
+"originalFilename": "JOB INETRVIEW QUESTIONS AND ANSWERS.docx"
+}
+}
+```
+
+可以看到這個path 就是文件路徑, 但是這個路徑是服務器端的文件路徑, 這個路徑是無法給用戶訪問到的, 
+
+這裡我們需要對路徑進行截取, 只需要`uploads/e2e20b6d32b341ab9c605e300",`
+
+```js
+ cover: files.cover.path.split("public")[1],
+```
 
