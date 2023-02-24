@@ -14,7 +14,6 @@ module.exports = (req, res) => {
   form.keepExtensions = true;
 
   //4. parse the form
-
   form.parse(req, (err, fields, files) => {
     // res.send(files);
     // res.send(fields);
