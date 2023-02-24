@@ -2241,11 +2241,11 @@ When the form parse is completed, the callback function **returns 3 parameters.*
 
 ### 13. Upload image  
 
-需要js來讀取圖片📃,  使用->**二進制文件读取** **FileReader**
+Need js to read images 📃, use -> binary file read method -  **FileReader**
 
 ```js
  var reader = new FileReader();
- reader.readAsDataURL('文件');
+ reader.readAsDataURL('file');
  reader.onload = function () {
      console.log(reader.result); 
  }
