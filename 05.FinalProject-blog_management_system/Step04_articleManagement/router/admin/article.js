@@ -13,7 +13,9 @@ module.exports = async (req, res) => {
   // display 指定客户端要显示的页码数量
   // exec 向数据库中发送查询请求
   // 查询所有文章数据
-  let articles = await pagination(Article)
+  let articles = await Article.find();
+  res.send(articles);
+  /*  let articles = await pagination(Article)
     .find()
     .page(page)
     .size(2)
@@ -21,7 +23,7 @@ module.exports = async (req, res) => {
     .populate("author")
     .exec();
 
-  // res.send(articles);
+  res.send(articles); */
 
   // 渲染文章列表页面模板
   /*  res.render("admin/article.art", {
