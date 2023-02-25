@@ -2351,3 +2351,18 @@ we can get an obejct
  cover: files.cover.path.split("public")[1],
 ```
 
+```js
+ form.parse(req, async (err, fields, files) => {
+    await Article.create({
+      title: fields.title,
+      author: fields.author,
+      publishDate: fields.publishDate,
+      //字符串分隔符,分割完後是一個數組,當前我們要取下標為1的
+      //cover: files.cover.path.split("public")[1],
+      content: fields.content,
+    });
+    // Redirects the page to the article list page
+    res.redirect("/admin/article");
+  });
+```
+
