@@ -12,7 +12,7 @@ module.exports = async (req, res) => {
   let pagesize = 10;
   //3. Query the total number of user data
   let count = await User.countDocuments({});
-  // res.send("用戶的總數是: " + count);
+  // res.send("The total number of users is: " + count);
   // return;
   //4. Total number of pages
   let total = Math.ceil(count / pagesize);
