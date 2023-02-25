@@ -2366,3 +2366,7 @@ we can get an obejct
   });
 ```
 
+### 18. Article page pagination function
+
+
+
