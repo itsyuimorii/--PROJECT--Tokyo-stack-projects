@@ -1899,40 +1899,40 @@ admin.get("/article-edit" , require("/admin/article-edit"))
 
 ```html
    <ul class="menu list-unstyled">
-      <li>
-        <a class="item active" href="/admin/user">
-          <span class="glyphicon glyphicon-user"></span>
-          User Management
-        </a>
-      </li>
+          <li>
+            <a class="item active" href="/admin/user">
+              <span class="glyphicon glyphicon-user"></span>
+              User Management
+            </a>
+          </li>
           <li>
             <a class="item" href="/admin/article">
-              <span class="glyphicon glyphicon-th-list"></span>
+              <span class="glyphicon glyphicon-th-list">										</span>
               Article Management
             </a>
-      </li>
+     		 </li>
    </ul>
 ```
 
-### 3. sidebar的選項切換選中狀態
+### 3. sidebar's option to switch the `selected' status
 
 > router/admin/userEdit.js && router/admin/usrePage.js
 
 ```js
- //添加標識: 標識當前訪問的是用戶管理頁面
-  // locals方法是可以顯示在模板裡的
+  // Add Identifies: Identifies that the currently visited page is a user management page
+  // The locals method can be displayed in the template
   req.app.locals.currentLink = "user";
 ```
 
 > router/admin/article.js && router/admin/article-edit.js
 
 ```js
- //添加標識: 標識當前訪問的是用戶管理頁面
-  // locals方法是可以顯示在模板裡的
+  //Add Identifies: Identifies that the currently visited page is article management page
+  // The locals method can be displayed in the template
   req.app.locals.currentLink = "article";
 ```
 
-⬆️的 “” name 是自定義的
+The "" name of ⬆️"article"/"user" is customizable
 
 > views/admin/common/aside.art
 
@@ -1945,19 +1945,19 @@ admin.get("/article-edit" , require("/admin/article-edit"))
 ```
 
 ```js
-    <ul class="menu list-unstyled">
-      <li>
+<ul class="menu list-unstyled">
+     <li>
         <a class="item {{currentLink =="user" ? "active" : ""}}" href="/admin/user">
           <span class="glyphicon glyphicon-user"></span>
-          User Management
+            User Management
         </a>
-      </li>
-          <li>
-            <a class="item{{currentLink == "article" ? "active" : ""}}" href="/admin/article" >
-              <span class="glyphicon glyphicon-th-list"></span>
+     </li>
+     <li>
+        <a class="item{{currentLink == "article" ? "active" : ""}}" href="/admin/article" >
+         <span class="glyphicon glyphicon-th-list"></span>
               Article Management
-            </a>
-      </li>
+        </a>
+     </li>
 </ul>
 ```
 
@@ -2010,12 +2010,12 @@ module.exports = {
 }
 ```
 
-### 5. Add link to **`Post a new article** 
+### 5. Add link to Post a new article 
 
 > views/admin/article.art
 
 ```js
-  <a href="/admin/article-edit" class="btn btn-primary new">Post a new article</a
+  <a href="/admin/article-edit" class="btn btn-primary new">Post a new article</a>
 ```
 
 此時點擊`Post a new article` button 後, 會跳到 文章編輯頁面 (http://127.0.0.1:3000/admin/article-edit) 
