@@ -2370,3 +2370,29 @@ we can get an obejct
 
 
 
+### 19. 
+
+```js
+				 {{each articles}}
+            <tr>
+              <td>{{@$value._id}}</td>
+              <td>{{$value.title}}</td>
+              <td>{{$value.publishDate}}</td>
+              <td>{{$value.author}}</td>
+              <td>
+                <a
+                  href="article-edit.html"
+                  class="glyphicon glyphicon-edit"
+                ></a>
+                <i
+                  class="glyphicon glyphicon-remove"
+                  data-toggle="modal"
+                  data-target=".confirm-modal"
+                ></i>
+              </td>
+            </tr>
+          {{/each articles}}
+```
+
+
+

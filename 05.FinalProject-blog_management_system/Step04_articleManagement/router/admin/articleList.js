@@ -13,7 +13,7 @@ module.exports = async (req, res) => {
   // display 指定客户端要显示的页码数量
   // exec 向数据库中发送查询请求
   // 查询所有文章数据
-  let articles = await Article.find();
+  let articles = await Article.find().populate("author").lean();
   //res.send(articles);
   /*  let articles = await pagination(Article)
     .find()
