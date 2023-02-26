@@ -9,7 +9,7 @@ module.exports = async (req, res) => {
   // 标识 标识当前访问的是文章管理页面
   req.app.locals.currentLink = "article";
   // page 指定当前页
-  // suze 指定每页显示的数据条数
+  // size 指定每页显示的数据条数
   // display 指定客户端要显示的页码数量
   // exec 向数据库中发送查询请求
   // 查询所有文章数据
