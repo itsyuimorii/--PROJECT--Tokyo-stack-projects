@@ -1884,7 +1884,7 @@ module.exports = async (req, res) => {
 > articleList router
 
 ```js
-admin.get("/article", require("/admin/article"));
+admin.get("/article", require("/admin/articleList"));
 ```
 
 > articleEditrouter
