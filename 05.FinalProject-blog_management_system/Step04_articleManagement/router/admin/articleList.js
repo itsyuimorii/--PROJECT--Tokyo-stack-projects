@@ -14,7 +14,7 @@ module.exports = async (req, res) => {
   // exec 向数据库中发送查询请求
   // 查询所有文章数据
   let articles = await Article.find();
-  res.send(articles);
+  //res.send(articles);
   /*  let articles = await pagination(Article)
     .find()
     .page(page)
@@ -26,7 +26,7 @@ module.exports = async (req, res) => {
   res.send(articles); */
 
   // 渲染文章列表页面模板
-  // res.render("admin/article.art", {
-  //   articles: articles,
-  // });
+  res.render("admin/article.art", {
+    articles: articles,
+  });
 };
