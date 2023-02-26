@@ -17,9 +17,9 @@ module.exports = (req, res) => {
   //form.parse(req, (err, fields, files) => {
   //res.send(files);
   // res.send(fields);
-  /* 
+  /*
   When the form parse is completed, the callback function  returns 3 parameters.
-    
+
   - `err` error object If the form fails to be parsed, err   stores the error message; if the form is parsed  successfully, err will be null
   - `fields` object type stores common form data
   - `files` object type stores data related to uploaded files
