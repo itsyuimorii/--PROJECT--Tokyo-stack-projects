@@ -31,8 +31,9 @@ admin.post("/user-modify", require("./admin/user-modify"));
 //delete user routes
 admin.get("/delete", require("./admin/user-delete"));
 
+//////----------Articles----------//////
 //Article List Page Routing
-admin.get("/article", require("./admin/article"));
+admin.get("/article", require("./admin/articleList"));
 
 //Article Editing Page Routing
 admin.get("/article-edit", require("./admin/article-edit"));
