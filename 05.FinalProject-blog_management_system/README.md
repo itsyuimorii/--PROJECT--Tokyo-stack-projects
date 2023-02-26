@@ -2020,7 +2020,7 @@ module.exports = {
 
 此時點擊`Post a new article` button 後, 會跳到 文章編輯頁面 (http://127.0.0.1:3000/admin/article-edit) 
 
-### 6. 給表單添加請求地址以及請求方式(action 屬性和method屬性)
+### 6. Add `request address` and `request method` (action attribute and method attribute) to the form
 
 > article-edit.art 
 
@@ -2053,7 +2053,7 @@ module.exports = {
             <input type="text" class="form-control" readonly
             name="author" />
           </div>
-          <div class="form-group">
+          <div class="form-group">`Zaf`
             <label>Release Time</label>
             <input type="date" class="form-control" name="publishDate"/>
           </div>
