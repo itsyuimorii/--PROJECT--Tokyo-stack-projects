@@ -79,7 +79,7 @@
             // 1 Create a file reader object
             var reader = new FileReader();
             // The list of files selected by the user
-            console.log(this.files[0])
+            //console.log(this.files[0])
             // 2 Read the file
             reader.readAsDataURL(this.files[0]);
             // 3 Listen to the onload event

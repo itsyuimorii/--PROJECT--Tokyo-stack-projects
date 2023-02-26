@@ -35,7 +35,7 @@
               <td>{{@$value._id}}</td>
               <td>{{$value.title}}</td>
               <td>{{$value.publishDate}}</td>
-              <td>{{$value.author}}</td>
+              <td>{{$value.author.username}}</td>
               <td>
                 <a
                   href="article-edit.html"
