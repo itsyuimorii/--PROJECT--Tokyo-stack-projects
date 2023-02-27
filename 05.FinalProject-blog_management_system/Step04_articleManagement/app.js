@@ -6,8 +6,8 @@ const path = require("path");
 const bodyParser = require("body-parser");
 // Import the express-session module
 const session = require("express-session");
-
-const dateFormat = require("date-format");
+const template = require("art-template");
+const dateFormat = require("dateformat");
 
 // Create the web server
 const app = express();
@@ -33,6 +33,8 @@ app.set("view engine", "art");
 // What template engine is used when rendering templates with the art suffix
 app.engine("art", require("express-art-template"));
 
+//向模板內部導入dateFormate變量
+template.defaults.imports.dateFormat = dateFormat;
 //Open Static Source File
 app.use(express.static(path.join(__dirname, "public")));
 

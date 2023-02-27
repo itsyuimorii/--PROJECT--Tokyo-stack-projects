@@ -2478,8 +2478,9 @@ Author (multi-set joint query)` find().populate()`
 ```js
  // 查询所有文章数据 .populate()多集合聯合查詢
   let articles = await Article.find().populate("author").lean();
-
 ```
+
+> article.art
 
 ```js
 <td>{{$value.author.username}}</td>
@@ -2487,7 +2488,19 @@ Author (multi-set joint query)` find().populate()`
 
 ### 21. Date of publication
 
+> app.js
+
 ```js
-dateformat
+const dateFormat = require("date-format");
+
+
+//Import the dateFormate variable inside the template
+template.defaults.imports.dateFormat = dateFormate;
+```
+
+> article.art
+
+```js
+<td>{{dateFormat($value.publishDate,"yyyy-mm-dd")}}</td>
 ```
 
