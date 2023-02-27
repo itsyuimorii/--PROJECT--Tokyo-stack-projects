@@ -2147,6 +2147,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
  });
 ```
 
+> `form.keepExtensions = false`; default = flaseNo Save Suffixes
+
 ```js
 npm i formidable 
 ```
@@ -2203,8 +2205,6 @@ When the form parse is completed, the callback function **returns 3 parameters.*
 ![form parse](/Users/yuimorii/Documents/GitHub/Tokyo-stack-projects/images/form parse.png)
 
 `res.send(field)`
-
-![form parse](/Users/yuimorii/Desktop/Screen Shot 2023-02-22 at 1.51.49 PM.png)
 
 `res.send(files)`
 
@@ -2343,22 +2343,64 @@ we can get an obejct
 }
 ```
 
-可以看到這個path 就是文件路徑, 但是這個路徑是服務器端的文件路徑, 這個路徑是無法給用戶訪問到的, 
-
-這裡我們需要對路徑進行截取, 只需要`uploads/e2e20b6d32b341ab9c605e300",`
+可以看到這個path 就是文件路徑, 但是這個路徑是服務器端的文件路徑, 這個路徑是無法給用戶訪問到的,  這裡我們需要對路徑進行截取, 只需要`uploads/e2e20b6d32b341ab9c605e300",`
 
 ```js
  cover: files.cover.path.split("public")[1],
 ```
 
+> router/admin/article-add.js
+
 ```js
- form.parse(req, async (err, fields, files) => {
+const formidable = require("formidable");
+const path = require("path");
+ 
+module.exports = (req, res) => {
+  //1. create form parsing object
+  const form = new formidable.IncomingForm();
+  //2. Configure the location of the upload file
+  //It is recommended to use the absolute path here
+  form.uploadDir = path.join(__dirname, "../", "../", "public", "uploads");
+
+  //3. Keep the suffixes of the uploaded files
+  form.keepExtensions = true;
+
+  //4. parse the form
+  //form.parse(req, (err, fields, files) => {
+  //res.send(files);
+  // res.send(fields);
+  /*
+  When the form parse is completed, the callback function  returns 3 parameters.
+
+  - `err` error object If the form fails to be parsed, err   stores the error message; if the form is parsed  successfully, err will be null
+  - `fields` object type stores common form data
+  - `files` object type stores data related to uploaded files
+  */
+  form.parse(req, async (err, fields, files) => {
+    await Article.create({
+      res.send(files.cover.path.split("public")[1]),  
+    });
+  // res.send('ok');
+};
+
+```
+
+> ![article-add](/Users/yuimorii/Documents/GitHub/Tokyo-stack-projects/images/article-add.png)
+
+### 18. Verification: Publish a new article → Add article content → Select file → Submit
+
+> router/admin/article-add.js
+
+```js
+const { Article } = require("../../model/article");
+
+
+form.parse(req, async (err, fields, files) => {
     await Article.create({
       title: fields.title,
       author: fields.author,
       publishDate: fields.publishDate,
-      //字符串分隔符,分割完後是一個數組,當前我們要取下標為1的
-      //cover: files.cover.path.split("public")[1],
+      cover: files.cover.path.split("public")[1],
       content: fields.content,
     });
     // Redirects the page to the article list page
@@ -2366,11 +2408,40 @@ we can get an obejct
   });
 ```
 
-### 18. Article page pagination function
+上一步提交後, 我摸恩就可以在數據庫中找到new articles
+
+### 19. 在article页面展示文章数据
+
+```js
+// 将文章集合的构造函数导入到当前文件中
+const { Article } = require("../../model/article");
+
+module.exports = async (req, res) => {
+  // 标识 标识当前访问的是文章管理页面
+  req.app.locals.currentLink = "article";
+  // page 指定当前页
+  // size 指定每页显示的数据条数
+  // display 指定客户端要显示的页码数量
+  // exec 向数据库中发送查询请求
+  // 查询所有文章数据 .populate()多集合聯合查詢
+  let articles = await Article.find().populate("author").lean();
+  res.send(articles);
+  
+  // 渲染文章列表页面模板
+  //res.render("admin/article.art", {
+  //  articles: articles,
+  //});
+};
+
+```
 
 
 
-### 19. 
+### 20.  Article page pagination function
+
+
+
+### 
 
 ```js
 				 {{each articles}}
