@@ -14,7 +14,7 @@ module.exports = async (req, res) => {
   // exec 向数据库中发送查询请求
   // 查询所有文章数据 .populate()多集合聯合查詢
   let articles = await Article.find().populate("author").lean();
-  //res.send(articles);
+  res.send(articles);
   /*  let articles = await pagination(Article)
     .find()
     .page(page)
