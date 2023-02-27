@@ -2556,3 +2556,6 @@ const pagination = require("mongoose-sex-page");
   res.send(articles);
 ```
 
+![pagination2](/Users/yuimorii/Documents/GitHub/Tokyo-stack-projects/images/pagination2.png)
+
+如果我們要把(page 等) 數據展示在頁面上, 那麼`article.art`中 我們就要循環   ` {{each articles.records}}`而不是articles了, 因為article數據為對象,我們需要循環的是records裡的數據

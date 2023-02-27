@@ -30,7 +30,7 @@
             </tr>
           </thead>
           <tbody>
-          {{each articles}}
+          {{each articles.records}}
             <tr>
               <td>{{@$value._id}}</td>
               <td>{{$value.title}}</td>
@@ -48,11 +48,11 @@
                 ></i>
               </td>
             </tr>
-          {{/each articles}}
+          {{/each}}
           </tbody>
         </table>
-        <!-- /内容列表 -->
-        <!-- 分页 -->
+        <! -- /content list -->
+        <! -- pagination -->
         <ul class="pagination">
           <li>
             <a href="#">

@@ -1,8 +1,8 @@
 //導入用戶結合構造函數
 const { User } = require("../../model/user");
 module.exports = async (req, res) => {
-  //添加標識: 表示當前訪問的是用戶管理頁面
-  // locals方法是可以顯示在模板裡的
+  // Add a logo: indicates that the currently visited page is a user management page
+  // The locals method can be displayed in the template
   req.app.locals.currentLink = "user";
 
   //Pagination
