@@ -2410,19 +2410,19 @@ form.parse(req, async (err, fields, files) => {
 
 上一步提交後, 我摸恩就可以在數據庫中找到new articles
 
-### 19. 在article页面展示文章数据
+### 19. Display articles
 
 ```js
-// 将文章集合的构造函数导入到当前文件中
+// Import the constructor of the article collection into the current file
 const { Article } = require("../../model/article");
 
 module.exports = async (req, res) => {
-  // 标识 标识当前访问的是文章管理页面
+  //Identifies that you are currently visiting the article management page
   req.app.locals.currentLink = "article";
   let articles = await Article.find().populate("author").lean();
   res.send(articles);
   
-  // 渲染文章列表页面模板
+  // Render article list page template
   //res.render("admin/article.art", {
   //  articles: articles,
   //});
@@ -2430,13 +2430,7 @@ module.exports = async (req, res) => {
 
 ```
 
-
-
-### 20.  Article page pagination function
-
-
-
-### 
+![articlestest](/Users/yuimorii/Documents/GitHub/Tokyo-stack-projects/images/articlestest.png)
 
 ```js
 				 {{each articles}}
@@ -2457,8 +2451,43 @@ module.exports = async (req, res) => {
                 ></i>
               </td>
             </tr>
-          {{/each articles}}
+          {{/each}}
 ```
 
+```js
+// Import the constructor of the article collection into the current file
+const { Article } = require("../../model/article");
 
+module.exports = async (req, res) => {
+  //Identifies that you are currently visiting the article management page
+  req.app.locals.currentLink = "article";
+  let articles = await Article.find().populate("author").lean();
+  //res.send(articles);
+  
+  // Render article list page template
+  res.render("admin/article.art", {
+    articles: articles,
+  });
+};
+```
+
+### 20. Author's query
+
+Author (multi-set joint query)` find().populate()`
+
+```js
+ // 查询所有文章数据 .populate()多集合聯合查詢
+  let articles = await Article.find().populate("author").lean();
+
+```
+
+```js
+<td>{{$value.author.username}}</td>
+```
+
+### 21. Date of publication
+
+```js
+dateformat
+```
 

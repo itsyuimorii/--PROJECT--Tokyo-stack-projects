@@ -7,6 +7,8 @@ const bodyParser = require("body-parser");
 // Import the express-session module
 const session = require("express-session");
 
+const dateFormat = require("date-format");
+
 // Create the web server
 const app = express();
 // Database connection
