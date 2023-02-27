@@ -6,7 +6,9 @@ const path = require("path");
 const bodyParser = require("body-parser");
 // Import the express-session module
 const session = require("express-session");
+// Import the art-template template engine
 const template = require("art-template");
+// Import dateformat third-party modules
 const dateFormat = require("dateformat");
 
 // Create the web server

@@ -2491,7 +2491,10 @@ Author (multi-set joint query)` find().populate()`
 > app.js
 
 ```js
-const dateFormat = require("date-format");
+// Import the art-template template engine
+const template = require('art-template');
+// Import dateformat third-party modules
+const dateFormat = require('dateformat');
 
 
 //Import the dateFormate variable inside the template
@@ -2502,5 +2505,19 @@ template.defaults.imports.dateFormat = dateFormate;
 
 ```js
 <td>{{dateFormat($value.publishDate,"yyyy-mm-dd")}}</td>
+```
+
+### 22. Pagination(mongoose-sex-page)
+
+```js
+"const pagination = require("mongoose-sex-page")
+pagination(Set construction functions).page(1).size(20).display(8).exec();
+```
+
+> router/admin/articleList.js
+
+```js
+// 导入mongoose-sex-page模块
+const pagination = require("mongoose-sex-page");
 ```
 
