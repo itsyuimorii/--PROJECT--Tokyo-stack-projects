@@ -27,7 +27,7 @@ module.exports = async (req, res) => {
   res.send(articles);
 
   // 渲染文章列表页面模板
-  res.render("admin/article.art", {
+  /* res.render("admin/article.art", {
     articles: articles,
-  });
+  }); */
 };

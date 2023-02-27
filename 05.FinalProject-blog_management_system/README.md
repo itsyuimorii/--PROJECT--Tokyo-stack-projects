@@ -2537,8 +2537,6 @@ pagination(Set construction functions).page(1).size(20).display(8).exec();
 }
 ```
 
-
-
 > router/admin/articleList.js
 
 ```js
@@ -2549,11 +2547,11 @@ const pagination = require("mongoose-sex-page");
 ```js
   let articles = await pagination(Article)
     .find()
-    .page(page)
-    .size(2)
-    .display(3)
+    .page(page) //the current page
+    .size(2) // size specifies the number of data items to be displayed per page
+    .display(3) // display specifies the number of page numbers to be displayed by the client
     .populate("author")
-    .exec();
+    .exec(); // exec sends a query request to the database
 
   res.send(articles);
 ```
