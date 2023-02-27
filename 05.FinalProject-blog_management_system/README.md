@@ -2510,14 +2510,51 @@ template.defaults.imports.dateFormat = dateFormate;
 ### 22. Pagination(mongoose-sex-page)
 
 ```js
+npm install mongoose-sex-page@1.2.4
+```
+
+> example:
+
+```js
 "const pagination = require("mongoose-sex-page")
 pagination(Set construction functions).page(1).size(20).display(8).exec();
 ```
+
+```js
+{
+  "page":1 //current page
+  "size":2 //items each page
+  "total":8 
+  "records": [
+    // The specific data from the query
+    {
+      "-id":"5csslla94lwl5022"
+      "title":"testing"
+    }
+  ],
+  "page":4, //all pages
+	"display":[ 1 , 2 , 3 , 4 ] //page code displayed by the client
+}
+```
+
+
 
 > router/admin/articleList.js
 
 ```js
 // 导入mongoose-sex-page模块
 const pagination = require("mongoose-sex-page");
+```
+
+```js
+  let articles = await pagination(Article)
+    .find()
+    .page(page)
+    .size(2)
+    .display(3)
+    .populate("author")
+    .exec();
+
+  res.send(articles);
 ```
 
