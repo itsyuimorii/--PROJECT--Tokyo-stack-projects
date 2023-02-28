@@ -1,6 +1,5 @@
 // Import the constructor of the article collection into the current file
 const { Article } = require("../../model/article");
-// 导入mongoose-sex-page模块
 const pagination = require("mongoose-sex-page");
 
 module.exports = async (req, res) => {
@@ -12,16 +11,15 @@ module.exports = async (req, res) => {
   // Query all article data .populate()Multi-collection Joint Inquiry
   //let articles = await Article.find().populate("author").lean();
   //res.send(articles);
-
-  // page specifies the current page
-  // size specifies the number of data items to be displayed per page
-  // display specifies the number of page numbers to be displayed by the client
-  // exec sends a query request to the database
   let articles = await pagination(Article)
+    // page specifies the current page
+    // size specifies the number of data items to be displayed per page
+    // display specifies the number of page numbers to be displayed by the client
+    // exec sends a query request to the database
     .find()
-    .page(page)
+    .page(1)
     .size(2)
-    .display(3)
+    .display(2)
     .populate("author")
     .exec();
 

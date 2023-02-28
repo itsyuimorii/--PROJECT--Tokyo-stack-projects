@@ -33,10 +33,10 @@ app.set("views", path.join(__dirname, "views"));
 // Tell the express framework template what the default suffix is
 app.set("view engine", "art");
 // What template engine is used when rendering templates with the art suffix
-//app.engine("art", require("express-art-template"));
+app.engine("art", require("express-art-template"));
 
 //向模板內部導入dateFormate變量
-//template.defaults.imports.dateFormat = dateFormat;
+template.defaults.imports.dateFormat = dateFormat;
 //Open Static Source File
 app.use(express.static(path.join(__dirname, "public")));
 

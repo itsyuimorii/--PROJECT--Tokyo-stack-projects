@@ -27,12 +27,12 @@
             <input name="author" type="text" class="form-control" readonly value="{{@userInfo._id}}">
           </div>
           <div class="form-group">
-            <label>Release Time</label>
+            <label>publish Date</label>
             <input type="date" class="form-control" name="publishDate">
           </div>
 
           <div class="form-group">
-            <label for="exampleInputFile">Article Cover</label>
+            <label for="exampleInputFile">Cover</label>
               <!--
                         multiple 允许用户一次性选择多个文件
                    -->
