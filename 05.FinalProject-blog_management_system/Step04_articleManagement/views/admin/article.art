@@ -34,7 +34,7 @@
             <tr>
               <td>{{@$value._id}}</td>
               <td>{{$value.title}}</td>
-              <td>{{$value.publishDate}}</td>
+              <td>{{dateFormat($value.publishDate,"yyyy-mm-dd")}}</td>
               <td>{{$value.author.username}}</td>
               <td>
                 <a

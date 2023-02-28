@@ -9,9 +9,9 @@ module.exports = async (req, res) => {
   req.app.locals.currentLink = "article";
 
   // Query all article data .populate()Multi-collection Joint Inquiry
-  //let articles = await Article.find().populate("author").lean();
+  let articles = await Article.find().populate("author").lean();
   //res.send(articles);
-  let articles = await pagination(Article)
+  /*  let articles = await pagination(Article)
     // page specifies the current page
     // size specifies the number of data items to be displayed per page
     // display specifies the number of page numbers to be displayed by the client
@@ -21,7 +21,7 @@ module.exports = async (req, res) => {
     .size(2)
     .display(2)
     .populate("author")
-    .exec();
+    .exec(); */
 
   //res.send(articles);
 
