@@ -30,11 +30,13 @@
             </tr>
           </thead>
           <tbody>
-          {{each articles.records}}
+          <!-- {{each articles.records}} -->
+          {{each articles}}
             <tr>
               <td>{{@$value._id}}</td>
               <td>{{$value.title}}</td>
-              <td>{{dateFormat($value.publishDate,"yyyy-mm-dd")}}</td>
+             <!-- <td>{{dateFormat($value.publishDate, 'yyyy-mm-dd')}}</td> -->
+             <td>{{$value.publishDate}}</td>
               <td>{{$value.author.username}}</td>
               <td>
                 <a
@@ -51,27 +53,31 @@
           {{/each}}
           </tbody>
         </table>
-        <! -- /content list -->
-        <! -- pagination -->
-        <ul class="pagination">
-          <li>
-            <a href="#">
-              <span>&laquo;</span>
-            </a>
-          </li>
-          <li><a href="#">1</a></li>
-          <li><a href="#">2</a></li>
-          <li><a href="#">3</a></li>
-          <li><a href="#">4</a></li>
-          <li><a href="#">5</a></li>
-          <li>
-            <a href="#">
-              <span>&raquo;</span>
-            </a>
-          </li>
-        </ul>
-        <!-- /Page Break -->
-      </div>
+        <!-- /content list -->
+             <!-- pagination -->
+            <ul class="pagination">
+                {{if articles.page > 1}}
+                <li>
+                    <a href="/admin/article?page={{articles.page - 1}}">
+                    <span>&laquo;</span>
+                  </a>
+                </li>
+                {{/if}}
+                
+                {{each articles.display}}
+                <li><a href="/admin/article?page={{$value}}">{{$value}}</a></li>
+                {{/each}}
+
+                {{if articles.page < articles.pages}}
+                <li>
+                    <a href="/admin/article?page={{articles.page - 0 + 1}}">
+    		        <span>&raquo;</span>
+    		      </a>
+                </li>
+                {{/if}}
+            </ul>
+        <!-- /pagination -->
+       </div>
     </div>
     <!-- /Main content -->
     <!-- Delete the confirmation pop-up box -->
